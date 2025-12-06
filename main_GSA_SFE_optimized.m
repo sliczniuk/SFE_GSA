@@ -1,9 +1,10 @@
 % Sobol Sensitivity Analysis in MATLAB - OPTIMIZED VERSION
 % Major performance improvements:
 %   1. Parameters.csv loaded ONCE (not 50,000 times)
-%   2. CasADi integrator built ONCE per time point (not per sample)
+%   2. CasADi integrator built ONCE per unique time step
 %   3. Sobol quasi-random sequences for better convergence
 %   4. Preallocated numeric arrays instead of cells
+%   5. Dynamic time step selection based on simulation length
 
 close all; clear; clc;
 
@@ -13,13 +14,12 @@ if isempty(gcp('nocreate'))
 end
 
 %% USER INPUTS
-alpha = 0.5;
-FONT = 10;
 
 % Number of Monte Carlo samples (can use fewer with quasi-random)
 N = 1e4;
 
-NAMES = {'T[$^\circ C$]', 'P[bar]', 'F[kg/s]'};
+NAMES = {'T', 'P', 'F'};
+NAMES_LATEX = {'T[$^\circ C$]', 'P[bar]', 'F[kg/s]'};
 
 input_ranges = [30   40;
                 100  200;
@@ -31,114 +31,151 @@ d = size(input_ranges, 1);
 %% Generate Sobol quasi-random samples (better convergence than pseudo-random)
 [A, B] = sobol_sampling(input_ranges, N);
 
-diary('myTextLog_optimized.txt');
-
 %% Time points to analyze
 time_points = [5, 15, 30, 60, 90, 120, 150, 240, 300, 450, 600, 750, 900, 1200, 1500, 2000];
+n_times = length(time_points);
 
-for idx = 1:length(time_points)
+%% Preallocate results storage
+results.time_points = time_points;
+results.first_order = zeros(n_times, d);
+results.total_order = zeros(n_times, d);
+results.interaction = zeros(n_times, d);
+results.output_mean = zeros(n_times, 1);
+results.output_std = zeros(n_times, 1);
+results.output_var = zeros(n_times, 1);
+results.sum_S = zeros(n_times, 1);
+results.sum_ST = zeros(n_times, 1);
+results.computation_time = zeros(n_times, 1);
+results.time_step_used = zeros(n_times, 1);
+results.N = N;
+results.input_ranges = input_ranges;
+results.NAMES = NAMES;
+
+%% Determine unique time steps needed and build caches
+% Dynamic time step selection: larger steps for longer simulations
+time_steps = select_time_steps(time_points);
+unique_steps = unique(time_steps);
+
+fprintf('Building integrator caches for time steps: [%s] minutes\n', num2str(unique_steps));
+
+caches = containers.Map('KeyType', 'double', 'ValueType', 'any');
+for ts = unique_steps
+    fprintf('  Building cache for time_step = %.2f min...\n', ts);
+    caches(ts) = init_Extraction_Cache(ts);
+end
+fprintf('All caches ready.\n\n');
+
+%% Main analysis loop
+diary('myTextLog_optimized.txt');
+
+total_start = tic;
+
+for idx = 1:n_times
     time = time_points(idx);
+    time_step = time_steps(idx);
+    cache = caches(time_step);
 
     fprintf('\n========================================\n');
-    fprintf('Processing TIME = %.0f [min]\n', time);
+    fprintf('Processing TIME = %.0f [min] (time_step = %.2f min)\n', time, time_step);
     fprintf('========================================\n');
 
-    %% Initialize cache for this time point (loads params & builds integrator ONCE)
-    tic
-    cache = init_Extraction_Cache(1);  % time_step = 1 minute
-    cache_time = toc;
-    fprintf('Cache initialization: %.2f seconds\n', cache_time);
-
     %% Create model function using cached data
-    model = @(YY) Simulate_Extraction_Cached(YY, time, 1, cache);
-    model_func = @(A) applyToEachRowOptimized(model, A);
+    model = @(YY) Simulate_Extraction_Cached(YY, time, time_step, cache);
+    model_func = @(AA) applyToEachRowOptimized(model, AA);
 
     %% Run Sobol analysis
     tic
     [first_order, total_order, YA, YB] = Sen_Saltelli(A, B, model_func);
-    Y = [YA; YB];
-    VY = var(Y);
     analysis_time = toc;
-    fprintf('Sobol analysis: %.2f seconds\n', analysis_time);
+
+    %% Compute statistics
+    all_outputs = [YA; YB];
+    interaction = total_order - first_order;
+
+    %% Store results
+    results.first_order(idx, :) = first_order;
+    results.total_order(idx, :) = total_order;
+    results.interaction(idx, :) = interaction;
+    results.output_mean(idx) = mean(all_outputs);
+    results.output_std(idx) = std(all_outputs);
+    results.output_var(idx) = var(all_outputs);
+    results.sum_S(idx) = sum(first_order);
+    results.sum_ST(idx) = sum(total_order);
+    results.computation_time(idx) = analysis_time;
+    results.time_step_used(idx) = time_step;
 
     %% Display results
-    fprintf('\nTIME = %.0f [min]\n', time);
+    fprintf('Sobol analysis completed in %.2f seconds\n', analysis_time);
     fprintf('\nSum of First-order indices: %.4f\n', sum(first_order));
-    fprintf('Sum of Total-order indices: %.4f\n\n', sum(total_order));
-
-    % Interaction terms (should be non-negative)
-    interaction = total_order - first_order;
-    fprintf('Interaction terms: [%.4f, %.4f, %.4f]\n', interaction(1), interaction(2), interaction(3));
+    fprintf('Sum of Total-order indices: %.4f\n', sum(total_order));
 
     fprintf('\nSobol Sensitivity Indices:\n');
     for i = 1:d
-        fprintf('%s: First-order = %.4f, Total-order = %.4f, Interaction = %.4f\n', ...
+        fprintf('  %s: S = %.4f, ST = %.4f, Interaction = %.4f\n', ...
             NAMES{i}, first_order(i), total_order(i), interaction(i));
     end
 
-    %% Scatter plots
-    for i = 1:d
-        x = A(:,i);
-        y = YA;
-
-        coeffs = polyfit(A(:,i), YA, 1);
-        xfit = [min(x) max(x)];
-        yfit = polyval(coeffs, xfit);
-
-        yCalc1 = polyval(coeffs, x);
-        Rsq1 = 1 - sum((y - yCalc1).^2)/sum((y - mean(y)).^2);
-
-        if i == 3
-            xfit = xfit * 1e-5;
-            x = x * 1e-5;
-        end
-
-        figure(1);
-        hold on
-        scatter(x, y, 10, y, 'filled', 'MarkerFaceAlpha', alpha, 'MarkerEdgeAlpha', alpha);
-        colorbar;
-        plot(xfit, yfit, 'k-', 'LineWidth', 2);
-        hold off
-
-        title(sprintf('Scatter plot after %.0f [min]\n $y = %.6f \\cdot x + %.6f, R^2 = %.2f$', time, coeffs, Rsq1))
-        xlabel(sprintf('%s', NAMES{i}));
-        ylabel('Yield [g]');
-
-        grid off; axis square;
-        set(gca, 'FontSize', FONT)
-        exportgraphics(figure(1), ['GSA_Scatter_' + string(NAMES{i}(1)) + '_' + string(time) + '.png'], 'Resolution', 300);
-        close all;
-    end
-
-    %% Output distribution
-    all_outputs = [YA; YB];
-
-    figure(1);
-    histogram(all_outputs, 'Normalization', 'pdf', 'FaceColor', [0.2, 0.6, 0.8]);
-    xlabel('$Yield [g]$');
-    ylabel('Probability Density');
-    title(sprintf('Probability density plot after %.0f [min]', time))
-    grid off;
-
-    output_mean = mean(all_outputs);
-    output_std = std(all_outputs);
-
     fprintf('\nOutput Statistics:\n');
-    fprintf('Mean of output: %.4f\n', output_mean);
-    fprintf('Standard deviation of output: %.4f\n', output_std);
-    set(gca, 'FontSize', FONT)
-    exportgraphics(figure(1), ['GSA_Distribution_' + string(time) + '.png'], 'Resolution', 300);
-    close all;
-
-    fprintf('\nTotal time for TIME=%.0f: %.2f seconds\n', time, cache_time + analysis_time);
+    fprintf('  Mean: %.4f, Std: %.4f\n', results.output_mean(idx), results.output_std(idx));
 end
 
+total_time = toc(total_start);
+results.total_computation_time = total_time;
+
 diary('off');
-fprintf('\n\nAnalysis complete!\n');
+
+%% Save results
+results_filename = sprintf('GSA_results_N%d_%s.mat', N, datestr(now, 'yyyy-mm-dd_HH-MM'));
+save(results_filename, 'results', 'A', 'B');
+fprintf('\n========================================\n');
+fprintf('Results saved to: %s\n', results_filename);
+fprintf('Total computation time: %.2f seconds (%.2f minutes)\n', total_time, total_time/60);
+fprintf('========================================\n');
+
+%% Display summary table
+fprintf('\n\nSUMMARY TABLE:\n');
+fprintf('%-8s | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s | %-8s\n', ...
+    'Time', 'S_T', 'S_P', 'S_F', 'ST_T', 'ST_P', 'ST_F', 'Sum_S');
+fprintf('%s\n', repmat('-', 1, 80));
+for idx = 1:n_times
+    fprintf('%-8.0f | %-8.4f | %-8.4f | %-8.4f | %-8.4f | %-8.4f | %-8.4f | %-8.4f\n', ...
+        results.time_points(idx), ...
+        results.first_order(idx, 1), results.first_order(idx, 2), results.first_order(idx, 3), ...
+        results.total_order(idx, 1), results.total_order(idx, 2), results.total_order(idx, 3), ...
+        results.sum_S(idx));
+end
 
 %% ========================================================================
 %  HELPER FUNCTIONS
 %  ========================================================================
+
+function time_steps = select_time_steps(time_points)
+% SELECT_TIME_STEPS Dynamically select time steps based on simulation length
+%   Shorter simulations use smaller time steps for accuracy.
+%   Longer simulations use larger time steps for efficiency.
+%
+%   Rule of thumb: aim for ~50-200 integration steps per simulation
+
+    time_steps = zeros(size(time_points));
+
+    for i = 1:length(time_points)
+        t = time_points(i);
+
+        if t <= 30
+            % Short simulations: 0.5 min steps (~10-60 steps)
+            time_steps(i) = 0.5;
+        elseif t <= 150
+            % Medium simulations: 1 min steps (~30-150 steps)
+            time_steps(i) = 1;
+        elseif t <= 600
+            % Long simulations: 2 min steps (~75-300 steps)
+            time_steps(i) = 2;
+        else
+            % Very long simulations: 5 min steps (~120-400 steps)
+            time_steps(i) = 5;
+        end
+    end
+end
 
 function [A, B] = sobol_sampling(input_ranges, N)
 % SOBOL_SAMPLING Generate Sobol quasi-random matrices A and B
