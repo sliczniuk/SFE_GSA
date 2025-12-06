@@ -170,9 +170,12 @@ function time_steps = select_time_steps(time_points)
         elseif t <= 600
             % Long simulations: 2 min steps (~75-300 steps)
             time_steps(i) = 2;
-        else
-            % Very long simulations: 5 min steps (~120-400 steps)
+        elseif t <= 1200
+            % Very long simulations: 5 min steps (~120-240 steps)
             time_steps(i) = 5;
+        else
+            % Extra long simulations: 10 min steps (~150-200 steps)
+            time_steps(i) = 10;
         end
     end
 end
