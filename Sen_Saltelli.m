@@ -8,9 +8,9 @@ function [S, ST, yA, yB] = Sen_Saltelli(A, B, f, varargin)
 %   S    : 1-by-k vector of first-order indices
 %   ST   : 1-by-k vector of total-effect indices
 %
-% Estimators:
-%   - S  : Saltelli single-loop with hybrids C_i = B; C_i(:,i)=A(:,i), paired with yA
-%   - ST : Jansen (1999) estimator (numerically stable)
+% Estimators (Saltelli 2010):
+%   - S  : First-order using hybrid A_Bi (A with col i from B), paired with yB
+%   - ST : Total-effect (Jansen 1999), using (yA - y(A_Bi))^2
 
     [N, k] = size(A);
     assert(isequal(size(B), [N, k]), 'A and B must be N-by-k.');
@@ -31,14 +31,17 @@ function [S, ST, yA, yB] = Sen_Saltelli(A, B, f, varargin)
     ST = zeros(1, k);
 
     for i = 1:k
-        Ci = B; Ci(:, i) = A(:, i);             % hybrid B_Ai
-        yCi = f(Ci, varargin{:}); yCi = yCi(:);
+        % Hybrid matrix A_Bi: A with column i replaced by B's column i
+        ABi = A; ABi(:, i) = B(:, i);
+        yABi = f(ABi, varargin{:}); yABi = yABi(:);
 
-        % First-order (Saltelli single-loop)
-        S(i)  = (mean(yA .* yCi) - f0^2) / VarY;
+        % First-order (Saltelli 2010, Eq. in "Variance based sensitivity analysis")
+        % S_i = V[E[Y|X_i]] / V[Y]
+        S(i)  = (mean(yB .* yABi) - f0^2) / VarY;
 
-        % Total-effect (Jansen)
-        ST(i) = mean((yB - yCi).^2) / (2 * VarY);
+        % Total-effect (Jansen 1999 estimator)
+        % ST_i = E[(Y(A) - Y(A_Bi))^2] / (2*V[Y])
+        ST(i) = mean((yA - yABi).^2) / (2 * VarY);
 
         % Optional progress:
         %fprintf('%d/%d: S=%.6g, ST=%.6g\n', i, k, S(i), ST(i));

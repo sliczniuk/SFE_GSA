@@ -11,23 +11,26 @@ function sen_vector = Sen_TotalEffect_Saltelli( A, B, f )
 % Ref: [1] Saltelli, A., Ratto, M., Andres, et. al, "Global sensitivity 
 % analysis: the primer", 2008, page 164
 
-y_A = f(A);
-y_B = f(B);
+y_A = f(A); y_A = y_A(:);
+y_B = f(B); y_B = y_B(:);
 [N, k] = size(A);
-% V_Y = var([y_A; y_B]);
+
+yAll = [y_A; y_B];
+f_0  = mean(yAll);
+VarY = mean(yAll.^2) - f_0^2;
+
 sen_vector = zeros(1, k);
-function S_i = index_i(order)
-    f_0 = sum(y_A)/N;
-    i = order;
-    C_i = B;
-    C_i(:, i) = A(:, i);
-    y_C_i = f(C_i);
-    S_i = 1-(dot(y_B, y_C_i)/N-f_0^2)/(dot(y_A, y_A)/N - f_0^2);
-end
 
 for j = 1:k
-    sen_vector(j) = index_i(j);
-    display([num2str(j), ' out of ', num2str(k), ' indices finished: ', num2str(sen_vector(j))]);
+    % Hybrid matrix A_Bj: A with column j replaced by B's column j
+    A_Bj = A;
+    A_Bj(:, j) = B(:, j);
+    y_ABj = f(A_Bj); y_ABj = y_ABj(:);
+
+    % Total-effect (Jansen 1999): pair yA with y(A_Bj)
+    sen_vector(j) = mean((y_A - y_ABj).^2) / (2 * VarY);
+
+    fprintf('%d out of %d indices finished: %.6f\n', j, k, sen_vector(j));
 end
    
 end

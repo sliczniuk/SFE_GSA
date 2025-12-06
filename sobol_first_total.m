@@ -26,20 +26,24 @@ parfor i = 1:N
 end
 
 Y = [YA; YB];
+f0 = mean(Y);
 VY = var(Y);
 
 %% STEP 2: Compute First-order and Total-order Sobol indices, store YABi
 
 for i = 1:d
+    % Hybrid matrix A_Bi: A with column i replaced by B's column i
     ABi = A;
     ABi(:, i) = B(:, i);
-    %YAB(:,i) = model_func(ABi);
     parfor k = 1:N
         YAB(k,i) = model_func(ABi(k,:));
     end
-    %first_order(i) = (1/N)*sum(YB .* (YAB(:,i) - YA)) / VY;
-    first_order(i) = (mean(YA .* YAB(:,i)) - mean(YA)*mean(YAB(:,i))) / VY;
-    total_order(i) = (1/(2*N))*sum((YA - YAB(:,i)).^2) / VY;
+
+    % First-order (Saltelli 2010): pair yB with y(A_Bi)
+    first_order(i) = (mean(YB .* YAB(:,i)) - f0^2) / VY;
+
+    % Total-effect (Jansen 1999): pair yA with y(A_Bi)
+    total_order(i) = mean((YA - YAB(:,i)).^2) / (2 * VY);
 end
 
 end
