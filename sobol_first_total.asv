@@ -1,0 +1,50 @@
+function [S_first, S_total] = sobol_first_total(model_func, A, B)
+% Computes first-order and total-order Sobol indices using Saltelli's method (no parfor)
+% 
+% Inputs:
+%   model_func - function handle: y = model_func(x), where x is a 1xd vector
+%   A, B       - Nxd input sample matrices
+%
+% Outputs:
+%   S_first    - dx1 vector of first-order Sobol indices
+%   S_total    - dx1 vector of total-order Sobol indices
+
+N = size(A, 1);
+d = size(A, 2);
+
+% Preallocate
+YA  = zeros(N, 1);
+YB  = zeros(N, 1);
+YAB = zeros(N, d);
+
+% Evaluate model at A and B
+pafor i = 1:N
+    YA(i) = model_func(A(i, :));
+    YB(i) = model_func(B(i, :));
+end
+
+% Evaluate model at hybrid matrices AB^(i)
+for j = 1:d
+    AB = A;
+    AB(:, j) = B(:, j); % Replace column j
+    for i = 1:N
+        YAB(i, j) = model_func(AB(i, :));
+    end
+end
+
+% Total variance
+VY = var([YA; YB]);
+
+% Compute indices
+S_first = zeros(d, 1);
+S_total = zeros(d, 1);
+for j = 1:d
+    % Saltelli estimator
+    S_first(j) = mean(YB .* (YAB(:, j) - YA)) / VY;
+    S_total(j) = 0.5 * mean((YA - YAB(:, j)).^2) / VY;
+end
+
+% Clip negative values
+%S_first = max(S_first, 0);
+%S_total = max(S_total, 0);
+end

@@ -1,0 +1,272 @@
+Elapsed time is 1133.795597 seconds.
+Elapsed time is 2828.145812 seconds.
+
+TIME = 5 [min]
+
+Sum of First-order indices: 0.8995
+Sum of Total-order indices: 1.0613
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = -0.0214, Total-order = 0.0195
+P[bar]: First-order = 0.0742, Total-order = 0.1355
+F[kg/s]: First-order = 0.8467, Total-order = 0.9064
+
+Output Statistics:
+Mean of output: 0.0213
+Standard deviation of output: 0.0125
+Elapsed time is 1624.015297 seconds.
+Elapsed time is 4052.358892 seconds.
+
+TIME = 15 [min]
+
+Sum of First-order indices: 0.9361
+Sum of Total-order indices: 1.0299
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = -0.0276, Total-order = 0.0068
+P[bar]: First-order = 0.0224, Total-order = 0.0553
+F[kg/s]: First-order = 0.9413, Total-order = 0.9678
+
+Output Statistics:
+Mean of output: 0.3364
+Standard deviation of output: 0.1262
+Elapsed time is 2250.827315 seconds.
+Elapsed time is 5632.088274 seconds.
+
+TIME = 30 [min]
+
+Sum of First-order indices: 0.9437
+Sum of Total-order indices: 1.0435
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = -0.0282, Total-order = 0.0016
+P[bar]: First-order = -0.0276, Total-order = 0.0137
+F[kg/s]: First-order = 0.9995, Total-order = 1.0282
+
+Output Statistics:
+Mean of output: 0.8522
+Standard deviation of output: 0.1667
+Elapsed time is 3277.219564 seconds.
+Elapsed time is 8192.320679 seconds.
+
+TIME = 60 [min]
+
+Sum of First-order indices: 0.9605
+Sum of Total-order indices: 1.0512
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = -0.0095, Total-order = 0.0067
+P[bar]: First-order = 0.0085, Total-order = 0.0561
+F[kg/s]: First-order = 0.9615, Total-order = 0.9883
+
+Output Statistics:
+Mean of output: 1.3949
+Standard deviation of output: 0.1794
+Elapsed time is 4322.750193 seconds.
+Elapsed time is 10857.589975 seconds.
+
+TIME = 90 [min]
+
+Sum of First-order indices: 0.9757
+Sum of Total-order indices: 1.0516
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.0076, Total-order = 0.0137
+P[bar]: First-order = 0.0678, Total-order = 0.1152
+F[kg/s]: First-order = 0.9003, Total-order = 0.9227
+
+Output Statistics:
+Mean of output: 1.6970
+Standard deviation of output: 0.1874
+Elapsed time is 5322.629391 seconds.
+Elapsed time is 13388.552821 seconds.
+
+TIME = 120 [min]
+
+Sum of First-order indices: 0.9900
+Sum of Total-order indices: 1.0500
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.0203, Total-order = 0.0191
+P[bar]: First-order = 0.1162, Total-order = 0.1608
+F[kg/s]: First-order = 0.8534, Total-order = 0.8702
+
+Output Statistics:
+Mean of output: 1.9004
+Standard deviation of output: 0.1911
+Elapsed time is 6431.589196 seconds.
+Elapsed time is 16005.352708 seconds.
+
+TIME = 150 [min]
+
+Sum of First-order indices: 1.0039
+Sum of Total-order indices: 1.0478
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.0303, Total-order = 0.0232
+P[bar]: First-order = 0.1546, Total-order = 0.1953
+F[kg/s]: First-order = 0.8189, Total-order = 0.8294
+
+Output Statistics:
+Mean of output: 2.0502
+Standard deviation of output: 0.1918
+Elapsed time is 9042.767743 seconds.
+Elapsed time is 22866.100961 seconds.
+
+TIME = 240 [min]
+
+Sum of First-order indices: 1.0454
+Sum of Total-order indices: 1.0408
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.0521, Total-order = 0.0314
+P[bar]: First-order = 0.2354, Total-order = 0.2614
+F[kg/s]: First-order = 0.7579, Total-order = 0.7480
+
+Output Statistics:
+Mean of output: 2.3378
+Standard deviation of output: 0.1849
+Elapsed time is 10969.852567 seconds.
+Elapsed time is 27427.577836 seconds.
+
+TIME = 300 [min]
+
+Sum of First-order indices: 1.0738
+Sum of Total-order indices: 1.0366
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.0635, Total-order = 0.0352
+P[bar]: First-order = 0.2743, Total-order = 0.2893
+F[kg/s]: First-order = 0.7360, Total-order = 0.7122
+
+Output Statistics:
+Mean of output: 2.4585
+Standard deviation of output: 0.1767
+Elapsed time is 15226.984405 seconds.
+Elapsed time is 38269.154191 seconds.
+
+TIME = 450 [min]
+
+Sum of First-order indices: 1.1489
+Sum of Total-order indices: 1.0292
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.0884, Total-order = 0.0425
+P[bar]: First-order = 0.3514, Total-order = 0.3361
+F[kg/s]: First-order = 0.7092, Total-order = 0.6505
+
+Output Statistics:
+Mean of output: 2.6475
+Standard deviation of output: 0.1530
+Elapsed time is 18652.631810 seconds.
+Elapsed time is 46745.751662 seconds.
+
+TIME = 600 [min]
+
+Sum of First-order indices: 1.2297
+Sum of Total-order indices: 1.0262
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.1123, Total-order = 0.0490
+P[bar]: First-order = 0.4174, Total-order = 0.3690
+F[kg/s]: First-order = 0.7000, Total-order = 0.6082
+
+Output Statistics:
+Mean of output: 2.7553
+Standard deviation of output: 0.1299
+Elapsed time is 22105.138119 seconds.
+Elapsed time is 55433.432659 seconds.
+
+TIME = 750 [min]
+
+Sum of First-order indices: 1.3150
+Sum of Total-order indices: 1.0276
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.1369, Total-order = 0.0557
+P[bar]: First-order = 0.4808, Total-order = 0.3965
+F[kg/s]: First-order = 0.6972, Total-order = 0.5754
+
+Output Statistics:
+Mean of output: 2.8234
+Standard deviation of output: 0.1096
+Elapsed time is 25540.165532 seconds.
+Elapsed time is 63597.783361 seconds.
+
+TIME = 900 [min]
+
+Sum of First-order indices: 1.4031
+Sum of Total-order indices: 1.0327
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.1630, Total-order = 0.0627
+P[bar]: First-order = 0.5441, Total-order = 0.4219
+F[kg/s]: First-order = 0.6961, Total-order = 0.5482
+
+Output Statistics:
+Mean of output: 2.8689
+Standard deviation of output: 0.0924
+Elapsed time is 31150.874978 seconds.
+Elapsed time is 78176.746614 seconds.
+
+TIME = 1200 [min]
+
+Sum of First-order indices: 1.5815
+Sum of Total-order indices: 1.0526
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.2208, Total-order = 0.0780
+P[bar]: First-order = 0.6712, Total-order = 0.4700
+F[kg/s]: First-order = 0.6895, Total-order = 0.5045
+
+Output Statistics:
+Mean of output: 2.9235
+Standard deviation of output: 0.0660
+Elapsed time is 36720.063651 seconds.
+Elapsed time is 91535.289931 seconds.
+
+TIME = 1500 [min]
+
+Sum of First-order indices: 1.7517
+Sum of Total-order indices: 1.0820
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.2893, Total-order = 0.0949
+P[bar]: First-order = 0.7937, Total-order = 0.5165
+F[kg/s]: First-order = 0.6687, Total-order = 0.4706
+
+Output Statistics:
+Mean of output: 2.9529
+Standard deviation of output: 0.0477
+Elapsed time is 45042.895329 seconds.
+Elapsed time is 113000.570420 seconds.
+
+TIME = 2000 [min]
+
+Sum of First-order indices: 1.9763
+Sum of Total-order indices: 1.1444
+
+
+Sobol Sensitivity Indices:
+T[$^\circ C$]: First-order = 0.4398, Total-order = 0.1256
+P[bar]: First-order = 0.9533, Total-order = 0.5899
+F[kg/s]: First-order = 0.5832, Total-order = 0.4290
+
+Output Statistics:
+Mean of output: 2.9773
+Standard deviation of output: 0.0286
