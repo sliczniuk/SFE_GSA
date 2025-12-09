@@ -16,7 +16,7 @@ end
 %% USER INPUTS
 
 % Number of Monte Carlo samples (can use fewer with quasi-random)
-N = 1e4;
+N = 1e5;
 
 NAMES = {'T', 'P', 'F'};
 NAMES_LATEX = {'T[$^\circ C$]', 'P[bar]', 'F[kg/s]'};
@@ -32,7 +32,7 @@ d = size(input_ranges, 1);
 [A, B] = sobol_sampling(input_ranges, N);
 
 %% Time points to analyze
-time_points = [5, 15, 30, 45, 60, 90, 120, 150, 180, 240, 300, 360, 420, 480, 600, 720, 840, 1000];
+time_points = [5, 15, 30, 45, 60, 90, 120, 150, 180, 240, 300, 360, 420, 480, 600, 750, 1000];
 n_times = length(time_points);
 
 %% Preallocate results storage
