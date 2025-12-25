@@ -1154,3 +1154,1002 @@ Sobol Sensitivity Indices:
 
 Output Statistics:
   Mean: 2.8911, Std: 0.0824
+
+========================================
+Processing TIME = 5 [min] (time_step = 0.50 min)
+========================================
+{<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',38,10)">File: Sen_Saltelli.m Line: 38 Column: 10</a>
+Invalid use of operator.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 89)" style="font-weight:bold">main_GSA_SFE_optimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',89,0)">line 89</a>)
+    [first_order, total_order, YA, YB] = Sen_Saltelli(A, B, 'Janon-Monod', 'Jansen', model_func);
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',89,0)
+opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',38,10)
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [0.5           1           2           5] minutes
+  Building cache for time_step = 0.50 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 0.50 min)
+  Building cache for time_step = 1.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 1.00 min)
+  Building cache for time_step = 2.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 2.00 min)
+  Building cache for time_step = 5.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 5.00 min)
+All caches ready.
+
+
+========================================
+Processing TIME = 5 [min] (time_step = 0.50 min)
+========================================
+{Array indices must be positive integers or logical values.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('Sen_Saltelli', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m', 19)" style="font-weight:bold">Sen_Saltelli</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',19,0)">line 19</a>)
+    yA = f(A, varargin{:}); yA = yA(:);
+         ^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 89)" style="font-weight:bold">main_GSA_SFE_optimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',89,0)">line 89</a>)
+    [first_order, total_order, YA, YB] = Sen_Saltelli(A, B, 'Janon-Monod', 'Jansen', model_func);
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',19,0)
+Use the Help browser search field to search the documentation, or
+type "help help" for help command options, such as help for methods.
+
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [0.5           1           2           5] minutes
+  Building cache for time_step = 0.50 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 0.50 min)
+  Building cache for time_step = 1.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 1.00 min)
+  Building cache for time_step = 2.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 2.00 min)
+  Building cache for time_step = 5.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 5.00 min)
+All caches ready.
+
+
+========================================
+Processing TIME = 5 [min] (time_step = 0.50 min)
+========================================
+Elapsed time is 0.508907 seconds.
+{Arrays have incompatible sizes for this operation.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('Sen_Saltelli', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m', 42)" style="font-weight:bold">Sen_Saltelli</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',42,0)">line 42</a>)
+        if method_s == 'Saltelli'
+                    ^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 89)" style="font-weight:bold">main_GSA_SFE_optimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',89,0)">line 89</a>)
+    [first_order, total_order, YA, YB] = Sen_Saltelli(A, B, model_func, 'Janon-Monod', 'Jansen');
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<a href="matlab:helpview('matlab','error_sizeDimensionsMustMatch')" style="font-weight:bold">Related documentation</a>
+} 
+opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',42,0)
+method_s
+{Unrecognized function or variable 'method_s'.
+} 
+method_s
+{Unrecognized function or variable 'method_s'.
+} 
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [0.5           1           2           5] minutes
+  Building cache for time_step = 0.50 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 0.50 min)
+  Building cache for time_step = 1.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 1.00 min)
+  Building cache for time_step = 2.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 2.00 min)
+  Building cache for time_step = 5.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 5.00 min)
+All caches ready.
+
+
+========================================
+Processing TIME = 5 [min] (time_step = 0.50 min)
+========================================
+Elapsed time is 0.338219 seconds.
+<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',42,1)">42  </a>        if method_s == 'Saltelli'
+method_s
+
+method_s =
+
+    'Janon-Monod'
+
+method_s == 'Saltelli'
+{Arrays have incompatible sizes for this operation.
+
+<a href="matlab:helpview('matlab','error_sizeDimensionsMustMatch')" style="font-weight:bold">Related documentation</a>
+} 
+strcmp(method_s,'Saltelli')
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   0
+
+strcmp(method_s,'Janon-Monod')
+
+ans =
+
+  <a href="matlab:helpPopup('logical')" style="font-weight:bold">logical</a>
+
+   1
+
+if system_dependent('IsDebugMode')==1, dbquit all; end
+clc
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [0.5           1           2           5] minutes
+  Building cache for time_step = 0.50 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 0.50 min)
+  Building cache for time_step = 1.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 1.00 min)
+  Building cache for time_step = 2.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 2.00 min)
+  Building cache for time_step = 5.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 5.00 min)
+All caches ready.
+
+
+========================================
+Processing TIME = 5 [min] (time_step = 0.50 min)
+========================================
+Elapsed time is 0.441387 seconds.
+<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',42,1)">42  </a>        if strcmp(method_s,'Saltelli')
+dbquit
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [0.5           1           2           5] minutes
+  Building cache for time_step = 0.50 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 0.50 min)
+  Building cache for time_step = 1.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 1.00 min)
+  Building cache for time_step = 2.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 2.00 min)
+  Building cache for time_step = 5.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 5.00 min)
+All caches ready.
+
+
+========================================
+Processing TIME = 5 [min] (time_step = 0.50 min)
+========================================
+Elapsed time is 0.388360 seconds.
+Sobol analysis completed in 0.90 seconds
+
+Sum of First-order indices: -1.0313
+Sum of Total-order indices: 1.8896
+
+Sobol Sensitivity Indices:
+  T: S = -0.0356, ST = 0.0029, Interaction = 0.0386
+  P: S = -0.0972, ST = 0.0218, Interaction = 0.1190
+  F: S = -0.8985, ST = 1.8649, Interaction = 2.7634
+
+Output Statistics:
+  Mean: 0.0256, Std: 0.0247
+
+========================================
+Processing TIME = 15 [min] (time_step = 0.50 min)
+========================================
+Elapsed time is 0.565351 seconds.
+Sobol analysis completed in 1.36 seconds
+
+Sum of First-order indices: -2.1853
+Sum of Total-order indices: 1.8013
+
+Sobol Sensitivity Indices:
+  T: S = -0.0314, ST = 0.0004, Interaction = 0.0319
+  P: S = -0.0897, ST = 0.0034, Interaction = 0.0931
+  F: S = -2.0642, ST = 1.7975, Interaction = 3.8616
+
+Output Statistics:
+  Mean: 0.3531, Std: 0.2391
+
+========================================
+Processing TIME = 30 [min] (time_step = 0.50 min)
+========================================
+Elapsed time is 0.779100 seconds.
+Sobol analysis completed in 2.05 seconds
+
+Sum of First-order indices: -5.9210
+Sum of Total-order indices: 1.8140
+
+Sobol Sensitivity Indices:
+  T: S = 0.0463, ST = 0.0001, Interaction = -0.0462
+  P: S = 0.1318, ST = 0.0008, Interaction = -0.1309
+  F: S = -6.0990, ST = 1.8130, Interaction = 7.9121
+
+Output Statistics:
+  Mean: 0.8387, Std: 0.2822
+
+========================================
+Processing TIME = 45 [min] (time_step = 1.00 min)
+========================================
+Elapsed time is 0.664989 seconds.
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel.internal.parfor.ParforEngine/getCompleteIntervals', 'C:\Program Files\MATLAB\R2024b\toolbox\parallel\cluster\+parallel\+internal\+parfor\ParforEngine.m', 211)" style="font-weight:bold">parallel.internal.parfor.ParforEngine/getCompleteIntervals</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\parallel\cluster\+parallel\+internal\+parfor\ParforEngine.m',211,0)">line 211</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel_function>distributed_execution', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m', 742)" style="font-weight:bold">parallel_function>distributed_execution</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m',742,0)">line 742</a>)
+        [tags, out] = P.getCompleteIntervals(chunkSize);
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel_function', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m', 574)" style="font-weight:bold">parallel_function</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m',574,0)">line 574</a>)
+    R = distributed_execution(...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('applyToEachRowOptimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\applyToEachRowOptimized.m', 20)" style="font-weight:bold">applyToEachRowOptimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\applyToEachRowOptimized.m',20,0)">line 20</a>)
+    parfor i = 1:numRows
+    ^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized>@(AA)applyToEachRowOptimized(model,AA)', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 85)" style="font-weight:bold">main_GSA_SFE_optimized>@(AA)applyToEachRowOptimized(model,AA)</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',85,0)">line 85</a>)
+    model_func = @(AA) applyToEachRowOptimized(model, AA);
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('Sen_Saltelli', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m', 36)" style="font-weight:bold">Sen_Saltelli</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',36,0)">line 36</a>)
+        yABi = f(ABi, varargin{:}); yABi = yABi(:);
+               ^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 89)" style="font-weight:bold">main_GSA_SFE_optimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',89,0)">line 89</a>)
+    [first_order, total_order, YA, YB] = Sen_Saltelli(A, B, model_func, 'Janon-Monod', 'Jansen');
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [2] minutes
+  Building cache for time_step = 2.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 2.00 min)
+All caches ready.
+
+
+========================================
+Processing TIME = 300 [min] (time_step = 2.00 min)
+========================================
+Elapsed time is 2783.854548 seconds.
+Sobol analysis completed in 6994.04 seconds
+
+Sum of First-order indices: 1.0186
+Sum of Total-order indices: 1.0379
+
+Sobol Sensitivity Indices:
+  T: S = 0.0320, ST = 0.0360, Interaction = 0.0040
+  P: S = 0.2687, ST = 0.2951, Interaction = 0.0265
+  F: S = 0.7178, ST = 0.7068, Interaction = -0.0111
+
+Output Statistics:
+  Mean: 2.4577, Std: 0.1758
+
+========================================
+Processing TIME = 5 [min] (time_step = 0.50 min)
+========================================
+Elapsed time is 289.259827 seconds.
+Sobol analysis completed in 716.26 seconds
+
+Sum of First-order indices: 0.9728
+Sum of Total-order indices: 1.0256
+
+Sobol Sensitivity Indices:
+  T: S = 0.0131, ST = 0.0196, Interaction = 0.0065
+  P: S = 0.1109, ST = 0.1397, Interaction = 0.0288
+  F: S = 0.8488, ST = 0.8662, Interaction = 0.0174
+
+Output Statistics:
+  Mean: 0.0213, Std: 0.0125
+
+========================================
+Processing TIME = 15 [min] (time_step = 0.50 min)
+========================================
+Elapsed time is 714.666616 seconds.
+Sobol analysis completed in 1780.38 seconds
+
+Sum of First-order indices: 1.0012
+Sum of Total-order indices: 0.9887
+
+Sobol Sensitivity Indices:
+  T: S = 0.0086, ST = 0.0069, Interaction = -0.0017
+  P: S = 0.0506, ST = 0.0563, Interaction = 0.0057
+  F: S = 0.9419, ST = 0.9254, Interaction = -0.0165
+
+Output Statistics:
+  Mean: 0.3369, Std: 0.1263
+
+========================================
+Processing TIME = 30 [min] (time_step = 0.50 min)
+========================================
+Elapsed time is 1233.566917 seconds.
+Sobol analysis completed in 3051.31 seconds
+
+Sum of First-order indices: 1.0019
+Sum of Total-order indices: 0.9981
+
+Sobol Sensitivity Indices:
+  T: S = 0.0031, ST = 0.0016, Interaction = -0.0015
+  P: S = -0.0049, ST = 0.0132, Interaction = 0.0181
+  F: S = 1.0036, ST = 0.9833, Interaction = -0.0203
+
+Output Statistics:
+  Mean: 0.8525, Std: 0.1664
+
+========================================
+Processing TIME = 45 [min] (time_step = 1.00 min)
+========================================
+Elapsed time is 987.329829 seconds.
+Sobol analysis completed in 2495.26 seconds
+
+Sum of First-order indices: 1.0065
+Sum of Total-order indices: 1.0073
+
+Sobol Sensitivity Indices:
+  T: S = 0.0022, ST = 0.0032, Interaction = 0.0010
+  P: S = 0.0040, ST = 0.0271, Interaction = 0.0231
+  F: S = 1.0004, ST = 0.9770, Interaction = -0.0234
+
+Output Statistics:
+  Mean: 1.1726, Std: 0.1730
+
+========================================
+Processing TIME = 60 [min] (time_step = 1.00 min)
+========================================
+Elapsed time is 1186.042694 seconds.
+Sobol analysis completed in 2971.20 seconds
+
+Sum of First-order indices: 1.0103
+Sum of Total-order indices: 1.0136
+
+Sobol Sensitivity Indices:
+  T: S = 0.0036, ST = 0.0069, Interaction = 0.0033
+  P: S = 0.0339, ST = 0.0586, Interaction = 0.0247
+  F: S = 0.9727, ST = 0.9481, Interaction = -0.0246
+
+Output Statistics:
+  Mean: 1.3948, Std: 0.1787
+
+========================================
+Processing TIME = 90 [min] (time_step = 1.00 min)
+========================================
+Elapsed time is 1665.920868 seconds.
+Sobol analysis completed in 4165.16 seconds
+
+Sum of First-order indices: 1.0166
+Sum of Total-order indices: 1.0207
+
+Sobol Sensitivity Indices:
+  T: S = 0.0074, ST = 0.0141, Interaction = 0.0066
+  P: S = 0.0964, ST = 0.1204, Interaction = 0.0241
+  F: S = 0.9128, ST = 0.8862, Interaction = -0.0266
+
+Output Statistics:
+  Mean: 1.6966, Std: 0.1865
+
+========================================
+Processing TIME = 120 [min] (time_step = 1.00 min)
+========================================
+Elapsed time is 2127.206874 seconds.
+Sobol analysis completed in 5332.06 seconds
+
+Sum of First-order indices: 1.0225
+Sum of Total-order indices: 1.0237
+
+Sobol Sensitivity Indices:
+  T: S = 0.0106, ST = 0.0196, Interaction = 0.0090
+  P: S = 0.1465, ST = 0.1680, Interaction = 0.0215
+  F: S = 0.8654, ST = 0.8361, Interaction = -0.0293
+
+Output Statistics:
+  Mean: 1.8998, Std: 0.1901
+
+========================================
+Processing TIME = 150 [min] (time_step = 1.00 min)
+========================================
+Elapsed time is 2609.936178 seconds.
+Sobol analysis completed in 6522.63 seconds
+
+Sum of First-order indices: 1.0283
+Sum of Total-order indices: 1.0249
+
+Sobol Sensitivity Indices:
+  T: S = 0.0130, ST = 0.0239, Interaction = 0.0109
+  P: S = 0.1857, ST = 0.2040, Interaction = 0.0183
+  F: S = 0.8296, ST = 0.7970, Interaction = -0.0326
+
+Output Statistics:
+  Mean: 2.0496, Std: 0.1908
+
+========================================
+Processing TIME = 180 [min] (time_step = 2.00 min)
+========================================
+Elapsed time is 1718.821950 seconds.
+Sobol analysis completed in 4289.26 seconds
+
+Sum of First-order indices: 1.0341
+Sum of Total-order indices: 1.0250
+
+Sobol Sensitivity Indices:
+  T: S = 0.0147, ST = 0.0273, Interaction = 0.0126
+  P: S = 0.2172, ST = 0.2319, Interaction = 0.0147
+  F: S = 0.8022, ST = 0.7658, Interaction = -0.0364
+
+Output Statistics:
+  Mean: 2.1660, Std: 0.1897
+
+========================================
+Processing TIME = 240 [min] (time_step = 2.00 min)
+========================================
+Elapsed time is 2167.588542 seconds.
+Sobol analysis completed in 5414.39 seconds
+
+Sum of First-order indices: 1.0454
+Sum of Total-order indices: 1.0239
+
+Sobol Sensitivity Indices:
+  T: S = 0.0167, ST = 0.0324, Interaction = 0.0157
+  P: S = 0.2653, ST = 0.2728, Interaction = 0.0075
+  F: S = 0.7634, ST = 0.7187, Interaction = -0.0446
+
+Output Statistics:
+  Mean: 2.3371, Std: 0.1840
+
+========================================
+Processing TIME = 300 [min] (time_step = 2.00 min)
+========================================
+Elapsed time is 2636.974390 seconds.
+Sobol analysis completed in 6589.41 seconds
+
+Sum of First-order indices: 1.0564
+Sum of Total-order indices: 1.0220
+
+Sobol Sensitivity Indices:
+  T: S = 0.0174, ST = 0.0363, Interaction = 0.0189
+  P: S = 0.3015, ST = 0.3017, Interaction = 0.0001
+  F: S = 0.7375, ST = 0.6841, Interaction = -0.0533
+
+Output Statistics:
+  Mean: 2.4578, Std: 0.1759
+
+========================================
+Processing TIME = 360 [min] (time_step = 2.00 min)
+========================================
+Elapsed time is 3077.778526 seconds.
+Sobol analysis completed in 7696.76 seconds
+
+Sum of First-order indices: 1.0671
+Sum of Total-order indices: 1.0202
+
+Sobol Sensitivity Indices:
+  T: S = 0.0171, ST = 0.0395, Interaction = 0.0224
+  P: S = 0.3310, ST = 0.3238, Interaction = -0.0072
+  F: S = 0.7191, ST = 0.6569, Interaction = -0.0622
+
+Output Statistics:
+  Mean: 2.5480, Std: 0.1667
+
+========================================
+Processing TIME = 420 [min] (time_step = 2.00 min)
+========================================
+Elapsed time is 3504.489338 seconds.
+Sobol analysis completed in 8770.00 seconds
+
+Sum of First-order indices: 1.0776
+Sum of Total-order indices: 1.0185
+
+Sobol Sensitivity Indices:
+  T: S = 0.0159, ST = 0.0424, Interaction = 0.0265
+  P: S = 0.3563, ST = 0.3417, Interaction = -0.0146
+  F: S = 0.7054, ST = 0.6344, Interaction = -0.0710
+
+Output Statistics:
+  Mean: 2.6177, Std: 0.1571
+
+========================================
+Processing TIME = 480 [min] (time_step = 2.00 min)
+========================================
+Elapsed time is 3940.167995 seconds.
+Sobol analysis completed in 9879.19 seconds
+
+Sum of First-order indices: 1.0879
+Sum of Total-order indices: 1.0173
+
+Sobol Sensitivity Indices:
+  T: S = 0.0140, ST = 0.0452, Interaction = 0.0311
+  P: S = 0.3790, ST = 0.3568, Interaction = -0.0221
+  F: S = 0.6949, ST = 0.6153, Interaction = -0.0797
+
+Output Statistics:
+  Mean: 2.6731, Std: 0.1476
+
+========================================
+Processing TIME = 600 [min] (time_step = 2.00 min)
+========================================
+Elapsed time is 4776.137666 seconds.
+Sobol analysis completed in 11878.91 seconds
+
+Sum of First-order indices: 1.1081
+Sum of Total-order indices: 1.0161
+
+Sobol Sensitivity Indices:
+  T: S = 0.0079, ST = 0.0504, Interaction = 0.0425
+  P: S = 0.4201, ST = 0.3822, Interaction = -0.0380
+  F: S = 0.6801, ST = 0.5836, Interaction = -0.0965
+
+Output Statistics:
+  Mean: 2.7549, Std: 0.1295
+
+========================================
+Processing TIME = 720 [min] (time_step = 5.00 min)
+========================================
+Elapsed time is 2603.681125 seconds.
+Sobol analysis completed in 6522.64 seconds
+
+Sum of First-order indices: 1.1285
+Sum of Total-order indices: 1.0170
+
+Sobol Sensitivity Indices:
+  T: S = -0.0014, ST = 0.0557, Interaction = 0.0571
+  P: S = 0.4595, ST = 0.4037, Interaction = -0.0558
+  F: S = 0.6704, ST = 0.5576, Interaction = -0.1128
+
+Output Statistics:
+  Mean: 2.8116, Std: 0.1131
+
+========================================
+Processing TIME = 840 [min] (time_step = 5.00 min)
+========================================
+Elapsed time is 2994.244901 seconds.
+Sobol analysis completed in 7462.95 seconds
+
+Sum of First-order indices: 1.1500
+Sum of Total-order indices: 1.0197
+
+Sobol Sensitivity Indices:
+  T: S = -0.0142, ST = 0.0612, Interaction = 0.0754
+  P: S = 0.4999, ST = 0.4231, Interaction = -0.0769
+  F: S = 0.6643, ST = 0.5355, Interaction = -0.1288
+
+Output Statistics:
+  Mean: 2.8524, Std: 0.0987
+
+========================================
+Processing TIME = 1000 [min] (time_step = 5.00 min)
+========================================
+Elapsed time is 3472.533225 seconds.
+Sobol analysis completed in 8693.12 seconds
+
+Sum of First-order indices: 1.1824
+Sum of Total-order indices: 1.0262
+
+Sobol Sensitivity Indices:
+  T: S = -0.0373, ST = 0.0689, Interaction = 0.1062
+  P: S = 0.5593, ST = 0.4471, Interaction = -0.1121
+  F: S = 0.6605, ST = 0.5102, Interaction = -0.1503
+
+Output Statistics:
+  Mean: 2.8911, Std: 0.0824
+
+========================================
+Processing TIME = 1200 [min] (time_step = 5.00 min)
+========================================
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel.internal.parfor.ParforEngine/getCompleteIntervals', 'C:\Program Files\MATLAB\R2024b\toolbox\parallel\cluster\+parallel\+internal\+parfor\ParforEngine.m', 211)" style="font-weight:bold">parallel.internal.parfor.ParforEngine/getCompleteIntervals</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\parallel\cluster\+parallel\+internal\+parfor\ParforEngine.m',211,0)">line 211</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel_function>distributed_execution', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m', 742)" style="font-weight:bold">parallel_function>distributed_execution</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m',742,0)">line 742</a>)
+        [tags, out] = P.getCompleteIntervals(chunkSize);
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel_function', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m', 574)" style="font-weight:bold">parallel_function</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m',574,0)">line 574</a>)
+    R = distributed_execution(...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('applyToEachRowOptimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\applyToEachRowOptimized.m', 20)" style="font-weight:bold">applyToEachRowOptimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\applyToEachRowOptimized.m',20,0)">line 20</a>)
+    parfor i = 1:numRows
+    ^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized>@(AA)applyToEachRowOptimized(model,AA)', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 86)" style="font-weight:bold">main_GSA_SFE_optimized>@(AA)applyToEachRowOptimized(model,AA)</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',86,0)">line 86</a>)
+    model_func = @(AA) applyToEachRowOptimized(model, AA);
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('Sen_Saltelli', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m', 19)" style="font-weight:bold">Sen_Saltelli</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',19,0)">line 19</a>)
+    yA = f(A, varargin{:}); yA = yA(:);
+         ^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 90)" style="font-weight:bold">main_GSA_SFE_optimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',90,0)">line 90</a>)
+    [first_order, total_order, YA, YB] = Sen_Saltelli(A, B, model_func, 'Janon-Monod', 'Jansen');
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [10] minutes
+  Building cache for time_step = 10.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 10.00 min)
+All caches ready.
+
+
+========================================
+Processing TIME = 1200 [min] (time_step = 10.00 min)
+========================================
+Elapsed time is 2356.616306 seconds.
+Sobol analysis completed in 5912.45 seconds
+
+Sum of First-order indices: 0.9636
+Sum of Total-order indices: 1.0299
+
+Sobol Sensitivity Indices:
+  T: S = 0.0585, ST = 0.0801, Interaction = 0.0217
+  P: S = 0.5199, ST = 0.4627, Interaction = -0.0572
+  F: S = 0.3852, ST = 0.4870, Interaction = 0.1017
+
+Output Statistics:
+  Mean: 2.9232, Std: 0.0662
+
+========================================
+Processing TIME = 1400 [min] (time_step = 10.00 min)
+========================================
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel.internal.parfor.ParforEngine/getCompleteIntervals', 'C:\Program Files\MATLAB\R2024b\toolbox\parallel\cluster\+parallel\+internal\+parfor\ParforEngine.m', 211)" style="font-weight:bold">parallel.internal.parfor.ParforEngine/getCompleteIntervals</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\parallel\cluster\+parallel\+internal\+parfor\ParforEngine.m',211,0)">line 211</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel_function>distributed_execution', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m', 742)" style="font-weight:bold">parallel_function>distributed_execution</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m',742,0)">line 742</a>)
+        [tags, out] = P.getCompleteIntervals(chunkSize);
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel_function', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m', 574)" style="font-weight:bold">parallel_function</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m',574,0)">line 574</a>)
+    R = distributed_execution(...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('applyToEachRowOptimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\applyToEachRowOptimized.m', 20)" style="font-weight:bold">applyToEachRowOptimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\applyToEachRowOptimized.m',20,0)">line 20</a>)
+    parfor i = 1:numRows
+    ^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized>@(AA)applyToEachRowOptimized(model,AA)', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 86)" style="font-weight:bold">main_GSA_SFE_optimized>@(AA)applyToEachRowOptimized(model,AA)</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',86,0)">line 86</a>)
+    model_func = @(AA) applyToEachRowOptimized(model, AA);
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('Sen_Saltelli', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m', 20)" style="font-weight:bold">Sen_Saltelli</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',20,0)">line 20</a>)
+    yB = f(B, varargin{:}); yB = yB(:);
+         ^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 90)" style="font-weight:bold">main_GSA_SFE_optimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',90,0)">line 90</a>)
+    [first_order, total_order, YA, YB] = Sen_Saltelli(A, B, model_func, 'Janon-Monod', 'Jansen');
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+2000/5
+
+ans =
+
+   400
+
+clc;clear all; load GSA_results_N10000_5_to_1000
+whos
+  Name             Size             Bytes  Class     Attributes
+
+  A            10000x3             240000  double              
+  B            10000x3             240000  double              
+  results          1x1               4970  struct              
+
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [5] minutes
+  Building cache for time_step = 5.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 5.00 min)
+All caches ready.
+
+
+========================================
+Processing TIME = 1200 [min] (time_step = 5.00 min)
+========================================
+{Unrecognized function or variable 'A'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 90)" style="font-weight:bold">main_GSA_SFE_optimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',90,0)">line 90</a>)
+    [first_order, total_order, YA, YB] = Sen_Saltelli(A, B, model_func, 'Janon-Monod', 'Jansen');
+                                                      ^
+} 
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [5] minutes
+  Building cache for time_step = 5.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 5.00 min)
+All caches ready.
+
+
+========================================
+Processing TIME = 1200 [min] (time_step = 5.00 min)
+========================================
+Elapsed time is 4169.241283 seconds.
+Sobol analysis completed in 10382.90 seconds
+
+Sum of First-order indices: 1.2331
+Sum of Total-order indices: 1.0382
+
+Sobol Sensitivity Indices:
+  T: S = -0.0776, ST = 0.0791, Interaction = 0.1568
+  P: S = 0.6479, ST = 0.4755, Interaction = -0.1724
+  F: S = 0.6628, ST = 0.4836, Interaction = -0.1793
+
+Output Statistics:
+  Mean: 2.9234, Std: 0.0660
+
+========================================
+Processing TIME = 1400 [min] (time_step = 5.00 min)
+========================================
+Elapsed time is 4718.333493 seconds.
+Sobol analysis completed in 11813.99 seconds
+
+Sum of First-order indices: 1.3009
+Sum of Total-order indices: 1.0538
+
+Sobol Sensitivity Indices:
+  T: S = -0.1329, ST = 0.0901, Interaction = 0.2230
+  P: S = 0.7592, ST = 0.5026, Interaction = -0.2566
+  F: S = 0.6746, ST = 0.4612, Interaction = -0.2134
+
+Output Statistics:
+  Mean: 2.9448, Std: 0.0531
+
+========================================
+Processing TIME = 1600 [min] (time_step = 5.00 min)
+========================================
+Elapsed time is 5311.771867 seconds.
+Sobol analysis completed in 13317.72 seconds
+
+Sum of First-order indices: 1.3920
+Sum of Total-order indices: 1.0722
+
+Sobol Sensitivity Indices:
+  T: S = -0.2062, ST = 0.1016, Interaction = 0.3078
+  P: S = 0.9000, ST = 0.5285, Interaction = -0.3714
+  F: S = 0.6982, ST = 0.4421, Interaction = -0.2561
+
+Output Statistics:
+  Mean: 2.9595, Std: 0.0430
+
+========================================
+Processing TIME = 2000 [min] (time_step = 5.00 min)
+========================================
+Elapsed time is 6479.704400 seconds.
+Sobol analysis completed in 16144.91 seconds
+
+Sum of First-order indices: 1.6690
+Sum of Total-order indices: 1.1148
+
+Sobol Sensitivity Indices:
+  T: S = -0.4222, ST = 0.1261, Interaction = 0.5482
+  P: S = 1.2973, ST = 0.5770, Interaction = -0.7203
+  F: S = 0.7939, ST = 0.4118, Interaction = -0.3821
+
+Output Statistics:
+  Mean: 2.9773, Std: 0.0286
+
+========================================
+Processing TIME = 150 [min] (time_step = 1.00 min)
+========================================
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel.internal.parfor.ParforEngine/getCompleteIntervals', 'C:\Program Files\MATLAB\R2024b\toolbox\parallel\cluster\+parallel\+internal\+parfor\ParforEngine.m', 211)" style="font-weight:bold">parallel.internal.parfor.ParforEngine/getCompleteIntervals</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\parallel\cluster\+parallel\+internal\+parfor\ParforEngine.m',211,0)">line 211</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel_function>distributed_execution', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m', 742)" style="font-weight:bold">parallel_function>distributed_execution</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m',742,0)">line 742</a>)
+        [tags, out] = P.getCompleteIntervals(chunkSize);
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel_function', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m', 574)" style="font-weight:bold">parallel_function</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m',574,0)">line 574</a>)
+    R = distributed_execution(...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('applyToEachRowOptimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\applyToEachRowOptimized.m', 20)" style="font-weight:bold">applyToEachRowOptimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\applyToEachRowOptimized.m',20,0)">line 20</a>)
+    parfor i = 1:numRows
+    ^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized>@(AA)applyToEachRowOptimized(model,AA)', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 81)" style="font-weight:bold">main_GSA_SFE_optimized>@(AA)applyToEachRowOptimized(model,AA)</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',81,0)">line 81</a>)
+    model_func = @(AA) applyToEachRowOptimized(model, AA);
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('Sen_Saltelli', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m', 21)" style="font-weight:bold">Sen_Saltelli</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',21,0)">line 21</a>)
+    yA = f(A, varargin{:}); yA = yA(:);
+         ^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 85)" style="font-weight:bold">main_GSA_SFE_optimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',85,0)">line 85</a>)
+    [first_order, total_order, second_order, YA, YB] = Sen_Saltelli(A, B, model_func, 'Janon-Monod', 'Jansen');
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [1] minutes
+  Building cache for time_step = 1.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 1.00 min)
+All caches ready.
+
+
+========================================
+Processing TIME = 150 [min] (time_step = 1.00 min)
+========================================
+Elapsed time is 32.547643 seconds.
+Calculating second-order indices...
+  S2(1,2) [-] = 0.004387
+  S2(1,3) [-] = 0.300365
+  S2(2,3) [-] = 0.236408
+Sobol analysis completed in 124.28 seconds
+
+Sum of First-order indices: -1.3808
+Sum of Total-order indices: 0.9605
+
+Sobol Sensitivity Indices:
+  T: S = 0.1220, ST = 0.0256, Interaction = -0.0964
+  P: S = -0.6257, ST = 0.1852, Interaction = 0.8109
+  F: S = -0.8770, ST = 0.7497, Interaction = 1.6267
+
+Second-Order Sobol Indices (Interactions):
+  S2(T,P) = 0.0044
+  S2(T,F) = 0.3004
+  S2(P,F) = 0.2364
+
+Output Statistics:
+  Mean: 2.0728, Std: 0.1875
+
+========================================
+Processing TIME = 300 [min] (time_step = 2.00 min)
+========================================
+Elapsed time is 2708.274480 seconds.
+Calculating second-order indices...
+  S2(1,2) [-] = 0.032853
+  S2(1,3) [-] = -0.004315
+  S2(2,3) [-] = 0.017964
+Sobol analysis completed in 10837.33 seconds
+
+Sum of First-order indices: 0.9144
+Sum of Total-order indices: 1.0263
+
+Sobol Sensitivity Indices:
+  T: S = 0.0167, ST = 0.0353, Interaction = 0.0187
+  P: S = 0.2924, ST = 0.3001, Interaction = 0.0077
+  F: S = 0.6053, ST = 0.6909, Interaction = 0.0856
+
+Second-Order Sobol Indices (Interactions):
+  S2(T,P) = 0.0329
+  S2(T,F) = -0.0043
+  S2(P,F) = 0.0180
+
+Output Statistics:
+  Mean: 2.4573, Std: 0.1756
+
+========================================
+Processing TIME = 300 [min] (time_step = 2.00 min)
+========================================
+Elapsed time is 2776.286772 seconds.
+Calculating second-order indices...
+  S2(1,2) [-] = -0.002340
+  S2(1,3) [-] = 0.012883
+  S2(2,3) [-] = 0.066540
+Calculating third-order index...
+  S3(closure) = -0.098480 (from closure: 1 - sum(S) - sum(S2))
+  S3(direct)  = -0.028508 (from direct estimation using yB)
+
+  >>> Final S3(T,P,F) = -0.098480 <<<
+  Validation: sum(S) + sum(S2) + S3 = 1.000000 (should be ≈ 1.0)
+Sobol analysis completed in 10821.99 seconds
+
+Sum of First-order indices: 1.0214
+Sum of Total-order indices: 1.0285
+
+Sobol Sensitivity Indices:
+  T: S = 0.0602, ST = 0.0352, Interaction = -0.0250
+  P: S = 0.2711, ST = 0.2957, Interaction = 0.0247
+  F: S = 0.6901, ST = 0.6975, Interaction = 0.0074
+
+Second-Order Sobol Indices (Interactions):
+  S2(T,P) = -0.0023
+  S2(T,F) = 0.0129
+  S2(P,F) = 0.0665
+
+Third-Order Sobol Index:
+  S3(T,P,F) = -0.0985
+
+Variance Decomposition:
+  sum(S) + sum(S2) + S3 = 1.0000 (should be ≈ 1.0)
+
+Output Statistics:
+  Mean: 2.4578, Std: 0.1762
+
+╔════════════════════════════════════════════════════════════════╗
+║         GLOBAL SENSITIVITY ANALYSIS - TIME EVOLUTION          ║
+╚════════════════════════════════════════════════════════════════╝
+
+Configuration:
+  • Sample size (N):        10
+  • Number of parameters:   3 (T, P, F)
+  • Time points to analyze: 1
+  • Bootstrap resamples:    1000
+  • Model evaluations/time: 80
+
+
+╔════════════════════════════════════════════════════════════════╗
+║ TIME POINT 1/1: t = 300 min                                
+╚════════════════════════════════════════════════════════════════╝
+
+=== SOBOL SENSITIVITY ANALYSIS ===
+Sample size N = 10, Parameters k = 3
+Total model evaluations needed: 80
+
+[1/3] Evaluating base matrices A and B...
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel.internal.parfor.ParforEngine/getCompleteIntervals', 'C:\Program Files\MATLAB\R2024b\toolbox\parallel\cluster\+parallel\+internal\+parfor\ParforEngine.m', 211)" style="font-weight:bold">parallel.internal.parfor.ParforEngine/getCompleteIntervals</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\parallel\cluster\+parallel\+internal\+parfor\ParforEngine.m',211,0)">line 211</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel_function>distributed_execution', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m', 742)" style="font-weight:bold">parallel_function>distributed_execution</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m',742,0)">line 742</a>)
+        [tags, out] = P.getCompleteIntervals(chunkSize);
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('parallel_function', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m', 574)" style="font-weight:bold">parallel_function</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\lang\parallel_function.m',574,0)">line 574</a>)
+    R = distributed_execution(...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('applyToEachRowOptimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\applyToEachRowOptimized.m', 20)" style="font-weight:bold">applyToEachRowOptimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\applyToEachRowOptimized.m',20,0)">line 20</a>)
+    parfor i = 1:numRows
+    ^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized>@(AA)applyToEachRowOptimized(model,AA)', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 114)" style="font-weight:bold">main_GSA_SFE_optimized>@(AA)applyToEachRowOptimized(model,AA)</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',114,0)">line 114</a>)
+    model_func = @(AA) applyToEachRowOptimized(model, AA);
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('Sen_Saltelli', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m', 54)" style="font-weight:bold">Sen_Saltelli</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\Sen_Saltelli.m',54,0)">line 54</a>)
+    yB = f(B, varargin{:}); yB = yB(:);
+         ^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('main_GSA_SFE_optimized', 'C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m', 120)" style="font-weight:bold">main_GSA_SFE_optimized</a> (<a href="matlab: opentoline('C:\LocalUserData\User-data\sliczno1\GitHub\SFA_GSA\main_GSA_SFE_optimized.m',120,0)">line 120</a>)
+            Sen_Saltelli(A, B, model_func, 'Janon-Monod', 'Jansen', 'Bootstrap', n_bootstrap);
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+main_GSA_SFE_optimized
+Building integrator caches for time steps: [2] minutes
+  Building cache for time_step = 2.00 min...
+Cache initialized: Parameters loaded, integrator built (time_step = 2.00 min)
+All caches ready.
+
+
+╔════════════════════════════════════════════════════════════════╗
+║         GLOBAL SENSITIVITY ANALYSIS - TIME EVOLUTION          ║
+╚════════════════════════════════════════════════════════════════╝
+
+Configuration:
+  • Sample size (N):        100
+  • Number of parameters:   3 (T, P, F)
+  • Time points to analyze: 1
+  • Bootstrap resamples:    10
+  • Model evaluations/time: 800
+
+
+╔════════════════════════════════════════════════════════════════╗
+║ TIME POINT 1/1: t = 300 min                                
+╚════════════════════════════════════════════════════════════════╝
+
+=== SOBOL SENSITIVITY ANALYSIS ===
+Sample size N = 100, Parameters k = 3
+Total model evaluations needed: 800
+
+[1/3] Evaluating base matrices A and B...
+  Completed in 27.76 seconds (7 evals/sec)
+
+[2/3] Computing first-order and total-order indices...
+  Evaluating 3 A_Bi matrices (one per parameter)...
+  [1/3] Processing parameter 1... S=0.1035, ST=0.0315
+  [2/3] Processing parameter 2... S=-0.4187, ST=0.2645
+  [3/3] Processing parameter 3... S=1.1609, ST=0.5341
+  First-order and total-order completed in 40.94 seconds
+
+[3/3] Computing second-order indices...
+  Evaluating 3 A_Bij matrices (one per parameter pair)...
+  [1/3] Processing pair (1,2)... S2=-0.0209
+  [2/3] Processing pair (1,3)... S2=0.2906
+  [3/3] Processing pair (2,3)... S2=0.2462
+  Second-order indices completed in 41.42 seconds
+
+Computing third-order index...
+  S3 (closure) = -0.361595
+  Closure check: sum(S) + sum(S2) + S3 = 1.000000 (target: 1.0)
+
+=== BOOTSTRAP CONFIDENCE INTERVALS ===
+Resampling 10 times for 95% CI...
+  Progress: 1/10 (10.0%) - ETA: 0.1 sec
+  Progress: 2/10 (20.0%) - ETA: 0.1 sec
+  Progress: 3/10 (30.0%) - ETA: 0.0 sec
+  Progress: 4/10 (40.0%) - ETA: 0.0 sec
+  Progress: 5/10 (50.0%) - ETA: 0.0 sec
+  Progress: 6/10 (60.0%) - ETA: 0.0 sec
+  Progress: 7/10 (70.0%) - ETA: 0.0 sec
+  Progress: 8/10 (80.0%) - ETA: 0.0 sec
+  Progress: 9/10 (90.0%) - ETA: 0.0 sec
+  Progress: 10/10 (100.0%) - ETA: 0.0 sec
+  Bootstrap completed in 0.04 seconds (0.00 sec/resample)
+
+95% Confidence Intervals:
+First-order indices:
+  S1:  0.1035 [-0.2525, 0.3311]
+  S2:  -0.4187 [-1.9048, 1.9464]
+  S3:  1.1609 [-0.5590, 2.6926]
+
+Total-order indices:
+  ST1: 0.0315 [0.0242, 0.0364]
+  ST2: 0.2645 [0.1912, 0.3009]
+  ST3: 0.5341 [0.5017, 0.6867]
+
+Third-order index:
+  S3:  -0.3616 [-5.6625, 3.4487]
+
+--- RESULTS SUMMARY (t = 300 min) ---
+Analysis time: 110.35 seconds
+Output: Mean = 2.4644 ± 0.1948
+
+First-order indices:
+  T: 0.1035 [-0.2525, 0.3311]
+  P: -0.4187 [-1.9048, 1.9464]
+  F: 1.1609 [-0.5590, 2.6926]
+
+Total-order indices:
+  T: 0.0315 [0.0242, 0.0364]
+  P: 0.2645 [0.1912, 0.3009]
+  F: 0.5341 [0.5017, 0.6867]
+
+Second-order: S2(T,P)=-0.0209, S2(T,F)=0.2906, S2(P,F)=0.2462
+Third-order:  S3=-0.3616
+Closure:      sum=1.000000 (target: 1.0)

@@ -1,0 +1,94 @@
+function [S, ST, yA, yB] = Sen_Saltelli(A, B, f, method_s, method_st, varargin)
+% SEN_SALTELLI  First-order (S) and total-effect (ST) Sobol' indices.
+% Inputs:
+%   A, B : N-by-k sample matrices (same size). Quasi-random recommended.
+%   f    : function handle; must return N-by-1 (or 1-by-N) vector for f(X,...)
+%   ...  : extra args passed to f via varargin
+% Outputs:
+%   S    : 1-by-k vector of first-order indices
+%   ST   : 1-by-k vector of total-effect indices
+%
+% Estimators (Saltelli 2010):
+%   - S  : First-order using hybrid A_Bi (A with col i from B), paired with yB
+%   - ST : Total-effect (Jansen 1999), using (yA - y(A_Bi))^2
+
+    [N, k] = size(A);
+    assert(isequal(size(B), [N, k]), 'A and B must be N-by-k.');
+
+    tic
+    yA = f(A, varargin{:}); yA = yA(:);
+    yB = f(B, varargin{:}); yB = yB(:);
+    toc
+    
+    yAll = [yA; yB];
+    f0   = mean(yAll);
+    VarY = mean(yAll.^2) - f0^2;
+    if VarY <= 0
+        error('Estimated output variance <= 0. Check model outputs or sample size.');
+    end
+
+    S  = zeros(1, k);
+    ST = zeros(1, k);
+
+    for i = 1:k
+        % Hybrid matrix A_Bi: A with column i replaced by B's column i
+        ABi = A; ABi(:, i) = B(:, i);
+        yABi = f(ABi, varargin{:}); yABi = yABi(:);
+
+         %================================================================
+        % FIRST-ORDER ESTIMATORS (S_i)
+        % ================================================================
+
+        if method_s == 'Saltelli'
+            % 1. Saltelli (2010) estimator
+            %    S_i = (1/N * sum(yB .* yABi) - f0^2) / Var(Y)
+            S(i) = (mean(yB .* yABi) - f0^2) / VarY_pop;
+        elseif method_s == 'Janon-Monod'
+            % 2. Janon-Monod (2014) estimator - RECOMMENDED
+            %    S_i = (1/N * sum(yB .* (yABi - yA))) / Var(Y)
+            %    More stable: avoids subtracting f0^2 (cancellation errors)
+            S(i) = mean(yB .* (yABi - yA)) / VarY;
+        elseif method_s == 'Sobol'
+            % 3. Sobol (1993) original estimator
+            %    S_i = (1/N * sum(yA .* (yABi - yB))) / Var(Y)
+            %    Note: Uses different pairing than Janon
+            S(i) = mean(yA .* (yABi - yB)) / VarY;
+        else
+            display('Inocrrect method')
+            break
+        end
+        % ================================================================
+        % TOTAL-EFFECT ESTIMATORS (ST_i)
+        % ================================================================
+
+        if method_st == 'Jansen'
+            % 1. Jansen (1999) estimator - RECOMMENDED
+            %    ST_i = (1/2N * sum((yA - yABi).^2)) / Var(Y)
+            %    Most stable: uses squared differences
+            ST(i) = mean((yA - yABi).^2) / (2 * VarY);
+        elseif method_st == 'Sobol'
+        % 2. Sobol (2001) estimator
+            %    ST_i = 1 - (1/N * sum(yB .* yABi) - f0^2) / Var(Y)
+            %    Note: ST = 1 - S_~i (complementary first-order)
+            ST(i) = 1 - (mean(yB .* yABi) - f0^2) / VarY_pop;
+        elseif method_st == 'Saltelli'
+            % 3. Saltelli (2008) estimator
+            %    ST_i = (1/N * sum(yA .* (yA - yABi))) / Var(Y)
+            ST(i) = mean(yA .* (yA - yABi)) / VarY;
+        else
+            display('Inocrrect method')
+            break
+        end
+
+        % First-order (Saltelli 2010, Eq. in "Variance based sensitivity analysis")
+        % S_i = V[E[Y|X_i]] / V[Y]
+        %S(i)  = (mean(yB .* yABi) - f0^2) / VarY;
+
+        % Total-effect (Jansen 1999 estimator)
+        % ST_i = E[(Y(A) - Y(A_Bi))^2] / (2*V[Y])
+        %ST(i) = mean((yA - yABi).^2) / (2 * VarY);
+
+        % Optional progress:
+        %fprintf('%d/%d: S=%.6g, ST=%.6g\n', i, k, S(i), ST(i));
+    end
+end

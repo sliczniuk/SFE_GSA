@@ -9,7 +9,7 @@ if isempty(gcp('nocreate'))
 end
 
 %% Test parameters
-N = 5000;  % Number of samples (use smaller N for quick test)
+N = 1e4;  % Number of samples (use smaller N for quick test)
 
 NAMES = {'T', 'P', 'F'};
 
@@ -97,7 +97,7 @@ results.time = time;
 results.N = N;
 results.NAMES = NAMES;
 
-save(sprintf('estimator_comparison_t%d_N%d.mat', time, N), 'results');
+%save(sprintf('estimator_comparison_t%d_N%d.mat', time, N), 'results');
 fprintf('\nResults saved to estimator_comparison_t%d_N%d.mat\n', time, N);
 
 %% Helper function

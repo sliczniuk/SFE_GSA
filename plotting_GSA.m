@@ -4,6 +4,29 @@
 clear; close all; clc;
 
 %% Data Entry
+load GSA_results_N32768_2025-12-23_06-18
+
+time = results.time_points';
+
+S1_T = results.first_order(:,1);
+S1_P = results.first_order(:,2);
+S1_F = results.first_order(:,3);
+
+ST_T = results.total_order(:,1);
+ST_P = results.total_order(:,2);
+ST_F = results.total_order(:,3);
+
+mean_yield = results.output_mean;
+std_yield  = results.output_std;
+
+sum_S1     = results.sum_S;
+sum_ST     = results.sum_ST;
+
+%%
+%load GSA_results_N10000_2025-12-12_16-06
+
+%%
+%{
 % Time points [min]
 time = [5, 15, 30, 60, 90, 120, 150, 240, 300, 450, 600, 750, 900, 1200, 1500, 2000]';
 
@@ -48,6 +71,7 @@ sum_S1 = [0.8995, 0.9361, 0.9437, 0.9605, 0.9757, 0.9900, 1.0039, ...
 sum_ST = [1.0613, 1.0299, 1.0435, 1.0512, 1.0516, 1.0500, 1.0478, ...
           1.0408, 1.0366, 1.0292, 1.0262, 1.0276, 1.0327, 1.0526, ...
           1.0820, 1.1444]';
+%}
 
 %% Calculate confidence bounds
 % Using ±1σ (68% confidence)
