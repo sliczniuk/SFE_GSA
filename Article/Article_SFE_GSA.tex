@@ -1,0 +1,964 @@
+% ---------------------------------------------------------------
+% Preamble
+% ---------------------------------------------------------------
+%\documentclass[a4paper,fleqn,longmktitle]{cas-sc}
+\documentclass[a4paper,fleqn]{cas-dc}
+%\documentclass[a4paper]{cas-dc}
+%\documentclass[a4paper]{cas-sc}
+% ---------------------------------------------------------------
+% Make margins bigger to fit annotations. Use 1, 2 and 3. TO be removed later
+%\paperwidth=\dimexpr \paperwidth + 6cm\relax
+%\oddsidemargin=\dimexpr\oddsidemargin + 3cm\relax
+%\evensidemargin=\dimexpr\evensidemargin + 3cm\relax
+%\marginparwidth=\dimexpr \marginparwidth + 3cm\relax
+% -------------------------------------------------------------------- 
+% Packages
+% --------------------------------------------------------------------
+% Figure packages
+\usepackage{graphicx,float}
+\restylefloat{table}
+\usepackage{adjustbox}
+% Text, input, formatting, and language-related packages
+\usepackage[T1]{fontenc}
+\usepackage{subcaption}
+
+\usepackage{nomencl}
+\makenomenclature
+
+\usepackage{etoolbox}
+\renewcommand\nomgroup[1]{%
+	\item[\bfseries
+	\ifstrequal{#1}{A}{Latin symbols}{%
+		\ifstrequal{#1}{B}{Non-lation symbols}{%
+			\ifstrequal{#1}{C}{Greek symbols}{%
+				\ifstrequal{#1}{D}{Abberivations}{
+	}}}}%
+	]}
+\newcommand{\nomunit}[1]{%
+	\renewcommand{\nomentryend}{\hspace*{\fill}#1}}
+
+
+% TODO package
+\usepackage[bordercolor=gray!20,backgroundcolor=blue!10,linecolor=black,textsize=footnotesize,textwidth=1in]{todonotes}
+\setlength{\marginparwidth}{1in}
+% \usepackage[utf8]{inputenc}
+% \usepackage[nomath]{lmodern}
+
+% Margin and formatting specifications
+%\usepackage[authoryear]{natbib}
+\usepackage[sort]{natbib}
+\setcitestyle{square,numbers}
+
+ %\bibliographystyle{cas-model2-names}
+
+\usepackage{setspace}
+\usepackage{subfiles} % Best loaded last in the preamble
+
+% \usepackage[authoryear,longnamesfirst]{natbib}
+
+% Math packages
+\usepackage{amsmath, amsthm, amssymb, amsfonts, bm, nccmath, mathdots, mathtools, bigints, ulem}
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shapes.geometric,angles,quotes,calc}
+
+\usepackage{placeins}
+
+\usepackage[final]{pdfpages}
+
+\usepackage{multirow}
+
+\usepackage[switch]{lineno}
+
+% --------------------------------------------------------------------
+% Packages Configurations
+\usepackage{enumitem}
+% --------------------------------------------------------------------
+% (General) General configurations and fixes
+\AtBeginDocument{\setlength{\FullWidth}{\textwidth}}	% Solves els-cas caption positioning issue
+\setlength{\parindent}{20pt}
+%\doublespacing
+% --------------------------------------------------------------------
+% Other Definitions
+% --------------------------------------------------------------------
+\graphicspath{{Figures/}}
+% --------------------------------------------------------------------
+% Environments
+% --------------------------------------------------------------------
+% ...
+
+% --------------------------------------------------------------------
+% Commands
+% --------------------------------------------------------------------
+
+% ==============================================================
+% ========================== DOCUMENT ==========================
+% ==============================================================
+\begin{document} 
+%  --------------------------------------------------------------------
+
+% ===================================================
+% METADATA
+% ===================================================
+\title[mode=title]{Influence Analysis in the development of a Supercritical Extraction model}
+\shorttitle{OMB DOE: SFE}
+
+\shortauthors{OS, PO}
+
+\author[1]{Oliwer Sliczniuk}[orcid=0000-0003-2593-5956]
+\ead{oliwer.sliczniuk@aalto.fi}
+\cormark[1]
+\credit{a}
+
+\author[1]{Pekka Oinas}[orcid=0000-0002-0183-5558]
+\credit{b}
+
+%\author[1]{Francesco Corona}[orcid=0000-0002-3615-1359]
+%\credit{c}
+
+\address[1]{Aalto University, School of Chemical Engineering, Espoo, 02150, Finland}
+%\address[2]{2}
+
+\cortext[cor1]{Corresponding author}
+
+% ===================================================
+% ABSTRACT
+% ===================================================
+\begin{abstract}
+	This study investigates the process of chamomile oil extraction from flowers. A parameter-distributed model consisting of a set of partial differential equations is used to describe the governing mass transfer phenomena in a cylindrical packed bed with solid chamomile particles under supercritical conditions using carbon dioxide as a solvent. The concept of quasi-one-dimensional flow is applied to reduce the number of spatial dimensions. The flow is assumed to be uniform across any cross-section, although the area available for the fluid phase can vary along the extractor. The physical properties of the solvent are estimated from the Peng-Robinson equation of state. The empirical correlations used in the model are based on laboratory experiments performed under multiple constant operating conditions: $30 - 40~^\circ$C, $100 - 200$ bar and $3.33-6.67 \cdot 10^{-5}$ kg/s. An impact of each data point from the model development sample is assessed. The main goal of this work is to identify which data points have the largest impact on each estimates as well detect potential outliers.
+	
+\end{abstract}
+
+\begin{keywords}
+	Supercritical extraction \sep Optimal design of experiments \sep Mathematical modelling
+\end{keywords}
+
+% ===================================================
+% TITLE
+% ===================================================
+\maketitle
+
+% ===================================================
+% Section: Introduction
+% ===================================================
+
+\section{Introduction}
+\linenumbers
+%\subfile{Sections/introduction_imp}
+Supercritical CO2 extraction is a green extraction method that uses carbon dioxide in a supercritical state (above its critical point of 31.1 $^\circ$C and 73.8 bar) to extract compounds from materials. This is one of the most popular applications of supercritical fluids, which was described by many researchers, for example \citet{Sodeifian2017}, \citet{Reverchon1993} and \citet{Sovova1994}. Traditional methods, such as distillation and organic solvent extraction, are commonly employed although they have drawbacks. Distillation involves high temperatures that can lead to the thermal degradation of heat-sensitive compounds. This limitation has increased the popularity of alternative techniques, such as supercritical fluid extraction. Supercritical CO$_2$ is attractive due to its distinctive properties: it is inflammable, non-toxic and non-corrosive. Supercritical fluids can exhibit both gas- and liquid-like properties, allowing for adjustable dissolving power through changes in operating conditions.
+
+Applications for supercritical carbon dioxide are not limited to extraction processes; they can also be used for impregnation, as described by \citet{Weidner2018} and \citet{Machado2022}. Impregnation is defined as modification of the properties of bulk substances by physically or chemically binding/adsorbing impregnates to a bulk material or surface, for example, the surface hydrophobisation. The main advantage of using supercritical CO$_2$ is that, after depressurisation, it desorbs from the surface and evaporates, leaving a solvent-free product. However, the main disadvantage of using carbon dioxide for impregnation is the low solubility of many drugs surface hydrophobisation. 
+The study of \citet{Ameri2020} investigates the loading of lansoprazole into polymers using supercritical carbon dioxide and examines how various parameters, such as temperature, pressure and time, affect the drug loading efficiency. The results indicate that increasing any of these parameters enhances drug loading, with temperature having the most significant impact. \citet{Fathi2022} explored the use of supercritical carbon dioxide to enhance the bioavailability of ketoconazole by impregnation into water-soluble polymers, specifically polyvinylpyrrolidone and hydroxypropyl methylcellulose. Utilising a Box-Behnken design, the researchers optimised the impregnation process by varying pressure, temperature and time, achieving an increased drug loading range.
+
+Another application of supercritical CO$_2$ is nanoparticle formation, as investigated by \citet{Padrela2018}, \citet{Franco2021} and \citet{Sodeifian2022}. Supercritical $CO_2$-assisted technologies enable the production of different morphologies of different sizes, including nanoparticles and nanocrystals, by modulating the operating conditions. Supercritical fluid-based processes have advantages over techniques conventionally employed to produce nano-sized particles or crystals, such as reduced use of toxic solvents. Moreover, the CO$_2$ can be removed from the final product by simple depressurisation. 
+\citet{Sodeifian2018} investigated the solubility of Letrozole, a poorly water-soluble anticancer drug, in supercritical carbon dioxide with and without menthol as a solid co-solvent. The addition of menthol increased the solubility of Letrozole by 7.1 times compared to supercritical CO$_2$ alone. Using the rapid expansion of supercritical solutions with the solid co-solvent method, the average particle size of Letrozole was reduced to the nanoscale. Temperature was found to have the most significant impact on nanoparticle size reduction, while pressure had the least effect. 
+The study of \citet{SaadatiArdestani2020} explored the preparation of phthalocyanine green nano pigment using supercritical carbon dioxide as an anti-solvent. The researchers employed the gas anti-solvent technique to achieve nano-sized pigment particles.
+\citet{Sodeifian2019} analysed the production of amiodarone hydrochloride nanoparticles using ultrasonic-assisted rapid expansion of the supercritical solution in a liquid solvent method. The researchers achieved significant particle size reduction by optimising parameters such as pressure, temperature and polymeric stabiliser concentration. Characterisation techniques confirmed the successful formation of nanoparticles with improved properties.
+
+Although the processes discussed are based on different phenomena, the outcome of these technologies strongly depends on the solubility in supercritical CO$_2$. The solubility of the solid in the solvent can be important for determining the partition coefficient for a potential impregnation and whether a cosolvent should be used in a supercritical extraction of a compound. Moreover, a good solute solubility not only accelerates the initial stages of the extraction but also reduces the time of the extraction process. Multiple researchers, such as \citet{Bagheri2025}, \citet{Tabebordbar2024}, \citet{SheikhiKouhsar2024} or \citet{Bagheri2022}, have conducted extensive research to measure the solubility of different solutes in the supercritical CO$_2$ and on the development of mathematical models. Several methods, including density-based correlations and equation of state, are used for correlations of solute solubility in the supercritical CO$_2$. The semi-empirical models are often used due to their ease of use and the absence of the need for physicochemical properties like sublimation pressure and critical features, which cannot be directly measured experimentally.
+
+The present study investigates the extraction of essential oil from chamomile flowers (\textit{Matricaria chamomilla L.}) via supercritical fluid extraction techniques in addition to the modelling of this process. Chamomile is a medicinal herb widely cultivated in southern and eastern Europe - in countries such as Germany, Hungary, France and Russia. It can also be found outside Europe, for instance in Brazil, as discussed by \citet{Singh2011}. Chamomile is distinguished by its hollow, bright gold cones that house disc or tubular florets surrounded by about fifteen white ray or ligulate florets. The plant has been utilised for its medicinal benefits, serving as an anti-inflammatory, antioxidant, mild astringent, and healing remedy. Chamomile extracts are widely used to calm nerves and mitigate anxiety, hysteria, nightmares, insomnia and other sleep-related conditions, according to \citet{Srivastava2009}. \citet{Orav2010} reported that oil yields from dried chamomile samples ranged from 0.7 to 6.7 mL/kg. The highest yields of essential oil, between 6.1 mL/kg and 6.7 mL/kg, were derived from chamomile sourced from Latvia and Ukraine. In comparison, chamomile from Armenia exhibited a lower oil content of 0.7 mL/kg. \citet{Milovanovic2023} extracted oils from Roman chamomile seeds in a two-stage process. First, supercritical carbon dioxide at pressures of up to 450 bar and temperatures up to 60 $^\circ$C was used for the first extraction. Then, the oil was re-extracted using supercritical CO$_2$ with the addition of ethanol. Through optimisation of the operating pressure, temperature, production cost, fraction of milled seeds and addition of co-solvent, the amount of separated chamomile oil increased from 2.4 to 18.6\% and the content of unsaturated fatty acids up to 88.7\%.
+
+The literature offers various mathematical models to describe the extraction of valuable compounds from biomass. Selecting a process model is case-dependent and requires analysis of each model's specific assumptions about mass transfer and thermodynamic equilibrium. Depending on the case, two approaches can be considered when developing a mathematical model for the extraction process. A model based on multiple regression can be used if the relation between inputs and outputs is the only one of interest. \citet{Sodeifian2017a} investigated the influence of pressure, temperature and particle size on the extraction efficiency of oil from \textit{Dracocephalum kotschyi Boiss} seed. A second-order polynomial model was applied to obtain the corresponding response surface and to identify the optimum operating conditions. The study of \citet{Sodeifian2017b} investigates the extraction of essential oil from Eryngium billardieri, focusing on optimising the extraction conditions and developing a mathematical model based on the second-order polynomial to predict the process yield. The researchers employed a simulated annealing algorithm to optimise parameters such as pressure, temperature and extraction time, aiming to maximise oil extraction efficiency.
+
+Alternatively, a first-principle model can be derived and applied to cover not only the input-output relations, but also the phenomena occurring in the system. This approach allows for a more detailed representation of the system behaviour, but requires deeper understanding of the underlying physics and more rigorous experiments. \citet{Sliczniuk2025a} provides a list of studies on SFE, including modelling approaches, raw materials, and operating conditions. Below some of the most popular SFE models are discussed.
+
+\citet{Goto1996} presented the shrinking core (SC) model, which describes a process of irreversible desorption followed by diffusion through the pores of a porous solid. When the mass transfer rate of the solute in the non-extracted inner region is significantly slower than in the outer region, where most of the solute has already been extracted or when the solute concentration exceeds its solubility in the solvent, a distinct boundary may form between the inner and outer regions. As extraction progresses, the core of the inner region shrinks. The model envisions supercritical CO$_2$ extraction as a sharp, inward-moving front, with a completely non-extracted core ahead of the front and a fully extracted shell behind it.
+
+\citet{Sovova1994} proposed the broken-and-intact cell (BIC) model, which assumes that a portion of the solute, initially stored within plant structures and protected by cell walls, is released during the mechanical breakdown of the material. The solute located in the region of broken cells near the particle surface is directly exposed to the solvent, while the core of the particle contains intact cells with undamaged walls. This model describes three extraction phases: a fast extraction phase for accessible oil, a transient phase and a slow phase controlled by diffusion. The model has been successfully applied to the extraction of grape oil (\citet{Sovova1994b}) and caraway oil (\citet{Sovova1994a}).
+
+The supercritical fluid extraction (SFE) process can be treated similarly to heat transfer, considering solid particles as spheres cooling down in a uniform environment. \citet{Bartle1990} introduced the hot ball diffusion (HBD) model, where spherical particles with a uniformly distributed solute diffuse similarly to heat diffusion. Unlike the BIC model, where the solute is readily available on the particle surface, the HBD model is suitable for systems with small quantities of extractable materials and is not limited by solubility. The model is particularly relevant when mass transfer is controlled by internal diffusion, allowing results from single particles to be extended to the entire bed under uniform conditions. \citet{Reverchon1993} have further elaborated on the HBD model and used it to simulate extraction processes.
+
+\citet{Reverchon1996} proposed a model for the extraction of essential oils that are mainly located inside vegetable cells in organelles called vacuoles. Only a small fraction of essential oil might be near the particle surface due to the breaking up of cells during grinding or in epidermal hairs located on the leaf surface. The fraction of oil freely available on the particle surface should not be significant in the case of SFE from leaves. Consequently, SFE of essential oil from leaves should be controlled mainly by internal mass-transfer resistance. Therefore, the external mass-transfer coefficient was neglected in the development of Reverchon's model (\citet{Reverchon1996}). The mass balances were developed with the additional hypotheses that axial dispersion can be neglected and that the solvent density and flow rate are constant along the bed.
+
+This work builds upon the linear kinetic model suggested by \citet{Reverchon1996}, deriving fundamental governing equations to develop a comprehensive model for the chamomile oil extraction process. The model aims at control-oriented simplicity, assuming semi-continuous operation within a cylindrical vessel. The process involves a supercritical solvent being pumped through a fixed bed of finely chopped biomass to extract the solute, followed by separation of the solvent and solute in a flush drum to collect the extract. Parameters such as pressure ($P$), feed flow rate ($F$) and inlet temperature ($T_{in}$) are adjustable and measurable, while the outlet temperature ($T_{out}$) and the amount of product at the outlet can only be monitored. Figure \ref{fig: SFE_drawing} presents a simplified process flow diagram.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\columnwidth]{Figures/PFD.drawio.pdf}
+	\caption{Process flow diagram.}
+	\label{fig: SFE_drawing}
+\end{figure}
+
+%\subfile{Sections/Literature_Review}
+
+In regression analysis, influence diagnostics are tools for detecting observations that exert disproportionate impact on model results (estimates, fitted values, etc.). The foundation of this area was developed in the context of linear regression by \citet{Cook1977,Cook1982} introduced the concept of an overall measure of the influence of a data point on the fitted model. Cook’s distance is derived from the idea of deleting one observation at a time and assessing how far the estimated parameter vector or fitted values move. \citet{Belsley1980} formalized additional influence measures such as DFBETAS or DFFITS. These diagnostics provide systematic way to analyse high-leverage points and outliers that skew the results. \citet{Chatterjee1986} provided an overview of such measures and their interrelationships, emphasizing that an observation with a large residual is not necessarily influential unless it also has high leverage (unusual predictor values). Based on the robust statistic, \citet{Hampel1974} introduced the influence function concept to assess the sensitivity of estimates to small perturbations of each data point.
+
+Chemical process data often come from designed experiments or pilot-plant trials, and ensuring that results are not unduly dominated by a few data points is crucial for model reliability. One common use of influence measures is in kinetic model parameter estimation. \citet{Merli2010} applied standard regression diagnostics to chemical kinetics data to identify outliers and influential experiments. In their study on reaction rate constant estimation, they used Cook’s distance and DFBETAS to pinpoint which data points were distorting the least-squares fit.
+
+\citet{Mosbach2015}, calculated the te influence function values of kinetic parameters of an n-propyl-benzene shock tube oxidation model. The authors compared the derivatives to some influence diagnostics based on omission of data points which are widely used in linear regression analysis. It was concluded that results obtained from the linear omission-based diagnostics frequently agree, at least qualitatively, with those obtained from the derivatives.
+
+While literature directly focusing on influence diagnostics in SFE is limited. \citet{Yadav2020} optimized an SFE process for curcumin extraction and reported diagnostic plots including a normal residual plot and Cook’s distance for each run. They confirmed that no single run had an excessive Cook’s distance, implying that the quadratic model fit was not unduly influenced by any one experimental point. Similarly,\citet{HosseinZadeh2022} check that “Cook’s distance is small for all observations,” ensuring the regression’s predictions are reliable across the design space. 
+
+The goal of this work is to apply and compare a number of diagnostic techniques for the influence of experimental observations on parameter estimate. Multiple methods are applied to determine the influence of the observations on pure model estimates and later on parameters of the empirical correlations.
+
+% ===================================================
+% Section: Main
+% ===================================================
+
+%\subfile{Sections/Model}
+\section{Materials and methods} \label{CH: Materials and methods}
+
+\subsection{Governing equations} \label{CH:Governing_equations_chapter}
+The governing equations for a quasi-one-dimensional flow were derived by following the work of \citet{Anderson1995}. A quasi-one-dimensional flow refers to a fluid flow scenario which assumes that the flow properties are uniformly distributed across any cross-section. This simplification is typically applied when the cross-sectional area of the flow channel changes, such as through irregular shapes or partial filling of an extractor. According to this assumption, velocity and other flow properties change solely in the flow direction.
+
+As discussed by \citet{Anderson2023}, all flows are compressible, but some can be treated as incompressible since the velocities are low. This assumption leads to the incompressible condition: $\nabla \cdot u =0$, which is valid for constant density (strictly incompressible) or varying density flow. The assumption allows for removal of acoustic waves and large perturbations in density and/or temperature. In the 1-D case, the incompressibility condition becomes $\frac{du}{dz} = 0$, so the fluid velocity is constant along $z-$ direction.
+
+The set of quasi-one-dimensional governing equations in Cartesian coordinates is described by Equations \ref{EQ: CompressibleEuler_1} - \ref{EQ: CompressibleEuler_3}:
+
+{\footnotesize
+	\begin{align}
+		\label{EQ: CompressibleEuler_1}
+		\cfrac{\partial \left( \rho_f A_f \right) }{\partial t} + \cfrac{\partial \left( \rho_f A_f v \right)}{\partial z} &= 0 \\
+		\cfrac{\partial \left( \rho_f v A_f \right) }{\partial t} + \cfrac{\partial \left( \rho_f A_f v^2 \right)}{\partial z} &= -A_f \cfrac{\partial P}{\partial z} \label{EQ: CompressibleEuler_2} \\
+		\cfrac{\partial \left( \rho_f e A_f \right) }{\partial t} + \cfrac{\partial \left( \rho_f A_f v e\right)}{\partial z} &= -P\cfrac{\left( A_f v \right)}{\partial z} + \cfrac{\partial}{\partial z} \left( k \cfrac{\partial T}{\partial z} \right)   
+		\label{EQ: CompressibleEuler_3}
+	\end{align}  
+}
+
+where $\rho_f$ is the fluid density, $A_f$ is the function which describes a change in the cross-section, $v$ is the velocity, $P$ is the total pressure, $e$ is the internal energy of the fluid, $T$ is the temperature, $t$ is time, and $z$ is the spatial direction.
+
+Equation \ref{EQ: CompressibleEuler_1}-\ref{EQ: CompressibleEuler_3} are the quasi-one-dimensional conservation laws for a variable-area duct representing a packed bed under the quasi-1D and low-Mach assumptions. Equation (\ref{EQ: CompressibleEuler_1}) (continuity) enforces conservation of mass is convected axially with velocity. Equation (\ref{EQ: CompressibleEuler_2}) (axial momentum) balances the momentum of the fluid parcel with the pressure gradient. The viscous wall/porous drag and body forces are neglected in the control-oriented model because pressure is imposed and nearly uniform in the low-velocity regime. Equation (\ref{EQ: CompressibleEuler_3}) (energy) transports internal energy by advection, includes pressure work, and accounts for axial heat conduction via the effective conductivity. The details on treatment of the governing equations are presented in Section \ref{CH: Extraction_model}.
+
+\subsection{Extraction model} \label{CH: Extraction_model}
+\subsubsection{Continuity equation} \label{CH: Continuity}
+
+The previously derived quasi-one-dimensional continuity equation (Equation \ref{EQ: CompressibleEuler_1}) is redefined by incorporating the function $A_f = A\phi$. This modification differentiates constant and varying terms, where the varying term accounts for changes in the cross-sectional area available for the fluid. Equation \ref{EQ: Continuity_differential} shows the modified continuity equation:
+
+{\footnotesize
+	\begin{equation} \label{EQ: Continuity_differential}
+		\frac{\partial (\rho_f \phi)}{\partial t} + \frac{\partial (\rho_f v A\phi)}{\partial z} = 0
+	\end{equation}
+}
+where $A$ is the total cross-section of the extractor and $\phi$ describes the porosity along the extractor.
+
+Assuming that the porosity and mass flow rate are constant in time, the temporal derivative becomes the mass flux F, and the spatial derivative can be integrated along $z$ as
+
+{\footnotesize
+	\begin{equation}
+		\int \frac{\partial (\rho_f v A \phi )}{\partial z} dz = F \rightarrow F=\rho_f v A\phi
+	\end{equation}
+}
+
+To simplify the system dynamics, it is assumed that $F$ is a control variable and affects the whole system instantaneously (due to $\nabla \cdot u = 0$), which allows the velocity profile that satisfies mass continuity based on $F$, $\phi$ and $\rho_f$ to be found:
+
+{\footnotesize
+	\begin{equation} \label{EQ:Velocity_1}
+		v = \cfrac{F}{\rho_f A\phi} 
+	\end{equation}
+}
+
+Similarly, superficial velocity may be introduced:
+
+{\footnotesize
+	\begin{equation} \label{EQ:Velocity_2}
+		u = v \phi = \cfrac{F}{\rho_f A }
+	\end{equation}
+}
+
+The fluid density $\rho_f$ can be obtained from the Peng-Robinson equation of state if the temperature and thermodynamic pressure are known along $z$. Variation in fluid density may occur due to pressure or inlet temperature changes. In a non-isothermal case, in Equations \ref{EQ:Velocity_1} and \ref{EQ:Velocity_2} $\rho_f$ is considered to be the average fluid density along the extraction column.
+
+\subsubsection{Mass balance for the fluid phase} \label{CH: Mass_balance_fluid}
+
+Equation \ref{Model_fluid} describes the movement of the solute in the system, which is constrained to the axial direction due to the quasi-one-dimensional assumption. Given that the solute concentration in the solvent is negligible, the fluid phase is described as pseudo-homogeneous, with properties identical to those of the solvent itself. It is also assumed that the thermodynamic pressure remains constant throughout the device. The analysis further simplifies the flow dynamics by disregarding the boundary layer near the extractor's inner wall. This leads to a uniform velocity profile across any cross-section perpendicular to the axial direction. Thus, the mass balance equation includes convection, diffusion and kinetic terms representing the fluid phase behaviour:
+
+{\footnotesize
+	\begin{equation}
+		\label{Model_fluid}
+		\frac{\partial c_f}{\partial t}
+		+ \frac{1}{\phi} \frac{\partial \left( c_f u\right)}{\partial z}
+		= \frac{1-\phi}{\phi} r_e
+		+ \frac{1}{\phi} \frac{\partial}{\partial z} \left( D^M_e \frac{\partial c_f}{\partial z} \right)
+	\end{equation}
+}
+
+where $c_f$ represents the solute concentration in the fluid phase, $r_e$ is the mass transfer kinetic term and $D^M_e$ is the axial dispersion coefficient.
+
+\subsubsection{Mass balance for the solid phase} \label{Mass_balance_solid}
+
+As given by Equation \ref{Model_solid}, the solid phase is considered to be stationary, without convection and diffusion terms in the mass balance equation. Therefore, the only significant term in this equation is the kinetic term of Equation \ref{Model_kinetic_basic}, which connects the solid and fluid phases. For simplicity, the extract is represented by a single pseudo-component: 
+
+{\footnotesize
+	\begin{equation} 
+		\label{Model_solid}
+		%		{\scriptsize\begin{equation}
+				\cfrac{\partial c_s}{\partial t} = \underbrace{ -  r_e }_{\text{Kinetics}}
+		\end{equation} }
+		
+		\subsubsection{Kinetic term} \label{CH: Kinetic}
+		
+		As the solvent flows through the fixed bed, CO$_2$ molecules diffuse into the pores, adsorb on the inner surface and form a film due to solvent-solid matrix interactions. The dissolved solute diffuses from the particle's core through the solid-fluid interface, the pore and the film into the bulk. Figure \ref{fig: SFE_Mechanism} shows the mass transfer mechanism, where the mean solute concentration in the solid phase is denoted as $c_s$, and the equilibrium concentrations at the solid-fluid interface are denoted as $c_s^*$ and $c_p^*$ for the solid and fluid phases, respectively. The concentration of the solutes in the fluid phase in the centre of the pore is denoted as $c_p$. As the solute diffuses through the pore, its concentration changes, reaching $c_{pf}$ at the opening. Then, the solute diffuses through the film around the particle and reaches bulk concentration $c_f$. The two-film theory describes the solid-fluid interface inside the pore. The overall mass transfer coefficient can be determined from the relationship between the solute concentration in one phase and its equilibrium concentration.
+		
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[trim = 45cm 0cm 60cm 20cm,clip,width=0.85\columnwidth]{Figures/SFE_PFD.drawio.png}	
+			\caption{Mass transfer mechanism.}
+			\label{fig: SFE_Mechanism}
+		\end{figure}
+		
+		\citet{Bulley1984} suggest a process where the driving force for extraction is given by the difference between the concentration of the solute in the bulk, $c_f$, and in the centre of the pore, $c_p^*$. According to the equilibrium relationship, the concentration $c_p^*$ is in equilibrium with $c_s$. The rate of extraction is thus $r_e\left(c_f - c^*_p(c_s)\right)$. In contrast, \citet{Reverchon1996} proposes a driving force given by the difference between $c_s$ and $c_p^*$. As given by Equation \ref{Model_kinetic_basic}, the concentration $c_p^*$ is determined by the equilibrium relationship with $c_f$:
+		
+		{\footnotesize
+			\begin{equation} \label{Model_kinetic_basic}
+				r_e = \cfrac{D_i}{\mu l^2 }\left(c_s - c_p^* \right)
+		\end{equation} }
+		
+		where $\mu$ is sphericity, $l$ a characteristic dimension of particles that can be defined as $l = r/3$, $r$ is the mean particle radius, $D_i$ corresponds to the overall diffusion coefficient and $c_P^*$ is the concentration at the solid-fluid interface (which according to the internal resistance model is supposed to be at equilibrium with the fluid phase). 
+		
+		According to \citet{Bulley1984}, a linear equilibrium relationship (Equation \ref{Linear_equilibirum}) can be used to find the equilibrium concentration of the solute in the fluid phase $c_f^*$ based on the concentration of the solute in the solid phase $c_s$:
+		
+		{\footnotesize
+			\begin{align} \label{Linear_equilibirum}
+				c_f^* &= k_p c_s
+		\end{align} }
+		
+		The volumetric partition coefficient $k_p$ acts as an equilibrium constant between the solute concentration in one phase and the corresponding equilibrium concentration at the solid-fluid interphase. \citet{Spiro2007} proposed a definition of the mass partition coefficient $k_m$ and the solid density $\rho_s$ as 
+		
+		{\footnotesize
+			\begin{align}
+				k_m = \cfrac{k_p \rho_s}{\rho_f}
+		\end{align} }
+		
+		According to \citet{Reverchon1996}, the kinetic term becomes
+		
+		{\footnotesize
+			\begin{equation}
+				\label{Model_kinetic_no_sat}
+				r_e = \cfrac{D_i}{ \mu l^2 } \left(c_s - \cfrac{\rho_s c_f}{k_m \rho_f} \right)
+		\end{equation} }
+		
+		%\subfile{Saturation}
+		\subsubsection{Uneven solute distribution in the solid phase} \label{CH: Gamma_Function}
+		
+		Following the idea of the broken-and-intact cell (BIC) model (\citet{Sovova2017}), the internal diffusion coefficient $D_i$ is considered to be a product of the reference value of $D_i^R$ and the exponential decay function $\gamma$, as given by Equation \ref{EQ: C_sat_function}:
+		
+		{\footnotesize
+			\begin{equation}
+				D_i = D_i^R \gamma(c_s) = D_i^R \exp \left( - \Upsilon \left( 1-\cfrac{ c_s }{c_{s0}} \right) \right) \label{EQ: C_sat_function}
+		\end{equation} }
+		
+		where  ${\color{black}\Upsilon}$ describes the curvature of the decay function. Equation \ref{Model_kinetic} describes the final form of the kinetic term:
+		
+		{\footnotesize
+			\begin{equation}
+				\label{Model_kinetic}
+				r_e = \cfrac{D_i^R \gamma }{ \mu l^2 } \left( c_s  - \cfrac{\rho_s c_f }{ k_m \rho_f }  \right)
+		\end{equation} }
+		
+		The $\gamma$ function limits the solute's availability in the solid phase. Similarly to the BIC model, the solute is assumed to be contained inside the cells, some of which are open because the cell walls have been broken by grinding, with the rest remaining intact. The diffusion of solute from a particle's core takes more time than the diffusion of solute close to the outer surface. The same idea can be represented by the decaying internal diffusion coefficient, where the decreasing term is a function of the solute concentration in the solid. 
+		
+		An alternative interpretation of the decay function $\gamma$ involves taking into account the porous structure of the solid particles, where the pores are initially saturated with the solute. During extraction, the solute within these pores gradually dissolves into the surrounding fluid. Initially, the solute molecules near the pore openings dissolve and diffuse rapidly due to the short diffusion paths. As extraction progresses, the dissolution front moves deeper into the pore structure and solute from the inner regions of the pores begins to dissolve. The diffusion of solute molecules from the interior of the pores to the external fluid becomes progressively slower because the effective diffusion path length increases. This lengthening of the diffusion path enhances mass transfer resistance, reducing the overall diffusion rate. 
+		
+		In an extreme case, this model could be compared with the shrinking core (SC) model presented by \citet{Goto1996}, where the particle radius is reduced as the solute content in the solid phase decreases. In the SC model, the reduction in particle size leads to significant changes in both the diffusion path length and the surface area available for mass transfer. The diminishing particle size increases the diffusion path within the remaining solid core and decreases the external surface area, both of which contribute to a slower extraction rate. When comparing this to the varying diffusion coefficient in our model, some conceptual similarities can be noticed.
+		
+		\subsubsection{Empirical correlations}
+		
+		The empirical correlations for $D_i$ and $\Upsilon$ were derived by \citet{Sliczniuk2024} and validated for temperatures of $30 - 40~^\circ C$, pressures of $100 - 200$ bar and mass flow rates of $3.33-6.67 \cdot 10^{-5}$ kg/s. Figures \ref{fig:Correlation_Di} and \ref{fig:Correlation_Gamma} show the results of multiple linear regression applied to parameter estimation solutions and selected independent variables. The region marked with the white dashed line represents the confidence region where the model has been tested. Both correlations should be equal or greater than zero to avoid unphysical behaviour such as reverse mass transfer. The multiple linear regression functions are combined with the rectifier function to ensure non-negativity.
+		
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=0.9\columnwidth]{/Di_1.png}
+			\caption{Multiple linear regression $D_i^R = f(Re, F)$.}
+			\label{fig:Correlation_Di}
+		\end{figure}
+		
+		\begin{figure}[!ht]
+			\centering
+			\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=0.9\columnwidth]{/Gamma_1.png}
+			\caption{Multiple linear regression $\Upsilon = f(Re, F)$.}
+			\label{fig:Correlation_Gamma}
+		\end{figure}
+		
+		\begin{comment}
+		The residuals between predicted and observed values were used to compute an unbiased estimate of the error variance. This variance, combined with the inverse of the design matrix's Gram matrix, yielded the covariance matrix of the coefficient estimates. The standard deviations (standard errors) of the coefficients were then obtained as the square roots of the diagonal elements of this covariance matrix. The variance-covariance is presented in Table \ref{tab:Uncertainty}.
+		
+		\begin{table}[h!]
+			\centering
+			\resizebox{0.75\columnwidth}{!}{%
+				$
+				\begin{gathered}
+					\begin{array}{c|ccc}
+						& \sigma(D_i^R(0)) & \sigma(Re) & \sigma(F) \\
+						\hline
+						\sigma(D_i^R(0)) & 0.0817  &  0.0065 &  -0.0139 \\
+						\sigma(Re)       & 0.0065  &  1.6908 &  -0.0825 \\
+						\sigma(F)        & -0.0139 & -0.0825 &  0.0065 \\
+					\end{array}
+					\\[1.5em]
+					\begin{array}{c|ccc}
+						& \sigma(\Upsilon(0)) & \sigma(Re) & \sigma(F) \\
+						\hline
+						\sigma(\Upsilon(0)) & 0.1727  &  0.0138 &  -0.0294 \\
+						\sigma(Re)          & 0.0138  &  3.5732 &  -0.1744 \\
+						\sigma(F)           & -0.0294 & -0.1744 &  0.0137 \\
+					\end{array}
+				\end{gathered}
+				$
+			}
+			\caption{Variance–covariance matrices for $D_i^R$ (top) and $\Upsilon$ (bottom)}
+			\label{tab:Uncertainty}
+		\end{table}
+		\end{comment}
+				
+		\subsubsection{Heat balance} \label{CH: heat_balance}
+		
+		The heat balance equation describes the evolution of enthalpy in the system, given by Equation \ref{EQ:Enthalpy_equation}:
+		
+		{\footnotesize
+			\begin{equation} \label{EQ:Enthalpy_equation}
+				\cfrac{\partial \left(\rho_f {\color{black}h} A_f\right)}{\partial t} = - \cfrac{\partial \left( \rho_f {\color{black}h}  v \right)}{\partial z} + \cfrac{\partial \left(P A_f\right)}{\partial t} + \cfrac{\partial}{\partial z} \left( k \cfrac{\partial T}{\partial z} \right)
+			\end{equation}
+		}
+		
+		If the value of enthalpy $h$ is known from the time evolution of the energy equation and pressure $P$ is known from measurement, then the temperature $T$ can be reconstructed based on the departure function. The departure function is a mathematical function that characterises the deviation of a thermodynamic property (enthalpy, entropy or internal energy) of a real substance from that of an ideal gas at the same temperature and pressure. As presented by \citet{Gmehling2019}, the enthalpy departure function for the Peng-Robinson equation of state is defined by Equation \ref{EQ:Enthalpy_PR}:
+		
+		{\footnotesize
+			\begin{equation}
+				{\color{black}h}-{\color{black}h}^{id}={\color{black}R}T \left[{\color{black}T_r}({\color{black}Z}-1) -2.078(1+{\color{black}\kappa} ){\sqrt { {\color{black}\alpha}\left(T\right) } } \ln \left(\cfrac{{\color{black}Z}+\left( 1+\sqrt{2} \right){\color{black}B}}{{\color{black}Z}+\left( 1-\sqrt{2} \right){\color{black}B}}\right)\right]
+				\label{EQ:Enthalpy_PR}
+			\end{equation}				
+		}
+		
+		where $\alpha$ is defined as $\left( 1+\kappa \left( 1 - \sqrt{T_r} \right) \right)^2$, $T_r$ is the reduced temperature, $P_r$ is the reduced pressure, $Z$ is the compressibility factor, $\kappa$ is a quadratic function of the acentric factor and $B$ is calculated as $0.07780\frac{P_r}{T_r}$.
+		
+		Equation \ref{EQ:Enthalpy_PR} requires a reference state, which is assumed to be $T_{ref}=298.15$ K and $P_{ref}=1.01325$ bar.
+		
+		A root finder can be used to find a temperature value that minimises the difference between the value of enthalpy coming from the heat balance and the departure functions. The root-finding procedure is repeated at every time step to find a temperature profile along the spatial direction $z$.
+		
+		{\footnotesize
+			\begin{equation}
+				\min_T \left( \underbrace{h\left(t,x\right)}_{\text{Heat balance}} - \underbrace{h\left(T,P,\rho_f\left(T,P\right)\right)}_{\text{Departure function}} \right)^2
+				\label{EQ:Enthalpy_root}
+			\end{equation}
+		}
+		
+		\subsubsection{Pressure term} \label{CH: Pressure}
+		
+		As explained in Section \ref{CH:Governing_equations_chapter}, the pressure in the low-velocity region remains nearly constant due to the small pressure wave propagation occurring at the speed of sound. Under such conditions, the term $\partial P/\partial t$ can be approximated by a forward difference equation, describing the pressure change over a small time step $\Delta t$. The pressure $P$ in the system is treated as a state variable, while the incoming pressure at the new time step $P_{in}$ is treated as a control:
+		
+		{\footnotesize
+			\begin{equation}
+				\frac{\partial {\color{black}P}}{\partial t} \approx \frac{{\color{black}P_{in}} - {\color{black}P} }{\Delta t}
+		\end{equation}}
+		
+		Such a simplified equation allows for instantaneous pressure. In a real system, the pressure dynamics would depend on the behaviour of the pump and the back-pressure regulator, which introduce additional inertia and resistance to pressure changes, leading to gradual pressure build-up.
+		
+		\subsubsection{Extraction yield} \label{CH: Yield}
+		
+		The process yield is calculated according to Equation \ref{Model_measurment_1}, as presented by \citet{Sovova1994a}. The measurement equation evaluates the solute's mass at the extraction unit outlet and sums it up. The integral form of the measurement (Equation \ref{Model_measurment_1}) can be transformed into the differential form (Equation \ref{Model_measurment_2}) and augmented with the process model.
+		
+		{\footnotesize
+			\begin{align} 
+				\label{Model_measurment_1}
+				y &= \int_{t_0}^{t_f} \cfrac{F}{\rho_f} c_f \biggr\rvert_{z=L} dt \\
+				\cfrac{dy}{dt} &= \qquad \cfrac{F}{\rho_f} c_f \biggr\rvert_{z=L} 
+				\label{Model_measurment_2}
+		\end{align}	}
+
+		The measurement error can be obtained based on the accuracy of the measuring device, or empirically from the spread of data around the model output. The first approach can be utilised only in the absence of external error sources. Given the imperfections of the experimental setup, such as delayed measurements and residuals of the product in pipes and the draining vessel, it was decided that the second approach is more suitable for this work. Based on the \citet{Sliczniuk2024}, the empirical measurement error was estimated to be 0.03.
+		
+		\subsubsection{Initial and boundary conditions} 
+		It is assumed that the solvent is free of solute at the beginning of the process $c_{f0}=0$, that all the solid particles have the same initial solute content $c_{s0}$ and that the system is isothermal, hence the initial state is $h_0$. The fluid at the inlet is considered not to contain any solute. The initial and boundary conditions are defined as follows:
+		
+		{\footnotesize
+			\begin{align*}
+				&c_f(t = 0, z) = 0  && c_s(t = 0, z) = c_{s0} && h(t = 0, z) = h_0 \\
+				&c_f(t,   z=0) = 0  && h(t, z=0) = h_{in}  && \frac{\partial c_f(t,z=L)}{\partial x} = 0 \\
+				&\frac{\partial h(t,z=L)}{\partial x} = 0   && c_s(t, z=\{0,L\}) = 0 && y(0) = 0 \quad P(0) = P_0 \\
+		\end{align*} }
+		
+		\subsubsection{Discretisation methods}
+		
+		\begin{figure}[!h]
+			\centering
+			{\footnotesize
+				\begin{align*}
+					\dot{x} &= \cfrac{d x}{d t} = 
+					\begin{bmatrix}
+						\cfrac{d c_{f,1}}{d t} 	  \\
+						\vdots					  \\
+						\cfrac{d c_{f,N_z}}{d t} \\
+						\\ \hline \\
+						\cfrac{d c_{s,1}}{d t} 	  \\
+						\vdots					  \\
+						\cfrac{d c_{s,N_z}}{d t} \\
+						\\ \hline \\
+						\cfrac{d h_1}{d t} 	  \\
+						\vdots 					  \\
+						\cfrac{d h_{N_z}}{d t} \\
+						\\ \hline \\
+						\cfrac{d P}{d t} \\
+						\\ \hline \\
+						\cfrac{d y}{d t}
+					\end{bmatrix}
+					=
+					\underbrace{\begin{bmatrix}
+							G_1 \left( c_f,c_s,h; \Theta \right)\\ 
+							\vdots\\ 
+							G_{N_z} \left( c_f,c_s,h; \Theta \right)\\ 
+							\\ \hline \\ \\
+							G_{N_z+1} \left( c_f,c_s,h; \Theta \right)\\ 
+							\vdots\\
+							G_{2N_z} \left( c_f,c_s,h; \Theta \right)\\ 
+							\\ \\ \hline \\ 
+							G_{2N_z+1} \left( c_f,c_s,h; \Theta \right) \\
+							\vdots\\
+							G_{3N_z} \left( c_f,c_s,h; \Theta \right) \\ 
+							\\ \\ \hline \\
+							G_{3N_z+1} \left( c_f,c_s,h; \Theta \right) \\
+							\\ \\ \hline \\
+							G_{3N_z+2} \left( c_f,c_s,h; \Theta \right) 
+					\end{bmatrix}}_{G \left( x; \Theta \right)} 
+			\end{align*} }
+			\caption{Discretised state space.}
+			\label{fig:discretization}
+		\end{figure}
+		
+		The method of lines is used to transform the process model equations into a set of ODEs denoted by $G(x;\Theta)$. For a derivative to be conservative, it must form a telescoping series. In other words, only the boundary terms should remain after adding all terms coming from the discretisation over a grid, and the artificial interior points should be cancelled out. Discretisation is applied to the conservative form of the model to ensure mass conservation. The backward finite difference is used to approximate the first-order derivative, while the central difference scheme approximates the second-order derivative $z$ direction. The length of the fixed bed is divided into $N_z$, i.e. equally distributed points in the $z$ direction. The state-space model after discretisation is denoted by $x$ and defined as shown in Figure \ref{fig:discretization}, where ${\color{black}x} \in \mathbb{R}^{N_x = 3N_z+2} $ and $\Theta \in \mathbb{R}^{N_\Theta =  N_{\theta} + N_u } $, $N_{\theta}$ is the number of parameters and $N_{u}$ is the number of control variables.
+		
+		\section{Influential observations}
+		
+		An influential observation is a data point that has a disproportionately large effect on the results of a statistical analysis, particularly in regression models. Removing or changing such data points can affect the estimated coefficients or overall fit. The presence of highly influential data should be further investigated as they can distort the relationships between variables, mask the real data patterns and lead to misleading conclusions. 
+		
+		\subsection{Linear regression case}
+		
+		As discussed by \citet{Mosbach2015}, multiple techniques have been developed to measure the influence of observations on parameter estimates in linear regression. These tools are commonly used to identify influential observations, high-leverage points, and statistical outliers. Broader overviews and comparisons are provided by \citet{Chatterjee1986} and \citet{Chatterjee1988}. Among the best-known diagnostics is Cook’s distance, introduced by \citet{Cook1977}. The basic idea underlying many of these measures is to perform a regression using the full data set and then repeat the regression while removing one observation at a time. This procedure becomes computationally expensive for large data sets. For linear models, however, simplified expressions can be derived that require only a single regression fit to evaluate the effect of deleting each observation.
+		
+		\citet{Mosbach2015} proposed an alternative approach motivated by sensitivity analysis in non-linear programming \citep{Fiacco1990}. This framework, based on the implicit function theorem, is discussed in detail by \citet{Fiacco1983}.The main results are expressions for the sensitivities of parameter estimates with respect to quantities appearing in the objective function (or constraints), including experimental observations. A related methodology was developed independently for unconstrained least-squares problems by \citet{Eno1985}. Similar sensitivity-based ideas have also been adopted in chemical kinetics, for example by \citet{Rabitz1983}, \citet{Yetter1989}, and \citet{Turanyi1990}.
+		
+		Consider the linear model
+		{\footnotesize
+			\begin{equation}
+			Y = X\theta + \epsilon, \qquad \epsilon \sim N(0,\sigma^2 I_n),
+			\end{equation}}
+		where \(Y \in \mathbb{R}^n\), \(X \in \mathbb{R}^{n \times n_\theta}\), and \(\theta \in \mathbb{R}^{n_\theta}\). The corresponding ordinary least-squares (OLS) estimator is
+		{\footnotesize
+			\begin{equation}
+				\hat{\theta} = (X^{T}X)^{-1}X^{T}Y.
+			\end{equation}}
+		In conventional model diagnostics, the residual vector \(e = Y - X\hat{\theta}\) and the hat matrix
+		{\footnotesize
+			\begin{equation}
+				H = X(X^{T}X)^{-1}X^{T}
+			\end{equation}}
+		are used to identify outlying \(Y\)- and \(X\)-values, respectively. The diagonal element
+		{\footnotesize
+			\begin{equation}
+				h_{ii} = x_i^T(X^{T}X)^{-1}x_i
+			\end{equation}}
+		is called the leverage of the \(i\)th case. Leverage is often considered large if it exceeds twice its mean value.
+		
+		Residuals are frequently rescaled relative to their standard errors. The residual for observation \(i\) is
+		{\footnotesize
+			\begin{equation}
+				e_i = Y_i - x_i^T\hat{\theta}.
+			\end{equation}}
+		The internally studentized residual is defined as
+		{\footnotesize
+			\begin{equation}
+				r_i = \frac{e_i}{s\sqrt{1-h_{ii}}},
+			\end{equation}}
+		where
+		{\footnotesize
+			\begin{equation}
+				s^2 = \frac{\sum_{i=1}^{n} e_i^2}{n-n_\theta}
+			\end{equation}}
+		is the mean squared error. Replacing \(s\) with the delete-one estimate \(s(i)\), i.e. the standard error computed with observation \(i\) omitted, yields the externally studentized residual
+		{\footnotesize
+			\begin{equation}
+				r_i^* = \frac{e_i}{s(i)\sqrt{1-h_{ii}}}.
+			\end{equation}}
+		
+		\subsection{Influence on linear regression coefficients}
+		DFBETA measures the change in parameter estimates after deleting the \(i\)th observation:
+		{\footnotesize
+			\begin{equation}
+				DFBETA_i = \hat{\theta} - \hat{\theta}(i) = (X^{T}X)^{-1}x_i\,\frac{e_i}{1-h_{ii}},
+			\end{equation}}
+		where \(\hat{\theta}(i)\) denotes the OLS estimate obtained when observation \(i\) is removed. Let
+		{\footnotesize
+			\begin{equation}
+				C = (X^{T}X)^{-1} = (c_{jk}).
+			\end{equation}}
+		Then the \(j\)th element of the change in coefficients is
+		{\footnotesize
+			\begin{equation}
+				\hat{\theta}_j - \hat{\theta}_j(i) = \frac{c_{j i}\, e_i}{1-h_{ii}}.
+			\end{equation}}
+		
+		Following \citet{Belsley1980}, it is often most useful to assess the changes in regression coefficients relative to their estimated variances. A scaled measure is defined as
+		{\footnotesize
+			\begin{equation}
+				DFBETAS_{ij} = \frac{\hat{\theta}_j-\hat{\theta}_j(i)}{s(i)\sqrt{\left[(X^{T}X)^{-1}\right]_{jj}}}.
+			\end{equation}}
+		The denominator is analogous to the standard error of \(\hat{\theta}_j\), but with \(s\) replaced by the delete-one estimate \(s(i)\). The DFBETAS statistic can be interpreted as the product of a term of order \(n^{-1/2}\), a \(t\)-distributed random variable (the externally studentized residual \(r_i^*\)), and the leverage-related quantity \((1-h_{ii})^{-1/2}\), which approaches 1 when \(h_{ii}\to 0\). \citet{Belsley1980} propose the cutoff \(2/\sqrt{n}\) to identify influential cases. Under an underlying normal model with bounded \(X\) and small leverages, approximately \(95\%\) of observations should satisfy \(|DFBETAS_{ij}| < 2/\sqrt{n}\). This approximation becomes less accurate for small to moderate sample sizes, since \(h_{ii}\) may not be negligible. A practical drawback of DFBETAS is that it produces \(n_\theta\) diagnostics for each observation.
+		
+		\subsection{Influence on fitted values}
+		DFFIT summarizes the change in fitted values when an observation is deleted. The scaled version, DFFITS, is obtained by dividing by the estimated standard deviation of the predicted value, again using \(s(i)\). It can be written as
+		\begin{equation}
+			DFFITS_i
+			= \frac{x_i^T(\hat{\theta}-\hat{\theta}(i))}{s(i)\sqrt{h_{ii}}}
+			= \left(\frac{h_{ii}}{1-h_{ii}}\right)^{1/2} r_i^*.
+		\end{equation}
+		
+		\subsection{Cook’s distance}
+		First introduced by \citet{Cook1977}, Cook’s distance (CD) provides an overall measure of the combined influence of an observation on all estimated regression coefficients \(\hat{\theta}\). It is defined as
+		\begin{equation}
+			CD_i^R =
+			\frac{(\hat{\theta}(i)-\hat{\theta})^{T}X^{T}X(\hat{\theta}(i)-\hat{\theta})}{n_\theta s^2}.
+		\end{equation}
+		This represents a scaled distance between \(\hat{\theta}(i)\) and \(\hat{\theta}\). Large values indicate that observation \(i\) strongly affects the joint inference on the regression coefficients. Cook’s distance can also be expressed in terms of the residual and leverage:
+		\begin{equation}
+			CD_i^R
+			= \frac{e_i^2 h_{ii}}{n_\theta s^2 (1-h_{ii})^2}
+			= \frac{r_i^2}{n_\theta}\frac{h_{ii}}{1-h_{ii}}.
+		\end{equation}
+		
+		\subsection{Analysis of the empirical correlation for $D_i^R$} \label{subsec:InfAnalDi}
+		
+		The aforementioned methods were applied to analyse the impact of the obtained data on the empirical correlation for $D_i^R$. As discussed by \citet{Sliczniuk2024}, the data used to derive the empirical correlation were obtained by fitting the diffusion coefficient to a custom SFE model. Each data point represents a value from a different experiment. For simplicity, the remainder of the text refers to the specific observation (data point used for linear regression in the corresponding experiment) by the names introduced in Table \ref{tab:Modelling_Error}.
+		
+		The obtained standard errors are satisfactory, with a maximum of 0.27. However, the influence analysis revealed potential concerns regarding parameter estimation sensitivity to individual observations. Figure \ref{fig:IF_DI} represent the results of the influence analysis for the $D_i^R$ empirical correlation conducted on four dimensions: Leverage, Cook's distance, DFFITS and DFBETAS. It is noted that observation 1 is highly influential. The root cause is that this point is isolated in the predictor space (Reynolds number), as it lies 22\% beyond the second-highest point. The solution would be to perform more experiments at high Reynolds numbers to cover more of the predictor space. Poor coverage of the data at Re above 0.38 and below 0.12 is a weakness of this model.
+		
+		\begin{figure*}[h!]
+			\begin{subfigure}[b]{0.48\textwidth}
+				\centering
+				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/DI_Leverage.png}
+				\caption{Leverage for $D_i^R$ correlation}
+				\label{fig:DI_Leverage}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.48\textwidth}
+				\centering
+				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/DI_Cooks_D.png}
+				\caption{Cook's Distance for $D_i^R$ correlation}
+				\label{fig:DI_Cooks_D}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.48\textwidth}
+				\centering
+				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/DI_DFFITS.png}
+				\caption{DFFITS for $D_i^R$ correlation}
+				\label{fig:DI_DFFITS}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.48\textwidth}
+				\centering
+				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/DI_DFBETAS.png}
+				\caption{DFBETAS for $D_i^R$ correlation}
+				\label{fig:DI_DFBETAS}
+			\end{subfigure}
+			\caption{Influence analysis of $D_i^R$ correlation}
+			\label{fig:IF_DI}
+		\end{figure*} 
+		
+		To fully assess the impact of observation 1, the parameters of the linear model for $D_i^R$ were re-estimated after excluding this point from the dataset. Table \ref{tab:Di_influence} shows the model parameters with and without observation 1 as well as absolute and relative difference between them.
+		
+		\begin{table}[h!]
+			\centering
+			\adjustbox{max width=\columnwidth}{%
+				\begin{tabular}{ |c|c|c|c|c| } 
+					\hline
+					\textbf{Coefficient} & \textbf{With Obs 1}& \textbf{Without Obs 1} & \textbf{Change} &\textbf{ Change [\%]} \\ \hline
+					\textbf{$D_i^R(0)$} 	& 0.1896 	& 0.2394 		& 0.0498 & 26.3\% \\ \hline
+					\textbf{$D_i^R(1)$} 	& -8.1878 	& -9.6488 		& 1.4610 & 17.8\% \\ \hline
+					\textbf{$D_i^R(2)$} 	& 0.6198 	& 0.6745 		& 0.0547 & 8.8\% \\ 
+					\hline
+			\end{tabular}}
+			\caption{Influence analysis of observation 1 on the $D_i^R$ correlation}
+			\label{tab:Di_influence}
+		\end{table}
+		
+		The above presented results show that the model parameters are sensitive to the observation 1. As already discussed, this behaviour is associated with low number of observations and not sufficient data coverage in the region where observation 1 lies. To remediate this issue, the future experiments should focus on collecting more data points for the Reynolds number above 0.38. Increasing the number of samples would improve the stability of the linear regression and reduced the uncertainty. For the current analysis, Observation 1 is retained in the dataset despite its high influence, as it does not exhibit extreme residuals that would indicate measurement error. This data point falls within the experimental design space, and removing it would further reduce data coverage. However, parameter estimates and model predictions associated with conditions similar to Observation 1 should be interpreted with caution, the uncertainty in this region should be acknowledged as the model weakness. 
+		
+		\subsection{Analysis of the empirical correlation for $\Upsilon$}
+		
+		The aforementioned methods were applied to analyse impact of the obtained data on the empirical correlation for $\Upsilon$. As discussed in Section \citet{Sliczniuk2024}, the data used to derive the empirical correlation come from fitting the decay coefficient to custom SFE model.
+		
+		The obtained values of the standard error seems satisfactory with the maximum value of 0.39. However, the influence analysis revealed potential concerns regarding parameter estimation sensitivity to individual observations. Figure \ref{fig:IF_GG} represent the results of the influence analysis for the $\Upsilon$ empirical correlation conducted on four dimensions: Leverage, Cook's distance, DFFITS and DFBETAS. The primary diagnostic performed with the Cook's Distance and DFFITS shows that none of the observations were flagged as highly influential. It was noted that the observation 1 has high leverage, which was expected as the leverage depends on the predictors which are common for both empirical correlations (see Section \ref{subsec:InfAnalDi}). The following results exceed the threshold of 0.577 (defined as $2/\sqrt{n_y}$):
+		\begin{itemize}
+			\item Observation 9 moderately affects $\Upsilon(0)$ with DFBETAS = 0.77
+			\item Observation 4 shows moderate influence on both $\Upsilon(1)$ with DFBETAS = 0.59 with and $\Upsilon(2)$ with DFBETAS = -0.73
+			\item Observation 8 moderately affects $\Upsilon(2)$ with DFBETAS = 0.61
+		\end{itemize} 
+		
+		Removing different observations, affects different regression coefficients, suggesting a balanced distribution of influence between the data points. This indicts that the model parameters depends on multiple observations. 
+		
+		\begin{figure*}[h!]
+			\begin{subfigure}[b]{0.48\textwidth}
+				\centering
+				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/GG_Leverage.png}
+				\caption{Leverage for $\Upsilon$ correlation}
+				\label{fig:GG_Leverage}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.48\textwidth}
+				\centering
+				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/GG_Cooks_D.png}
+				\caption{Cook's Distance for $\Upsilon$ correlation}
+				\label{fig:GG_Cooks_D}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.48\textwidth}
+				\centering
+				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/GG_DFFITS.png}
+				\caption{DFFITS for $\Upsilon$ correlation}
+				\label{fig:GG_DFFITS}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.48\textwidth}
+				\centering
+				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/GG_DFBETAS.png}
+				\caption{DFBETAS for $\Upsilon$ correlation}
+				\label{fig:GG_DFBETAS}
+			\end{subfigure}
+			\caption{Influence analysis of $\Upsilon$ correlation}
+			\label{fig:IF_GG}
+		\end{figure*} 
+		
+		The Leave-One-Out Analysis was performed to investigate the impact of observations identified with DFBETAS. Removing Observation 9 produces the largest intercept change (9.63\%), while Observations 4 and 8 primarily affect slope coefficients with changes of 8-11\%. These results, combined with the low Cook's Distance and DFFITS values, confirm that the regression model is stable for inference despite the small sample size. The results are shown in Table \ref{fig:LOO_DS2}.
+		
+		\begin{table}[h!]
+			\centering
+			\adjustbox{max width=\columnwidth}{%
+				\begin{tabular}{l|ccc|ccc}
+					\hline
+					& \multicolumn{3}{c|}{\textbf{Coefficient Estimates}} & \multicolumn{3}{c}{\textbf{Percentage Change}} \\
+					\cline{2-7}
+					\textbf{Dataset} & $\boldsymbol{\Upsilon_0}$ & $\boldsymbol{\Upsilon_1}$ & $\boldsymbol{\Upsilon_2}$ & $\boldsymbol{\Upsilon_0}$ & $\boldsymbol{\Upsilon_1}$ & $\boldsymbol{\Upsilon_2}$ \\
+					\hline
+					Full & 3.158 & 11.922 & $-0.6864$ & --- & --- & --- \\
+					\hline
+					Without Obs 4 & 3.065 & 10.924 & $-0.6115$ & 2.96 & 8.38 & 11.02 \\
+					Without Obs 8 & 3.225 & 12.977 & $-0.7575$ & 2.13 & 8.84 & 10.27 \\
+					Without Obs 9 & 2.854 & 11.641 & $-0.6272$ & 9.63 & 2.36 & 8.62 \\
+					\hline
+			\end{tabular}}
+			\caption{Leave-One-Out Analysis on the $\Upsilon$ correlation}
+			\label{fig:LOO_DS2}
+		\end{table}
+		
+		The data quality of the $\Upsilon$ data is considered sufficient for parameter estimation purposes. The individual observations show measurable influence (as indicated by DFBETAS values) and the absence of extreme outliers suggest that the estimates are not solely dependent on any single observation. The above analysis haven't shown signs of instabilities. The main model weakness is not sufficient number of experiments, in particular for the Reynolds number above 0.38 and below 0.11.
+		
+		\section{Influence analysis}
+		
+		An alternative approach to the techniques presented above is to investigate the importance of each data point in parameter estimation. Multiple algorithms have been developed and reported in the literature, such as the leave-one-out algorithm. The main idea behind this algorithm is to exclude data points one at a time and rerun the parameter estimation procedure for each case. The main drawback of this approach is the computational cost, particularly for complex models with large datasets. One alternative approach is to investigate the influence of each data point on the final parameter estimate.
+		
+		\subsection{Influence Functions via Data Perturbation}
+		\label{sec:influence}
+		
+		The key idea is to treat the weight of a single training observation as a continuous variable, perturb it, and then use the implicit function theorem to obtain the first-order change in the optimal parameters. Equation \ref{EQ:IF_Intro}, represent the parameter estimation problem after incorporating a perturbation in weight ($\bar{\epsilon}$) of auxiliary data point $Y_j$. The expression below is in general form, which allows to use an arbitrary objective function $L$.
+		
+		{\footnotesize
+				\begin{equation} \label{EQ:IF_Intro}
+				\hat{\theta}_{\bar{\epsilon}} = \min_{\theta} \sum_{i=1}^{n} L(\theta|Y_i) + \bar{\epsilon}L(\theta|Y_j)
+			\end{equation}}
+		
+		When solving any optimization problem, a derivative test is performed to locate the critical points. The first derivative test states that the first derivative of the objective function with respect to decision variable ($\theta$ in this case) is zero, which can be formulated as follow
+		
+		{\footnotesize
+			\begin{align} \label{EQ:IF_def_I_order_opt}
+				&\cfrac{\partial}{\partial \theta} \left( \sum_{i=1}^{n} L(\theta|Y_i) + \bar{\epsilon}L(\theta|Y_j) \right) = 0 \nonumber \\
+				&\underbrace{\sum_{i=1}^{n} \cfrac{\partial L(\theta|Y_i)}{\partial \theta} + \bar{\epsilon} \cfrac{\partial L(\theta|Y_j)}{\partial \theta}}_{\bar{G}(\theta|\bar{\epsilon})} = 0
+			\end{align}}
+		
+		To investigative an influence of a perturbation, the total derivative with respect to the perturbation $\bar{\epsilon}$ which is later evaluated at $\bar{\epsilon} = 0$
+		
+		{\footnotesize
+			\begin{equation} \label{EQ:IF_General}
+				\cfrac{d \bar{G}(\theta|\bar{\epsilon})}{d \bar{\epsilon}} = 0 \rightarrow \cfrac{\partial \bar{G}(\theta|\bar{\epsilon})}{\partial \theta}\cfrac{d \theta}{d \bar{\epsilon}} + \cfrac{\partial \bar{G}(\theta|\bar{\epsilon})}{\partial \bar{\epsilon}} = 0
+			\end{equation}}
+		
+		The first partial derivative can be evaluated by first unfolding the entire equation and secondly by simplifying the terms which are multiplied by $\bar{\epsilon}$
+		{ \footnotesize
+		\begin{align}
+			\cfrac{\partial \bar{G}(\theta|\bar{\epsilon})}{\partial \theta} &= \cfrac{\partial}{\partial \bar{\theta}} \left( \sum_{i=1}^{n} \cfrac{\partial L(\theta|Y_i)}{\partial \theta} + \bar{\epsilon} \cfrac{\partial L(\theta|Y_j)}{\partial \theta} \right) \nonumber \\ 
+			&= \sum_{i=1}^{n} \cfrac{\partial^2 L(\theta|Y_i)}{\partial \theta \partial \theta^\top} + \bar{\epsilon} \cfrac{\partial^2 L(\theta|Y_j)}{\partial \theta \partial \theta^\top} \nonumber \\
+			\cfrac{\partial \bar{G}(\theta|\bar{\epsilon})}{\partial \theta}&= \sum_{i=1}^{n} \cfrac{\partial^2 L(\theta|Y_i)}{\partial \theta \partial \theta^\top} + 0 = H_{\hat{\theta}}
+		\end{align}}
+		
+		$H_{\hat{\theta}}$ represents the empirical Hessian or Fisher Information, which is discussed in more detail by \citet{Sliczniuk2025a}. The second partial derivative can be obtained by applying the same logic:
+		{\footnotesize
+			\begin{equation}
+				\bar{G}(\theta|\bar{\epsilon}) = \underbrace{ \sum_{i=1}^{n} \cfrac{\partial L(\theta|Y_i)}{\partial \theta} }_{\text{Indpendent on $\bar{\epsilon}$}} + \bar{\epsilon} \cfrac{\partial L(\theta|Y_j)}{\partial \theta} \rightarrow \cfrac{\partial \bar{G}(\theta|\bar{\epsilon})}{\partial \bar{\epsilon}} = \cfrac{\partial L(\theta|Y_j)}{\partial \theta}
+			\end{equation}}
+		
+		The final formula for the influence function can be obtained by substituting the partial derivatives in Equation \ref{EQ:IF_General}, as presented below:
+		{\footnotesize
+			\begin{equation}
+				\cfrac{d \theta}{d \bar{\epsilon}} = H_{\bar{\epsilon}}^{-1} \cfrac{\partial L(\theta|Y_j)}{\partial \theta}
+			\end{equation}}
+		
+		The above equation can be interpreted as a corrected direction of steepest descent scaled by the local curvature of the estimator. The gradient itself is correspond to a perturbation of the loss function of the data point $j$ with respect to the model parameters. Unlike the Hessian, the raw gradient doesn't account for the entire dataset. The Hessian translates a single observation's local influence into its global effect on the final estimates.
+		
+		\subsection{Analysis of the results}
+		Each experiment was fit to the model independently, and empirical correlations were then obtained to combine the experiments. The influence analysis was performed on the individual fits to investigate the importance of each measurement in time. Figure \ref{fig:IF_30_vs_40} shows the obtained values of the influence function with respect ot each data point from experiments 1-8. The analysis reveals that parameter $D_i^R$ is consistently more sensitive to data perturbations than $\gamma$. This imbalance is more profound at low-pressure operating conditions, as shown by the larger spread of $D_i^R$ in Figure \ref{fig:IF_30_vs_40}. The spread is proportionally larger at low pressure, but absolute magnitudes can be larger at high pressure.
+		
+		The observed rapid sign changes in influence function values across observations reflect the fitting of incremental yields rather than cumulative values. Sign alternation indicates that correcting a model's over-prediction at one time point requires under-prediction adjustments at adjacent time points. This behaviour is expected and does not indicate data quality issues.
+		
+		\begin{figure*}[h!]
+			\begin{subfigure}[b]{0.49\textwidth}
+				\centering
+				\includegraphics[trim = 1.5cm 0.0cm 1.0cm 0.0cm,clip,width=\columnwidth]{Figures/IF_30C.png}
+				\caption{Influence Function values at 30 $^\circ$C}
+				\label{fig:IF_30C}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.49\textwidth}
+				\centering
+				\includegraphics[trim = 1.2cm 0.0cm 1.0cm 0.0cm,clip,width=\columnwidth]{Figures/IF_40C.png}
+				\caption{Influence Function values at 40 $^\circ$C}
+				\label{fig:IF_40C}
+			\end{subfigure}
+			\caption{Influence analysis for experiments 1-8}
+			\label{fig:IF_30_vs_40}
+		\end{figure*} 
+		
+		As presented in by \citet{Sliczniuk2024}, the properties of $CO_2$ change rapidly near the critical point, which suggests that experiments performed around that region can be more informative in terms of sensitivity to the operating conditions (as discussed by \citet{Sliczniuk2025a}). On the other hand, the system becomes more fragile to fluctuations in operating conditions, which affect the regression stability and parameter identifiability.
+		
+		It was observed that, depending on the operating conditions, the measured data have different impacts on the final estimates. For the decay coefficient $\gamma$, observation 1 (30 minutes) exhibits the strongest influence at higher pressures. At low pressure (100 bar), $\gamma$ influence remains negligible across all time points, indicating this parameter is poorly identified under these conditions. The $D_i^R$ results showed that observations 2-5 are the most influential at high pressures (160-200 bar). On the contrary, observations 7-10 are characterised by the highest influence function values at low pressures (100-120 bar). The suspected root cause is the change in the duration of the mass transfer regimes.
+		
+		Experiment 9 has the lowest absolute value of the influence factor, indicating that this data point has minimal impact on the estimated parameters. However, further analysis revealed that the Hessian matrix has a high condition number of 93, indicating ill-conditioning in the parameter estimation problem. The eigenvalue decomposition shows that this ill-conditioning arises from a nearly flat direction in the $D_i^R$ direction and could lead to poor parameter identifiability. This result aligns with DFBETAS analysis and is supported by the fact that experiment 9 has the largest MSE among all the fits. It is concluded that experiment 9 should be repeated to ensure reliable parameter estimation and uncertainty quantification. The remaining experiments do not exhibit such behaviour, and their data quality is considered sufficient. 
+		
+		The conducted influence analysis assumes that the obtained MLE converged to the optimal solution. Otherwise, the Equation \ref{EQ:IF_def_I_order_opt} is invalid, and the obtained results might be incorrect. Another limitation of this methodology is the first-order approximation, which may not capture non-linear effects in likelihood surfaces. This analysis considers each experiment independently, which doesn't account for correlations between parameter estimates across experiments.
+		
+		% ===================================================
+		% Section: Summary
+		% ===================================================		
+		
+		\section{Conclusion} \label{CH: Conclusion}
+		This work focus on application and comparison of multiple diagnostic measures for the influence of experimental observations on parameter estimates to a SFE model. The analysis of the influence function helped to identify the time periods which affect the model parameter the most. The results were interpreted from the point of view of the mass transfer, and an alignment between both were noted. The linear diagnostic was used to validate the empirical correlations. As the result, a high leverage points and potential outliers were identified. It is noted that these diagnostic measures are supplementary to each other, hence it is recommended to consider multiple ones. 
+
+% ===================================================
+% Bibliography
+% ===================================================
+%% Loading bibliography style file
+%\clearpage
+%\newpage
+%\bibliographystyle{model1-num-names}
+\bibliographystyle{unsrtnat}
+\bibliography{mybibfile}
+
+%\clearpage \appendix \label{appendix}
+%\section{Appendix} 
+%\subfile{Sections/Qubic_EOS} \label{CH: EOS}
+%\subsection{Cardano's Formula} \label{CH: Cardano}
+%\subfile{Sections/Cardano}
+
+%\clearpage
+%\newpage
+
+\nomenclature[A]{\(A\)}{Information matrix \nomunit{[-]}}
+\nomenclature[A]{\(A\)}{Total cross-section of the bed \nomunit{$m^2$}}
+\nomenclature[A]{\(A_f\)}{Cross-section of the bed occupied by the fluid \nomunit{$m^2$}}
+\nomenclature[A]{\(B\)}{Pressure dependent parameter of P-R EoS \nomunit{$m^2$}}
+\nomenclature[A]{\(B\)}{Weighted score vector \nomunit{[-]}}
+\nomenclature[A]{\(C\)}{Weighted sum of squared deviations \nomunit{[-]}}
+\nomenclature[A]{\(c_f\)}{Concentration of solute in the fluid phase \nomunit{kg/$m^3$}}
+\nomenclature[A]{\(c_f^*\)}{Concentration of solute at the solid-fluid interface \nomunit{kg/$m^3$}}
+\nomenclature[A]{\(c_{f0}\)}{Initial concentration of solute in the fluid phase \nomunit{kg/$m^3$}}
+\nomenclature[A]{\(c_p\)}{Concentration of solute in the core of a pore \nomunit{kg/$m^3$}}
+\nomenclature[A]{\(c_{pf}\)}{Concentration of solute at the pore opening \nomunit{kg/$m^3$}}
+\nomenclature[A]{\(c_s\)}{Concentration of solute in the solid phase \nomunit{kg/$m^3$}}
+\nomenclature[A]{\(c_s^*\)}{Concentration of solute at the solid-fluid interface \nomunit{kg/$m^3$}}
+\nomenclature[A]{\(c_{s0}\)}{Initial concentration of solute in the solid phase \nomunit{kg/$m^3$}}
+\nomenclature[A]{\(D_e^M\)}{Axial diffusion coefficient \nomunit{$m^2$/s}}
+\nomenclature[A]{\(D_i\)}{Internal diffusion coefficient \nomunit{$m^2$/s}}
+\nomenclature[A]{\(D_i^R\)}{Reference value of internal diffusion coefficient \nomunit{$m^2$/s}}
+\nomenclature[A]{\(e\)}{Internal energy \nomunit{J/kg}}
+\nomenclature[A]{\(F\)}{Mass flow rate \nomunit{kg/s}}
+\nomenclature[A]{\(G\)}{Vector of discretized differential equations \nomunit{[-]}}
+\nomenclature[A]{\(h\)}{Enthalpy \nomunit{kJ/kg}}
+\nomenclature[A]{\(J\)}{Jacobian \nomunit{[-]}}
+\nomenclature[A]{\(j\)}{Objective function \nomunit{[-]}}
+\nomenclature[A]{\(k_m\)}{Mass partition coefficient \nomunit{[-]}}
+\nomenclature[A]{\(k_p\)}{Volumetric partition coefficient \nomunit{[-]}}
+\nomenclature[A]{\(L\)}{Length of the fixed bed \nomunit{m}}
+\nomenclature[A]{\(l\)}{Characteristic dimension of particles \nomunit{m}}
+\nomenclature[A]{\(n_\theta\)}{Number of analyzed parameters \nomunit{[-]}}
+\nomenclature[A]{\(n_y\)}{Number of measurements \nomunit{[-]}}
+\nomenclature[A]{\(N_z\)}{Number of discretized points in z-direction \nomunit{[-]}}
+\nomenclature[A]{\(P\)}{Pressure \nomunit{bar}}
+\nomenclature[A]{\(P_r\)}{Reduced pressure \nomunit{[-]}}
+\nomenclature[A]{\(p\)}{Probability distribution model \nomunit{[-]}}
+\nomenclature[A]{\(Q\)}{Weighting matrix \nomunit{[-]}}
+\nomenclature[A]{\(Re\)}{Reynolds number \nomunit{[-]}}
+\nomenclature[A]{\(r\)}{Particle radius \nomunit{m}}
+\nomenclature[A]{\(r_e\)}{Mass transfer kinetic term \nomunit{kg/$m^3$/s}}
+\nomenclature[A]{\(T\)}{Temperature \nomunit{K}}
+\nomenclature[A]{\(T_{in}\)}{Inlet temperature \nomunit{K}}
+\nomenclature[A]{\(T_{out}\)}{Outlet temperature \nomunit{K}}
+\nomenclature[A]{\(T_r\)}{Reduced temperature \nomunit{[-]}}
+\nomenclature[A]{\(t\)}{Time \nomunit{s}}
+\nomenclature[A]{\(t_0\)}{Initial extraction time \nomunit{s}}
+\nomenclature[A]{\(t_f\)}{Total extraction time \nomunit{s}}
+\nomenclature[A]{\(u\)}{Superficial velocity \nomunit{m/s}}
+\nomenclature[A]{\(v\)}{Linear velocity \nomunit{m/s}}
+\nomenclature[A]{\(x\)}{State vector \nomunit{[-]}}
+\nomenclature[A]{\(Y\)}{Yield measurement \nomunit{g}}
+\nomenclature[A]{\(y\)}{Predicted extraction yield \nomunit{g}}
+\nomenclature[A]{\(Z\)}{Compressibility factor \nomunit{[-]}}
+\nomenclature[A]{\(z\)}{Spatial direction \nomunit{m}}
+
+% Non-latin symbols
+\nomenclature[B]{\(\mathcal{F}\)}{Fisher information \nomunit{[-]}}
+\nomenclature[B]{\(\mathcal{R}\)}{Control cost matrix \nomunit{[-]}}
+
+% Greek symbols
+\nomenclature[C]{\(\alpha\)}{Temperature-dependent function in the P-R EoS \nomunit{[-]}}
+\nomenclature[C]{\(\Delta_\theta\)}{Residual term of the parameters \nomunit{g}}
+\nomenclature[C]{\(\Delta_y\)}{Residual term of the measurement error \nomunit{g}}
+\nomenclature[C]{\(\epsilon\)}{Unobservable error \nomunit{g}}
+\nomenclature[C]{\(\gamma\)}{Decaying function \nomunit{[-]}}
+\nomenclature[C]{\(\kappa\)}{Quadratic function of the acentric factor \nomunit{[-]}}
+\nomenclature[C]{\(\mu\)}{Sphericity coefficient \nomunit{[-]}}
+\nomenclature[C]{\(\phi\)}{Bed porosity \nomunit{[-]}}
+\nomenclature[C]{\(\pi\)}{Probability density \nomunit{[-]}}
+\nomenclature[C]{\(\rho_f\)}{Fluid density \nomunit{kg/$m^3$}}
+\nomenclature[C]{\(\rho_s\)}{Bulk density of solid \nomunit{kg/$m^3$}}
+\nomenclature[C]{\(\Sigma\)}{Covariance matrix \nomunit{[-]}}
+\nomenclature[C]{\(\Sigma_\theta\)}{Parameter uncertainty matrix \nomunit{[-]}}
+\nomenclature[C]{\(\Sigma_Y\)}{Measurement covariance matrix \nomunit{[-]}}
+\nomenclature[C]{\(\sigma\)}{Standard deviation \nomunit{[-]}}
+\nomenclature[C]{\(\Theta\)}{Parameter space \nomunit{[-]}}
+\nomenclature[C]{\(\theta\)}{Vector of analysed parameters \nomunit{[-]}}
+\nomenclature[C]{\(\Upsilon\)}{Decay coefficient \nomunit{[-]}}
+\nomenclature[C]{\(\varkappa\)}{An arbitrary function of \(\mathcal{A}\)}
+\nomenclature[C]{\(\Xi\)}{Matrix of experimental conditions \nomunit{[-]}}
+\nomenclature[C]{\(\xi\)}{Vector of experimental conditions \nomunit{[-]}}
+
+% Abbreviations
+\nomenclature[D]{BIC}{Broke-and-Intact Cell model}
+\nomenclature[D]{DoE}{Design of Experiment}
+\nomenclature[D]{HBD}{Hot Ball Diffusion}
+\nomenclature[D]{m-DoE}{Model-based Design of Experiment}
+\nomenclature[D]{P-R EoS}{Peng-Robinson Equation of State}
+\nomenclature[D]{SC}{Shrinking Core}
+\nomenclature[D]{SFE}{Supercritical Fluid Extraction}
+\printnomenclature
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
