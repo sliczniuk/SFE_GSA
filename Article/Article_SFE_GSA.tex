@@ -101,18 +101,18 @@
 % ===================================================
 % METADATA
 % ===================================================
-\title[mode=title]{Influence Analysis in the development of a Supercritical Extraction model}
-\shorttitle{OMB DOE: SFE}
+\title[mode=title]{Global sensitivity analysis of a supercritical extraction model}
+\shorttitle{GSA}
 
-\shortauthors{OS, PO}
+\shortauthors{OS}
 
 \author[1]{Oliwer Sliczniuk}[orcid=0000-0003-2593-5956]
 \ead{oliwer.sliczniuk@aalto.fi}
 \cormark[1]
 \credit{a}
 
-\author[1]{Pekka Oinas}[orcid=0000-0002-0183-5558]
-\credit{b}
+%\author[1]{Pekka Oinas}[orcid=0000-0002-0183-5558]
+%\credit{b}
 
 %\author[1]{Francesco Corona}[orcid=0000-0002-3615-1359]
 %\credit{c}
@@ -126,7 +126,7 @@
 % ABSTRACT
 % ===================================================
 \begin{abstract}
-	This study investigates the process of chamomile oil extraction from flowers. A parameter-distributed model consisting of a set of partial differential equations is used to describe the governing mass transfer phenomena in a cylindrical packed bed with solid chamomile particles under supercritical conditions using carbon dioxide as a solvent. The concept of quasi-one-dimensional flow is applied to reduce the number of spatial dimensions. The flow is assumed to be uniform across any cross-section, although the area available for the fluid phase can vary along the extractor. The physical properties of the solvent are estimated from the Peng-Robinson equation of state. The empirical correlations used in the model are based on laboratory experiments performed under multiple constant operating conditions: $30 - 40~^\circ$C, $100 - 200$ bar and $3.33-6.67 \cdot 10^{-5}$ kg/s. An impact of each data point from the model development sample is assessed. The main goal of this work is to identify which data points have the largest impact on each estimates as well detect potential outliers.
+	This study investigates the process of chamomile oil extraction from flowers. A parameter-distributed model consisting of a set of partial differential equations is used to describe the governing mass transfer phenomena in a cylindrical packed bed with solid chamomile particles under supercritical conditions using carbon dioxide as a solvent. The concept of quasi-one-dimensional flow is applied to reduce the number of spatial dimensions. The flow is assumed to be uniform across any cross-section, although the area available for the fluid phase can vary along the extractor. The physical properties of the solvent are estimated from the Peng-Robinson equation of state. The empirical correlations used in the model are based on laboratory experiments performed under multiple constant operating conditions: $30 - 40~^\circ$C, $100 - 200$ bar and $3.33-6.67 \cdot 10^{-5}$ kg/s. The first and higher-order Sobol indices were computed to assess separate and joined contribution of the operating conditions to the model output and its variance.
 	
 \end{abstract}
 
@@ -183,15 +183,9 @@ This work builds upon the linear kinetic model suggested by \citet{Reverchon1996
 
 %\subfile{Sections/Literature_Review}
 
-In regression analysis, influence diagnostics are tools for detecting observations that exert disproportionate impact on model results (estimates, fitted values, etc.). The foundation of this area was developed in the context of linear regression by \citet{Cook1977,Cook1982} introduced the concept of an overall measure of the influence of a data point on the fitted model. Cook’s distance is derived from the idea of deleting one observation at a time and assessing how far the estimated parameter vector or fitted values move. \citet{Belsley1980} formalized additional influence measures such as DFBETAS or DFFITS. These diagnostics provide systematic way to analyse high-leverage points and outliers that skew the results. \citet{Chatterjee1986} provided an overview of such measures and their interrelationships, emphasizing that an observation with a large residual is not necessarily influential unless it also has high leverage (unusual predictor values). Based on the robust statistic, \citet{Hampel1974} introduced the influence function concept to assess the sensitivity of estimates to small perturbations of each data point.
+One limitation of the model development process is the need to capture the required physical behaviour while maintaining interpretability. However, models inherently contain a large number of parameters, creating a complex network of dependencies. Model analysis techniques and sensitivity analysis provide theoretical frameworks to identify dependencies between model output and its parameters. As discussed by many authors such as \citet{Jamett2015}, \citet{Duong2016} or \citet{Lucay2015}, sensitivity analysis (SA) is the study of uncertainties in the responses (outputs) of a mathematical model, which can be attributed to different sources of uncertainty in the values of the model parameters (input variables). These uncertainties can be epistemic (related to lack of knowledge) or stochastic (due to randomness). The effects of these uncertainties must be examined to avoid poor design, safety issues, and unreliable systems, among other problems. SA methods can help to analyse the effect of uncertainties. However, they can be computationally expensive for complex issues of chemical processes.
 
-Chemical process data often come from designed experiments or pilot-plant trials, and ensuring that results are not unduly dominated by a few data points is crucial for model reliability. One common use of influence measures is in kinetic model parameter estimation. \citet{Merli2010} applied standard regression diagnostics to chemical kinetics data to identify outliers and influential experiments. In their study on reaction rate constant estimation, they used Cook’s distance and DFBETAS to pinpoint which data points were distorting the least-squares fit.
-
-\citet{Mosbach2015}, calculated the te influence function values of kinetic parameters of an n-propyl-benzene shock tube oxidation model. The authors compared the derivatives to some influence diagnostics based on omission of data points which are widely used in linear regression analysis. It was concluded that results obtained from the linear omission-based diagnostics frequently agree, at least qualitatively, with those obtained from the derivatives.
-
-While literature directly focusing on influence diagnostics in SFE is limited. \citet{Yadav2020} optimized an SFE process for curcumin extraction and reported diagnostic plots including a normal residual plot and Cook’s distance for each run. They confirmed that no single run had an excessive Cook’s distance, implying that the quadratic model fit was not unduly influenced by any one experimental point. Similarly,\citet{HosseinZadeh2022} check that “Cook’s distance is small for all observations,” ensuring the regression’s predictions are reliable across the design space. 
-
-The goal of this work is to apply and compare a number of diagnostic techniques for the influence of experimental observations on parameter estimate. Multiple methods are applied to determine the influence of the observations on pure model estimates and later on parameters of the empirical correlations.
+As noted by \citet{Gan2014}, the literature presents several methods for performing SA. In general, these methods can be classified into two main groups: local SA and global SA (GSA). The local SA explores changes in the model response by varying one parameter while keeping other parameters constant. In contrast, the GSA examines changes in the model response by simultaneously varying all parameters.
 
 % ===================================================
 % Section: Main
@@ -369,37 +363,6 @@ As given by Equation \ref{Model_solid}, the solid phase is considered to be stat
 			\caption{Multiple linear regression $\Upsilon = f(Re, F)$.}
 			\label{fig:Correlation_Gamma}
 		\end{figure}
-		
-		\begin{comment}
-		The residuals between predicted and observed values were used to compute an unbiased estimate of the error variance. This variance, combined with the inverse of the design matrix's Gram matrix, yielded the covariance matrix of the coefficient estimates. The standard deviations (standard errors) of the coefficients were then obtained as the square roots of the diagonal elements of this covariance matrix. The variance-covariance is presented in Table \ref{tab:Uncertainty}.
-		
-		\begin{table}[h!]
-			\centering
-			\resizebox{0.75\columnwidth}{!}{%
-				$
-				\begin{gathered}
-					\begin{array}{c|ccc}
-						& \sigma(D_i^R(0)) & \sigma(Re) & \sigma(F) \\
-						\hline
-						\sigma(D_i^R(0)) & 0.0817  &  0.0065 &  -0.0139 \\
-						\sigma(Re)       & 0.0065  &  1.6908 &  -0.0825 \\
-						\sigma(F)        & -0.0139 & -0.0825 &  0.0065 \\
-					\end{array}
-					\\[1.5em]
-					\begin{array}{c|ccc}
-						& \sigma(\Upsilon(0)) & \sigma(Re) & \sigma(F) \\
-						\hline
-						\sigma(\Upsilon(0)) & 0.1727  &  0.0138 &  -0.0294 \\
-						\sigma(Re)          & 0.0138  &  3.5732 &  -0.1744 \\
-						\sigma(F)           & -0.0294 & -0.1744 &  0.0137 \\
-					\end{array}
-				\end{gathered}
-				$
-			}
-			\caption{Variance–covariance matrices for $D_i^R$ (top) and $\Upsilon$ (bottom)}
-			\label{tab:Uncertainty}
-		\end{table}
-		\end{comment}
 				
 		\subsubsection{Heat balance} \label{CH: heat_balance}
 		
@@ -516,319 +479,123 @@ As given by Equation \ref{Model_solid}, the solid phase is considered to be stat
 		\end{figure}
 		
 		The method of lines is used to transform the process model equations into a set of ODEs denoted by $G(x;\Theta)$. For a derivative to be conservative, it must form a telescoping series. In other words, only the boundary terms should remain after adding all terms coming from the discretisation over a grid, and the artificial interior points should be cancelled out. Discretisation is applied to the conservative form of the model to ensure mass conservation. The backward finite difference is used to approximate the first-order derivative, while the central difference scheme approximates the second-order derivative $z$ direction. The length of the fixed bed is divided into $N_z$, i.e. equally distributed points in the $z$ direction. The state-space model after discretisation is denoted by $x$ and defined as shown in Figure \ref{fig:discretization}, where ${\color{black}x} \in \mathbb{R}^{N_x = 3N_z+2} $ and $\Theta \in \mathbb{R}^{N_\Theta =  N_{\theta} + N_u } $, $N_{\theta}$ is the number of parameters and $N_{u}$ is the number of control variables.
+				
+		\section{Variance-based sensitivity analysis} \label{chap:Sobol_Analysis}
 		
-		\section{Influential observations}
+		\citet{Sobol2001} suggested a probabilistic framework that decomposes the variance of the model's or system's output into fractions that can be attributed to specific inputs or sets of inputs. Variance-based measures of sensitivity are attractive because they measure sensitivity across the entire input space, can handle non-linear responses, and can assess the effect of interactions in non-additive systems. If the process model describes a dynamical system, then it can be said that the model output is 
 		
-		An influential observation is a data point that has a disproportionately large effect on the results of a statistical analysis, particularly in regression models. Removing or changing such data points can affect the estimated coefficients or overall fit. The presence of highly influential data should be further investigated as they can distort the relationships between variables, mask the real data patterns and lead to misleading conclusions. 
+		{\footnotesize
+			\begin{equation} \label{eq:CH5_Model_Output}
+				Y\left(t|\theta\right) = G\left(x\left(t|\theta\right)\right) = G\left(x\left(t|\theta_1, \theta_2, \cdots, \theta_{n_\theta} \right)\right) 
+		\end{equation} }
 		
-		\subsection{Linear regression case}
+		where $Y$ is the model output, and $\theta$ is a parameter set. Sobol' suggested decomposing the function $G$ into summands of increasing dimensionality:
 		
-		As discussed by \citet{Mosbach2015}, multiple techniques have been developed to measure the influence of observations on parameter estimates in linear regression. These tools are commonly used to identify influential observations, high-leverage points, and statistical outliers. Broader overviews and comparisons are provided by \citet{Chatterjee1986} and \citet{Chatterjee1988}. Among the best-known diagnostics is Cook’s distance, introduced by \citet{Cook1977}. The basic idea underlying many of these measures is to perform a regression using the full data set and then repeat the regression while removing one observation at a time. This procedure becomes computationally expensive for large data sets. For linear models, however, simplified expressions can be derived that require only a single regression fit to evaluate the effect of deleting each observation.
+		{\footnotesize
+			\begin{align}
+				&G\left(x\left(t|\theta_1, \theta_2, \cdots, \theta_{n_\theta} \right)\right) = G_0\left(t\right) + \sum_{i=1}^{n_\theta} G_i(t, \theta_i) \nonumber \\
+				&+ \sum_{i=1}^{n_\theta} \sum_{j=i+1}^{n_\theta} G_{ij} \left(t| \theta_i, \theta_j \right) + \cdots + G_{1...n_\theta}\left(t|\theta_1, \theta_2, \cdots, \theta_{n_\theta} \right)
+		\end{align} }
 		
-		\citet{Mosbach2015} proposed an alternative approach motivated by sensitivity analysis in non-linear programming \citep{Fiacco1990}. This framework, based on the implicit function theorem, is discussed in detail by \citet{Fiacco1983}.The main results are expressions for the sensitivities of parameter estimates with respect to quantities appearing in the objective function (or constraints), including experimental observations. A related methodology was developed independently for unconstrained least-squares problems by \citet{Eno1985}. Similar sensitivity-based ideas have also been adopted in chemical kinetics, for example by \citet{Rabitz1983}, \citet{Yetter1989}, and \citet{Turanyi1990}.
+		Suppose the input factors are independent, and each term in this equation is chosen with zero average and is square integrable. In that case, the $G_0$ is a constant, equal to the expectation value of the output, and the summands are mutually orthogonal. Additionally, this decomposition is unique.
 		
-		Consider the linear model
+		The total unconditional variance can be defined as
+		
 		{\footnotesize
 			\begin{equation}
-			Y = X\theta + \epsilon, \qquad \epsilon \sim N(0,\sigma^2 I_n),
-			\end{equation}}
-		where \(Y \in \mathbb{R}^n\), \(X \in \mathbb{R}^{n \times n_\theta}\), and \(\theta \in \mathbb{R}^{n_\theta}\). The corresponding ordinary least-squares (OLS) estimator is
+				V(t) = \int_{\Omega} G^2\left(x\left(t|\theta\right)\right) d\theta - G_0(t)
+		\end{equation}}
+		
+		with $\Omega$ representing the $n_\theta$-dimensional unit hyperspace, where the parameter ranges are scaled from 0 to 1. The partial variances, which are the components of the total variance decomposition, are computed from each of the terms in Equation \ref{eq:CH5_Model_Output} as
+		
 		{\footnotesize
 			\begin{equation}
-				\hat{\theta} = (X^{T}X)^{-1}X^{T}Y.
-			\end{equation}}
-		In conventional model diagnostics, the residual vector \(e = Y - X\hat{\theta}\) and the hat matrix
-		{\footnotesize
-			\begin{equation}
-				H = X(X^{T}X)^{-1}X^{T}
-			\end{equation}}
-		are used to identify outlying \(Y\)- and \(X\)-values, respectively. The diagonal element
-		{\footnotesize
-			\begin{equation}
-				h_{ii} = x_i^T(X^{T}X)^{-1}x_i
-			\end{equation}}
-		is called the leverage of the \(i\)th case. Leverage is often considered large if it exceeds twice its mean value.
+				V_{i_1, i_2, \cdots, i_s} = \int_{0}^{1} \cdots \int_{0}^{1} G^2_{i_1, \cdots i_s} (t|\theta_{i_1}, \cdots, \theta_{i_s}) d\theta_{i_1} \cdots d\theta_{i_s}
+		\end{equation}}
 		
-		Residuals are frequently rescaled relative to their standard errors. The residual for observation \(i\) is
-		{\footnotesize
-			\begin{equation}
-				e_i = Y_i - x_i^T\hat{\theta}.
-			\end{equation}}
-		The internally studentized residual is defined as
-		{\footnotesize
-			\begin{equation}
-				r_i = \frac{e_i}{s\sqrt{1-h_{ii}}},
-			\end{equation}}
-		where
-		{\footnotesize
-			\begin{equation}
-				s^2 = \frac{\sum_{i=1}^{n} e_i^2}{n-n_\theta}
-			\end{equation}}
-		is the mean squared error. Replacing \(s\) with the delete-one estimate \(s(i)\), i.e. the standard error computed with observation \(i\) omitted, yields the externally studentized residual
-		{\footnotesize
-			\begin{equation}
-				r_i^* = \frac{e_i}{s(i)\sqrt{1-h_{ii}}}.
-			\end{equation}}
-		
-		\subsection{Influence on linear regression coefficients}
-		DFBETA measures the change in parameter estimates after deleting the \(i\)th observation:
-		{\footnotesize
-			\begin{equation}
-				DFBETA_i = \hat{\theta} - \hat{\theta}(i) = (X^{T}X)^{-1}x_i\,\frac{e_i}{1-h_{ii}},
-			\end{equation}}
-		where \(\hat{\theta}(i)\) denotes the OLS estimate obtained when observation \(i\) is removed. Let
-		{\footnotesize
-			\begin{equation}
-				C = (X^{T}X)^{-1} = (c_{jk}).
-			\end{equation}}
-		Then the \(j\)th element of the change in coefficients is
-		{\footnotesize
-			\begin{equation}
-				\hat{\theta}_j - \hat{\theta}_j(i) = \frac{c_{j i}\, e_i}{1-h_{ii}}.
-			\end{equation}}
-		
-		Following \citet{Belsley1980}, it is often most useful to assess the changes in regression coefficients relative to their estimated variances. A scaled measure is defined as
-		{\footnotesize
-			\begin{equation}
-				DFBETAS_{ij} = \frac{\hat{\theta}_j-\hat{\theta}_j(i)}{s(i)\sqrt{\left[(X^{T}X)^{-1}\right]_{jj}}}.
-			\end{equation}}
-		The denominator is analogous to the standard error of \(\hat{\theta}_j\), but with \(s\) replaced by the delete-one estimate \(s(i)\). The DFBETAS statistic can be interpreted as the product of a term of order \(n^{-1/2}\), a \(t\)-distributed random variable (the externally studentized residual \(r_i^*\)), and the leverage-related quantity \((1-h_{ii})^{-1/2}\), which approaches 1 when \(h_{ii}\to 0\). \citet{Belsley1980} propose the cutoff \(2/\sqrt{n}\) to identify influential cases. Under an underlying normal model with bounded \(X\) and small leverages, approximately \(95\%\) of observations should satisfy \(|DFBETAS_{ij}| < 2/\sqrt{n}\). This approximation becomes less accurate for small to moderate sample sizes, since \(h_{ii}\) may not be negligible. A practical drawback of DFBETAS is that it produces \(n_\theta\) diagnostics for each observation.
-		
-		\subsection{Influence on fitted values}
-		DFFIT summarizes the change in fitted values when an observation is deleted. The scaled version, DFFITS, is obtained by dividing by the estimated standard deviation of the predicted value, again using \(s(i)\). It can be written as
-		\begin{equation}
-			DFFITS_i
-			= \frac{x_i^T(\hat{\theta}-\hat{\theta}(i))}{s(i)\sqrt{h_{ii}}}
-			= \left(\frac{h_{ii}}{1-h_{ii}}\right)^{1/2} r_i^*.
-		\end{equation}
-		
-		\subsection{Cook’s distance}
-		First introduced by \citet{Cook1977}, Cook’s distance (CD) provides an overall measure of the combined influence of an observation on all estimated regression coefficients \(\hat{\theta}\). It is defined as
-		\begin{equation}
-			CD_i^R =
-			\frac{(\hat{\theta}(i)-\hat{\theta})^{T}X^{T}X(\hat{\theta}(i)-\hat{\theta})}{n_\theta s^2}.
-		\end{equation}
-		This represents a scaled distance between \(\hat{\theta}(i)\) and \(\hat{\theta}\). Large values indicate that observation \(i\) strongly affects the joint inference on the regression coefficients. Cook’s distance can also be expressed in terms of the residual and leverage:
-		\begin{equation}
-			CD_i^R
-			= \frac{e_i^2 h_{ii}}{n_\theta s^2 (1-h_{ii})^2}
-			= \frac{r_i^2}{n_\theta}\frac{h_{ii}}{1-h_{ii}}.
-		\end{equation}
-		
-		\subsection{Analysis of the empirical correlation for $D_i^R$} \label{subsec:InfAnalDi}
-		
-		The aforementioned methods were applied to analyse the impact of the obtained data on the empirical correlation for $D_i^R$. As discussed by \citet{Sliczniuk2024}, the data used to derive the empirical correlation were obtained by fitting the diffusion coefficient to a custom SFE model. Each data point represents a value from a different experiment. For simplicity, the remainder of the text refers to the specific observation (data point used for linear regression in the corresponding experiment) by the names introduced in Table \ref{tab:Modelling_Error}.
-		
-		The obtained standard errors are satisfactory, with a maximum of 0.27. However, the influence analysis revealed potential concerns regarding parameter estimation sensitivity to individual observations. Figure \ref{fig:IF_DI} represent the results of the influence analysis for the $D_i^R$ empirical correlation conducted on four dimensions: Leverage, Cook's distance, DFFITS and DFBETAS. It is noted that observation 1 is highly influential. The root cause is that this point is isolated in the predictor space (Reynolds number), as it lies 22\% beyond the second-highest point. The solution would be to perform more experiments at high Reynolds numbers to cover more of the predictor space. Poor coverage of the data at Re above 0.38 and below 0.12 is a weakness of this model.
-		
-		\begin{figure*}[h!]
-			\begin{subfigure}[b]{0.48\textwidth}
-				\centering
-				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/DI_Leverage.png}
-				\caption{Leverage for $D_i^R$ correlation}
-				\label{fig:DI_Leverage}
-			\end{subfigure}
-			\hfill
-			\begin{subfigure}[b]{0.48\textwidth}
-				\centering
-				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/DI_Cooks_D.png}
-				\caption{Cook's Distance for $D_i^R$ correlation}
-				\label{fig:DI_Cooks_D}
-			\end{subfigure}
-			\hfill
-			\begin{subfigure}[b]{0.48\textwidth}
-				\centering
-				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/DI_DFFITS.png}
-				\caption{DFFITS for $D_i^R$ correlation}
-				\label{fig:DI_DFFITS}
-			\end{subfigure}
-			\hfill
-			\begin{subfigure}[b]{0.48\textwidth}
-				\centering
-				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/DI_DFBETAS.png}
-				\caption{DFBETAS for $D_i^R$ correlation}
-				\label{fig:DI_DFBETAS}
-			\end{subfigure}
-			\caption{Influence analysis of $D_i^R$ correlation}
-			\label{fig:IF_DI}
-		\end{figure*} 
-		
-		To fully assess the impact of observation 1, the parameters of the linear model for $D_i^R$ were re-estimated after excluding this point from the dataset. Table \ref{tab:Di_influence} shows the model parameters with and without observation 1 as well as absolute and relative difference between them.
-		
-		\begin{table}[h!]
-			\centering
-			\adjustbox{max width=\columnwidth}{%
-				\begin{tabular}{ |c|c|c|c|c| } 
-					\hline
-					\textbf{Coefficient} & \textbf{With Obs 1}& \textbf{Without Obs 1} & \textbf{Change} &\textbf{ Change [\%]} \\ \hline
-					\textbf{$D_i^R(0)$} 	& 0.1896 	& 0.2394 		& 0.0498 & 26.3\% \\ \hline
-					\textbf{$D_i^R(1)$} 	& -8.1878 	& -9.6488 		& 1.4610 & 17.8\% \\ \hline
-					\textbf{$D_i^R(2)$} 	& 0.6198 	& 0.6745 		& 0.0547 & 8.8\% \\ 
-					\hline
-			\end{tabular}}
-			\caption{Influence analysis of observation 1 on the $D_i^R$ correlation}
-			\label{tab:Di_influence}
-		\end{table}
-		
-		The above presented results show that the model parameters are sensitive to the observation 1. As already discussed, this behaviour is associated with low number of observations and not sufficient data coverage in the region where observation 1 lies. To remediate this issue, the future experiments should focus on collecting more data points for the Reynolds number above 0.38. Increasing the number of samples would improve the stability of the linear regression and reduced the uncertainty. For the current analysis, Observation 1 is retained in the dataset despite its high influence, as it does not exhibit extreme residuals that would indicate measurement error. This data point falls within the experimental design space, and removing it would further reduce data coverage. However, parameter estimates and model predictions associated with conditions similar to Observation 1 should be interpreted with caution, the uncertainty in this region should be acknowledged as the model weakness. 
-		
-		\subsection{Analysis of the empirical correlation for $\Upsilon$}
-		
-		The aforementioned methods were applied to analyse impact of the obtained data on the empirical correlation for $\Upsilon$. As discussed in Section \citet{Sliczniuk2024}, the data used to derive the empirical correlation come from fitting the decay coefficient to custom SFE model.
-		
-		The obtained values of the standard error seems satisfactory with the maximum value of 0.39. However, the influence analysis revealed potential concerns regarding parameter estimation sensitivity to individual observations. Figure \ref{fig:IF_GG} represent the results of the influence analysis for the $\Upsilon$ empirical correlation conducted on four dimensions: Leverage, Cook's distance, DFFITS and DFBETAS. The primary diagnostic performed with the Cook's Distance and DFFITS shows that none of the observations were flagged as highly influential. It was noted that the observation 1 has high leverage, which was expected as the leverage depends on the predictors which are common for both empirical correlations (see Section \ref{subsec:InfAnalDi}). The following results exceed the threshold of 0.577 (defined as $2/\sqrt{n_y}$):
-		\begin{itemize}
-			\item Observation 9 moderately affects $\Upsilon(0)$ with DFBETAS = 0.77
-			\item Observation 4 shows moderate influence on both $\Upsilon(1)$ with DFBETAS = 0.59 with and $\Upsilon(2)$ with DFBETAS = -0.73
-			\item Observation 8 moderately affects $\Upsilon(2)$ with DFBETAS = 0.61
-		\end{itemize} 
-		
-		Removing different observations, affects different regression coefficients, suggesting a balanced distribution of influence between the data points. This indicts that the model parameters depends on multiple observations. 
-		
-		\begin{figure*}[h!]
-			\begin{subfigure}[b]{0.48\textwidth}
-				\centering
-				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/GG_Leverage.png}
-				\caption{Leverage for $\Upsilon$ correlation}
-				\label{fig:GG_Leverage}
-			\end{subfigure}
-			\hfill
-			\begin{subfigure}[b]{0.48\textwidth}
-				\centering
-				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/GG_Cooks_D.png}
-				\caption{Cook's Distance for $\Upsilon$ correlation}
-				\label{fig:GG_Cooks_D}
-			\end{subfigure}
-			\hfill
-			\begin{subfigure}[b]{0.48\textwidth}
-				\centering
-				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/GG_DFFITS.png}
-				\caption{DFFITS for $\Upsilon$ correlation}
-				\label{fig:GG_DFFITS}
-			\end{subfigure}
-			\hfill
-			\begin{subfigure}[b]{0.48\textwidth}
-				\centering
-				\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/GG_DFBETAS.png}
-				\caption{DFBETAS for $\Upsilon$ correlation}
-				\label{fig:GG_DFBETAS}
-			\end{subfigure}
-			\caption{Influence analysis of $\Upsilon$ correlation}
-			\label{fig:IF_GG}
-		\end{figure*} 
-		
-		The Leave-One-Out Analysis was performed to investigate the impact of observations identified with DFBETAS. Removing Observation 9 produces the largest intercept change (9.63\%), while Observations 4 and 8 primarily affect slope coefficients with changes of 8-11\%. These results, combined with the low Cook's Distance and DFFITS values, confirm that the regression model is stable for inference despite the small sample size. The results are shown in Table \ref{fig:LOO_DS2}.
-		
-		\begin{table}[h!]
-			\centering
-			\adjustbox{max width=\columnwidth}{%
-				\begin{tabular}{l|ccc|ccc}
-					\hline
-					& \multicolumn{3}{c|}{\textbf{Coefficient Estimates}} & \multicolumn{3}{c}{\textbf{Percentage Change}} \\
-					\cline{2-7}
-					\textbf{Dataset} & $\boldsymbol{\Upsilon_0}$ & $\boldsymbol{\Upsilon_1}$ & $\boldsymbol{\Upsilon_2}$ & $\boldsymbol{\Upsilon_0}$ & $\boldsymbol{\Upsilon_1}$ & $\boldsymbol{\Upsilon_2}$ \\
-					\hline
-					Full & 3.158 & 11.922 & $-0.6864$ & --- & --- & --- \\
-					\hline
-					Without Obs 4 & 3.065 & 10.924 & $-0.6115$ & 2.96 & 8.38 & 11.02 \\
-					Without Obs 8 & 3.225 & 12.977 & $-0.7575$ & 2.13 & 8.84 & 10.27 \\
-					Without Obs 9 & 2.854 & 11.641 & $-0.6272$ & 9.63 & 2.36 & 8.62 \\
-					\hline
-			\end{tabular}}
-			\caption{Leave-One-Out Analysis on the $\Upsilon$ correlation}
-			\label{fig:LOO_DS2}
-		\end{table}
-		
-		The data quality of the $\Upsilon$ data is considered sufficient for parameter estimation purposes. The individual observations show measurable influence (as indicated by DFBETAS values) and the absence of extreme outliers suggest that the estimates are not solely dependent on any single observation. The above analysis haven't shown signs of instabilities. The main model weakness is not sufficient number of experiments, in particular for the Reynolds number above 0.38 and below 0.11.
-		
-		\section{Influence analysis}
-		
-		An alternative approach to the techniques presented above is to investigate the importance of each data point in parameter estimation. Multiple algorithms have been developed and reported in the literature, such as the leave-one-out algorithm. The main idea behind this algorithm is to exclude data points one at a time and rerun the parameter estimation procedure for each case. The main drawback of this approach is the computational cost, particularly for complex models with large datasets. One alternative approach is to investigate the influence of each data point on the final parameter estimate.
-		
-		\subsection{Influence Functions via Data Perturbation}
-		\label{sec:influence}
-		
-		The key idea is to treat the weight of a single training observation as a continuous variable, perturb it, and then use the implicit function theorem to obtain the first-order change in the optimal parameters. Equation \ref{EQ:IF_Intro}, represent the parameter estimation problem after incorporating a perturbation in weight ($\bar{\epsilon}$) of auxiliary data point $Y_j$. The expression below is in general form, which allows to use an arbitrary objective function $L$.
+		where $1 \leq i_1 \leq \cdots \leq i_s \leq p$ and $s = 1, \cdots n_\theta$. With the assumption that the parameters are mutually orthogonal, the variance decomposition becomes
 		
 		{\footnotesize
-				\begin{equation} \label{EQ:IF_Intro}
-				\hat{\theta}_{\bar{\epsilon}} = \min_{\theta} \sum_{i=1}^{n} L(\theta|Y_i) + \bar{\epsilon}L(\theta|Y_j)
-			\end{equation}}
+			\begin{equation} \label{EQ:Sobol_decom}
+				V(t) = \sum_{i=1}^{n_\theta}V_i(t) + \sum_{i=1}^{n_\theta-1}\sum_{j=i+1}^{n_\theta} V_{ij}(t) + V_{1, \cdots n_\theta}
+		\end{equation}}
 		
-		When solving any optimization problem, a derivative test is performed to locate the critical points. The first derivative test states that the first derivative of the objective function with respect to decision variable ($\theta$ in this case) is zero, which can be formulated as follow
+		In this way, the variance contributions to the total output variance of individual parameters and parameter interactions can be determined. These contributions are characterised by the ratio of the partial variance to the total variance, the Sobol's sensitivity indices. The first-order Sobol' index, $S_i(t) = \frac{V_i(t)}{V(t)}$, is a measure for the variance contribution of the individual parameter $\theta_i$ to the total model variance. The partial variance $V_i(t)$ is given by the variance of the conditional expectation $V_i(t) = V[\mathbb{E}(Y(t|\theta_i))]$ and is called the "main effect" of $\theta_i$ on $Y(t)$. It can be described as the fraction of the model output variance that would disappear on average when $\theta_i$ is fixed to a value in its range. The impact on the model output variance of the interaction between $\theta_i$ and $\theta_j$ is given by the second order Sobol' index, $S_{ij} = \frac{V_{ij}}{V}$, and the total Sobol' index $S_{Ti} = S_i + \sum_{j \neq i} S_{ij}$. They describe it as the result of the main effect of $X_i$ and all its interactions with the other parameters (up to the $n_\theta$'th order).
 		
-		{\footnotesize
-			\begin{align} \label{EQ:IF_def_I_order_opt}
-				&\cfrac{\partial}{\partial \theta} \left( \sum_{i=1}^{n} L(\theta|Y_i) + \bar{\epsilon}L(\theta|Y_j) \right) = 0 \nonumber \\
-				&\underbrace{\sum_{i=1}^{n} \cfrac{\partial L(\theta|Y_i)}{\partial \theta} + \bar{\epsilon} \cfrac{\partial L(\theta|Y_j)}{\partial \theta}}_{\bar{G}(\theta|\bar{\epsilon})} = 0
-			\end{align}}
+		For additive models and under the assumption of orthogonal input factors, $S_{Ti}$ and $S_i$ are equal, and the sum of all $S_i$ (and thus all $S_{Ti}$) is 1. For non-additive models, interactions exist, $S_{Ti}$ is greater than $S_i$, and the sum of all $S_i$ is less than 1. On the other hand, the sum of all $S_{Ti}$ is greater than 1. By analysing the difference between $S_{Ti}$ and $S_i$, the interactions between parameters can be determined.
 		
-		To investigative an influence of a perturbation, the total derivative with respect to the perturbation $\bar{\epsilon}$ which is later evaluated at $\bar{\epsilon} = 0$
+		To compute the variance and obtain sensitivity measures, Sobol proposed a shortcut calculation based on the assumption that the decomposition's summands are mutually orthogonal. The shortcut is attained by transforming the double-loop integral into an integral of the product of $G(\theta_{j1}, \cdots, \theta_{k-s'}, \theta_{1}, \cdots, \theta_{s})$ and $G(\theta'_{j1}, \cdots, \theta'_{k-s'}, \theta_{1}, \cdots, \theta_{s})$.
+		
+		Due to the complexity and non-linearities in process models, the analytical solution are difficult to obtain and as such the Monte Carlo integration is often used. The estimation of the total unconditional variance becomes:
 		
 		{\footnotesize
-			\begin{equation} \label{EQ:IF_General}
-				\cfrac{d \bar{G}(\theta|\bar{\epsilon})}{d \bar{\epsilon}} = 0 \rightarrow \cfrac{\partial \bar{G}(\theta|\bar{\epsilon})}{\partial \theta}\cfrac{d \theta}{d \bar{\epsilon}} + \cfrac{\partial \bar{G}(\theta|\bar{\epsilon})}{\partial \bar{\epsilon}} = 0
-			\end{equation}}
-		
-		The first partial derivative can be evaluated by first unfolding the entire equation and secondly by simplifying the terms which are multiplied by $\bar{\epsilon}$
-		{ \footnotesize
-		\begin{align}
-			\cfrac{\partial \bar{G}(\theta|\bar{\epsilon})}{\partial \theta} &= \cfrac{\partial}{\partial \bar{\theta}} \left( \sum_{i=1}^{n} \cfrac{\partial L(\theta|Y_i)}{\partial \theta} + \bar{\epsilon} \cfrac{\partial L(\theta|Y_j)}{\partial \theta} \right) \nonumber \\ 
-			&= \sum_{i=1}^{n} \cfrac{\partial^2 L(\theta|Y_i)}{\partial \theta \partial \theta^\top} + \bar{\epsilon} \cfrac{\partial^2 L(\theta|Y_j)}{\partial \theta \partial \theta^\top} \nonumber \\
-			\cfrac{\partial \bar{G}(\theta|\bar{\epsilon})}{\partial \theta}&= \sum_{i=1}^{n} \cfrac{\partial^2 L(\theta|Y_i)}{\partial \theta \partial \theta^\top} + 0 = H_{\hat{\theta}}
+			\begin{align}
+				V(t) \approx \hat{V}(Y(t)) &= \frac{1}{n-1} \sum_{m=1}^{n} G^2(\theta_m) - \hat{G}_0^2 \\
+				\hat{G}_0 &\approx \frac{1}{n} \sum_{m=1}^{n} G(t|\theta_m)
 		\end{align}}
+		where $\hat{}$ stands for the estimate, $\theta_m$ is a sampled set of input parameters and $n$ is the number of samples. \citet{Saltelli2010} suggested to use two independent input sample $n \times n_\theta$-matrices (the "sample" matrix $M_1$ and the "resample" matrix $M_2$) to compute the Monte Carlo integrals, where $n$ is the sample size and $n_\theta$ is the number of parameters. Every row in $M_1$ and $M_2$ represents a possible parameter combination for the model. The parameter ranges in the matrices are scaled to 0-1. The two matrices are necessary to compile the sample set for $G(\theta_{j1}, \cdots, \theta_{k-s'}, \theta_{1}, \cdots, \theta_{s})$ and $G(\theta'_{j1}, \cdots, \theta'_{k-s'}, \theta_{1}, \cdots, \theta_{s})$. 
 		
-		$H_{\hat{\theta}}$ represents the empirical Hessian or Fisher Information, which is discussed in more detail by \citet{Sliczniuk2025a}. The second partial derivative can be obtained by applying the same logic:
-		{\footnotesize
-			\begin{equation}
-				\bar{G}(\theta|\bar{\epsilon}) = \underbrace{ \sum_{i=1}^{n} \cfrac{\partial L(\theta|Y_i)}{\partial \theta} }_{\text{Indpendent on $\bar{\epsilon}$}} + \bar{\epsilon} \cfrac{\partial L(\theta|Y_j)}{\partial \theta} \rightarrow \cfrac{\partial \bar{G}(\theta|\bar{\epsilon})}{\partial \bar{\epsilon}} = \cfrac{\partial L(\theta|Y_j)}{\partial \theta}
-			\end{equation}}
+		After generating the two primary matrices, the Saltelli algorithm constructs additional input matrices by replacing columns from the first matrix (base matrix) with columns from the second matrix (resample matrix). The main idea behind the substitution is to isolate the influence of each individual parameter when computing sensitivity indices. The total number of matrices becomes the number of parameters plus two, and the computational complexity is reduced if compared to naive implementations. 
 		
-		The final formula for the influence function can be obtained by substituting the partial derivatives in Equation \ref{EQ:IF_General}, as presented below:
-		{\footnotesize
-			\begin{equation}
-				\cfrac{d \theta}{d \bar{\epsilon}} = H_{\bar{\epsilon}}^{-1} \cfrac{\partial L(\theta|Y_j)}{\partial \theta}
-			\end{equation}}
+		\subsection{Analysis of the first-order indices}
+		In this section, the GSA is applied to analyse the influence of operating conditions (temperature between 30 and 40 $^\circ$ C, pressure between 100 and 200 bar and mass flow rate between 3.3 and 6.7 kg/s) on the model output. The main idea behind this analysis is to identify which controls have the largest impact on extraction yield at different times. When evaluating the Sobol indices, a set of output distributions was obtained for every selected time. The average yield curve and confidence regions are shown in Figure \ref{fig:Yield_CI}. It should be noted that the total amount of extract is relatively low (due to lab-scale experiments), so attention should be paid to ensure accurate measurements. The system error might arise due to imprecise control or human error while collecting the samples. 
 		
-		The above equation can be interpreted as a corrected direction of steepest descent scaled by the local curvature of the estimator. The gradient itself is correspond to a perturbation of the loss function of the data point $j$ with respect to the model parameters. Unlike the Hessian, the raw gradient doesn't account for the entire dataset. The Hessian translates a single observation's local influence into its global effect on the final estimates.
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/Results/CI.png}
+			\caption{Average yield curve and confidence intervals}
+			\label{fig:Yield_CI}
+		\end{figure}
 		
-		\subsection{Analysis of the results}
-		Each experiment was fit to the model independently, and empirical correlations were then obtained to combine the experiments. The influence analysis was performed on the individual fits to investigate the importance of each measurement in time. Figure \ref{fig:IF_30_vs_40} shows the obtained values of the influence function with respect ot each data point from experiments 1-8. The analysis reveals that parameter $D_i^R$ is consistently more sensitive to data perturbations than $\gamma$. This imbalance is more profound at low-pressure operating conditions, as shown by the larger spread of $D_i^R$ in Figure \ref{fig:IF_30_vs_40}. The spread is proportionally larger at low pressure, but absolute magnitudes can be larger at high pressure.
+		The time evolutions of the total and first-order Sobol sensitivity indices are presented in Figure \ref{fig:Sobol}. Initially, the extraction process is strongly dominated by the solvent mass flow rate as the first-order Sobol index for flow rate ($S_F$) is the most significant contributor to the output variance. As dictated by the mass-transfer limit, the fresh solvent removes the accessible solute from the solid particles, thereby determining the extraction efficiency. Thermodynamic factors (temperature and pressure) have a low impact because the process operates far from equilibrium. This behaviour is evident from the first-order temperature and pressure indices, which initially stay close to zero.
 		
-		The observed rapid sign changes in influence function values across observations reflect the fitting of incremental yields rather than cumulative values. Sign alternation indicates that correcting a model's over-prediction at one time point requires under-prediction adjustments at adjacent time points. This behaviour is expected and does not indicate data quality issues.
-		
-		\begin{figure*}[h!]
-			\begin{subfigure}[b]{0.49\textwidth}
-				\centering
-				\includegraphics[trim = 1.5cm 0.0cm 1.0cm 0.0cm,clip,width=\columnwidth]{Figures/IF_30C.png}
-				\caption{Influence Function values at 30 $^\circ$C}
-				\label{fig:IF_30C}
+		\begin{figure}[h!]
+			\centering
+			\begin{subfigure}[b]{0.85\columnwidth}
+				\includegraphics[trim = 14.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/Results/Sobol.png}
 			\end{subfigure}
 			\hfill
-			\begin{subfigure}[b]{0.49\textwidth}
-				\centering
-				\includegraphics[trim = 1.2cm 0.0cm 1.0cm 0.0cm,clip,width=\columnwidth]{Figures/IF_40C.png}
-				\caption{Influence Function values at 40 $^\circ$C}
-				\label{fig:IF_40C}
+			\begin{subfigure}[b]{0.85\columnwidth}
+				\includegraphics[trim = 0.0cm 0.0cm 14.0cm 0.0cm,clip,width=\columnwidth]{Figures/Results/Sobol.png}
 			\end{subfigure}
-			\caption{Influence analysis for experiments 1-8}
-			\label{fig:IF_30_vs_40}
-		\end{figure*} 
+			\caption{Time evolution of the Sobol indices}
+			\label{fig:Sobol}
+		\end{figure}
 		
-		As presented in by \citet{Sliczniuk2024}, the properties of $CO_2$ change rapidly near the critical point, which suggests that experiments performed around that region can be more informative in terms of sensitivity to the operating conditions (as discussed by \citet{Sliczniuk2025a}). On the other hand, the system becomes more fragile to fluctuations in operating conditions, which affect the regression stability and parameter identifiability.
+		As extraction progresses, the importance of operating parameters shifts. Although initially the largest Sobol index is associated with mass flow rate ($S_F$), it gradually decreases over time (0.31). Over time, mass transfer becomes more dependent on the solvent's capacity to dissolve and transport the solute within the solid particles. When the extraction reaches the equilibrium-limited regime, pressure ($S_P$) becomes the dominant factor, reaching 0.72 by the final time. The temperature begins to exert a low but measurable influence, and consequently $S_T$ increases to 0.07.
 		
-		It was observed that, depending on the operating conditions, the measured data have different impacts on the final estimates. For the decay coefficient $\gamma$, observation 1 (30 minutes) exhibits the strongest influence at higher pressures. At low pressure (100 bar), $\gamma$ influence remains negligible across all time points, indicating this parameter is poorly identified under these conditions. The $D_i^R$ results showed that observations 2-5 are the most influential at high pressures (160-200 bar). On the contrary, observations 7-10 are characterised by the highest influence function values at low pressures (100-120 bar). The suspected root cause is the change in the duration of the mass transfer regimes.
+		The above results align with classical mass transfer theory and can be interpreted in terms of the flow regimes. The period during which the mass flow rate has the greatest impact corresponds to the kinetic regime. The period during which thermodynamic factors contribute more to the output variance than the flow rate does corresponds to the diffusion regime.
 		
-		Experiment 9 has the lowest absolute value of the influence factor, indicating that this data point has minimal impact on the estimated parameters. However, further analysis revealed that the Hessian matrix has a high condition number of 93, indicating ill-conditioning in the parameter estimation problem. The eigenvalue decomposition shows that this ill-conditioning arises from a nearly flat direction in the $D_i^R$ direction and could lead to poor parameter identifiability. This result aligns with DFBETAS analysis and is supported by the fact that experiment 9 has the largest MSE among all the fits. It is concluded that experiment 9 should be repeated to ensure reliable parameter estimation and uncertainty quantification. The remaining experiments do not exhibit such behaviour, and their data quality is considered sufficient. 
+		\subsection{Analysis of the interaction terms}
+		In Sobol sensitivity analysis, interaction terms quantify how the combined effect of two or more parameters differs from the sum of their individual effects. The presence of interactions indicates that parameters do not act independently. The total Sobol index is defined by Equation \ref{EQ:Sobol_decom}, and if the interaction term is negligible, then $V(t) \approx \sum_{i=1}^{n_\theta}V_i(t)$. The interaction term can be approximated by subtracting the individual terms from the total Sobol index. Figure \ref{fig:Sobol_Interaction} summarises the time evolution of the second and third order coefficients.
 		
-		The conducted influence analysis assumes that the obtained MLE converged to the optimal solution. Otherwise, the Equation \ref{EQ:IF_def_I_order_opt} is invalid, and the obtained results might be incorrect. Another limitation of this methodology is the first-order approximation, which may not capture non-linear effects in likelihood surfaces. This analysis considers each experiment independently, which doesn't account for correlations between parameter estimates across experiments.
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/Results/High_Order_Interaction_effects.png}
+			\caption{Time evolution of the interaction term}
+			\label{fig:Sobol_Interaction}
+		\end{figure}
+		
+		The negative interaction indices indicate sub-additive variance structure, where the joint variance is less than the sum of individual variances. This means that the joint variance is less than the sum of individual variances:
+		
+		\begin{equation}
+			V\left[\mathbb{E}(Y(t|\theta_i, \theta_j))\right] < V\left[\mathbb{E}(Y(t|\theta_i))\right] + V\left[\mathbb{E}(Y(t|\theta_j))\right]
+		\end{equation}
+		
+		Second-order pairwise interactions remain modest, but increase non-monotonically. These positive interactions arise from the T-P coupling, as reflected in thermodynamic properties (such as CO$_2$ density) that can take the same values for different combinations of T and P. On the other hand, the P-F interaction can be observed through the Reynolds number. The near-zero temperature-flow interaction ($S_{TF}$) suggests that this combination of inputs has a low impact on the model output. The temporal evolution of the pressure-flow interaction starts from a low value and shows "wave"-like behaviour. After the first positive extremum, $S_{PF}$ flattens and then increases exponentially.
+		
+		The opposing effects of temperature and pressure on CO$_2$ properties, such as density, should be noted. The temperature decreases density ($\partial \rho / \partial T < 0$) while pressure increases it ($\partial \rho / \partial P > 0$). If the variations in both inputs are considered together, these effects partially cancel each other out. This leads to a smaller range of density values than the sum of the individual contributions. Such redundancy suggests that the second-order interactions for T and P should be negative, but model non-linearities should also be considered. The non-linearity of the physical properties around the critical point is profound, which leads to variance increase in that region. The non-zero cross-derivative (($\partial^2 \rho / (\partial P \partial T)$)) introduces additional variance that cannot be obtained from knowing T or P separately. 
+		
+		The third-order interaction index takes negative values (reaching $S_3 = -0.26$ at $t = 1500$ min), indicating that the resulting output variance is lower than predicted by summing individual effects and pairwise interactions when all three parameters vary simultaneously. This is justified by parameter redundancy, which is larger than in the second-order case. The redundancy from the three-way interaction exceeds the pairwise non-linearities, which reduce the output variance less than the redundancy, resulting in negative values of $S_3$.
+		
+		One practical implication of first-order response surface methodology and first-order design of experiments is that they neglect higher-order interactions, which can lead to overestimation of process output. Another observation coming from the Sobol analysis is the time evolution in parameter importance. The results show a shift from flow-dominated to pressure-dominated. Consequently, adaptive control strategies that adjust parameter priorities across extraction phases are suggested. The appropriate strategy would focus on flow rate during the kinetic-limited
 		
 		% ===================================================
 		% Section: Summary
 		% ===================================================		
 		
 		\section{Conclusion} \label{CH: Conclusion}
-		This work focus on application and comparison of multiple diagnostic measures for the influence of experimental observations on parameter estimates to a SFE model. The analysis of the influence function helped to identify the time periods which affect the model parameter the most. The results were interpreted from the point of view of the mass transfer, and an alignment between both were noted. The linear diagnostic was used to validate the empirical correlations. As the result, a high leverage points and potential outliers were identified. It is noted that these diagnostic measures are supplementary to each other, hence it is recommended to consider multiple ones. 
+		This work focus on application and comparison of variance-based diagnostic to measures an impact of controls on a SFE model. The analysis of results helped to identify which of controls is the most influential. Later the analysis was extended to investigate how a combination of controls affect the system. Due to dynamic nature of the model, a temporal evolution of the Sobol indices was observed. The results were analysed not only with respect to the future application of the dynamic optimization but also from the perspective of mass transfer theory.
 
 % ===================================================
 % Bibliography
