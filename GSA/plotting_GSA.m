@@ -4,7 +4,7 @@
 clear; close all; clc;
 
 %% Data Entry
-load GSA_results_N32768_2025-12-23_06-18
+load GSA_single_pass_results_N100000_2026-05-11_16-48
 
 time = results.time_points';
 
@@ -21,6 +21,8 @@ std_yield  = results.output_std;
 
 sum_S1     = results.sum_S;
 sum_ST     = results.sum_ST;
+
+[results.time_points', results.first_order, results.first_order, results.third_order]
 
 %%
 %load GSA_results_N10000_2025-12-12_16-06
@@ -94,10 +96,10 @@ plot(time, S1_T, 'r', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', 'Temperatu
 plot(time, S1_P, 'b', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', 'Pressure');
 plot(time, S1_F, 'g', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', 'Flow rate');
 plot(time, zeros(size(time)), 'k--', 'LineWidth', 0.5, 'HandleVisibility', 'off');
-xlabel('Time [min]', 'FontSize', 14, 'FontWeight', 'bold');
-ylabel('First-order Sobol index, $S_i$', 'FontSize', 14, 'FontWeight', 'bold');
-%title('First-order Sensitivity Indices', 'FontSize', 14, 'FontWeight', 'bold');
-legend('Location', 'southeast', 'FontSize', 14); legend box off
+xlabel('Time [min]', 'FontSize', 16, 'FontWeight', 'bold');
+ylabel('First-order Sobol index, $S_i$', 'FontSize', 16, 'FontWeight', 'bold');
+%title('First-order Sensitivity Indices', 'FontSize', 16, 'FontWeight', 'bold');
+legend('Location', 'best', 'FontSize', 16); legend box off
 grid on;
 set(gca, 'FontSize', 16);
 xlim([0, max(time)]);
@@ -107,10 +109,10 @@ subplot(1,2,2)
 plot(time, ST_T, 'r', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', 'Temperature'); hold on;
 plot(time, ST_P, 'b', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', 'Pressure');
 plot(time, ST_F, 'g', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', 'Flow rate');
-xlabel('Time [min]', 'FontSize', 14, 'FontWeight', 'bold');
-ylabel('Total-order Sobol index, $S_{Ti}$', 'FontSize', 14, 'FontWeight', 'bold');
+xlabel('Time [min]', 'FontSize', 16, 'FontWeight', 'bold');
+ylabel('Total-order Sobol index, $S_{Ti}$', 'FontSize', 16, 'FontWeight', 'bold');
 %title('Evolution of Total-order Sensitivity Indices', 'FontSize', 10, 'FontWeight', 'bold');
-legend('Location', 'northeast', 'FontSize', 12); legend box off;
+legend('Location', 'best', 'FontSize', 16); legend box off;
 grid on;
 set(gca, 'FontSize', 16);
 xlim([0, max(time)]);
@@ -138,21 +140,21 @@ plot(time, mean_yield, 'ko', 'MarkerSize', 8, 'MarkerFaceColor', [0 0 0], ...
     'MarkerEdgeColor', [0 0 0])
 
 % Formatting
-xlabel('Time [min]', 'FontSize', 14, 'FontWeight', 'bold');
-ylabel('Yield [g]', 'FontSize', 14, 'FontWeight', 'bold');
+xlabel('Time [min]', 'FontSize', 20, 'FontWeight', 'bold');
+ylabel('Yield [g]', 'FontSize', 20, 'FontWeight', 'bold');
 
 xlim([0, max(time)*1.02]);
 ylim([0, max(upper_3sigma)*1.1]);
 
 yyaxis right
 plot(time, std_yield, 'b', 'LineWidth', 3)
-ylabel('$\sigma$', 'FontSize', 14, 'FontWeight', 'bold');
+ylabel('$\sigma$', 'FontSize', 20, 'FontWeight', 'bold');
 
 %title('Extraction Yield with Multiple Confidence Levels', 'FontSize', 16, 'FontWeight', 'bold');
 legend('99.7\% CI', '95\% CI', '68\% CI', ...
-    'Mean yield [g]', '','$\sigma$' ,'Location', 'east', 'FontSize', 14); legend box off;
+    'Mean yield [g]', '','$\sigma$' ,'Location', 'east', 'FontSize', 16); legend box off;
 grid on;
-set(gca, 'FontSize', 16, 'LineWidth', 1.5);
+set(gca, 'FontSize', 20, 'LineWidth', 1.5);
 exportgraphics(figure(1),['CI.png'], "Resolution",500); close all
 
 %% Figure 4: Interaction effects
@@ -163,12 +165,12 @@ plot(time, results.second_order(:,7), 'b-s', 'LineWidth', 2, 'MarkerSize', 6, 'D
 plot(time, results.second_order(:,8), 'g-^', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', 'S2,PF');
 plot(time, results.third_order, 'k-o', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', 'S3');
 %plot(time, zeros(size(time)), 'k-o', 'LineWidth', 0.5, 'HandleVisibility', 'off');
-xlabel('Time [min]', 'FontSize', 14, 'FontWeight', 'bold');
-ylabel('Higher order Sobol indecies', 'FontSize', 14, 'FontWeight', 'bold');
-%title('Higher order Sobol indecies', 'FontSize', 14, 'FontWeight', 'bold');
-legend('Location', 'best', 'FontSize', 14); legend Box off;
+xlabel('Time [min]', 'FontSize', 22, 'FontWeight', 'bold');
+ylabel('Higher order Sobol indecies', 'FontSize', 22, 'FontWeight', 'bold');
+%title('Higher order Sobol indecies', 'FontSize', 16, 'FontWeight', 'bold');
+legend('Location', 'best', 'FontSize', 20, 'NumColumns',3); legend Box off;
 grid on;
-set(gca, 'FontSize', 16);
+set(gca, 'FontSize', 22);
 xlim([0, max(time)]);
 exportgraphics(figure(1),['High_Order_Interaction_effects.png'], "Resolution",500); close all
 
@@ -183,12 +185,12 @@ plot(time, interaction, 'r-o', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', '
 plot(time, interaction_P, 'b-s', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', 'Pressure');
 plot(time, interaction_F, 'g-^', 'LineWidth', 2, 'MarkerSize', 6, 'DisplayName', 'Flow rate');
 plot(time, zeros(size(time)), 'k--', 'LineWidth', 0.5, 'HandleVisibility', 'off');
-xlabel('Time [min]', 'FontSize', 14, 'FontWeight', 'bold');
-ylabel('Interaction index ($S_{Ti} - S_i$)', 'FontSize', 14, 'FontWeight', 'bold');
-title('Parameter Interaction Effects', 'FontSize', 14, 'FontWeight', 'bold');
-legend('Location', 'best', 'FontSize', 14); legend Box off;
+xlabel('Time [min]', 'FontSize', 16, 'FontWeight', 'bold');
+ylabel('Interaction index ($S_{Ti} - S_i$)', 'FontSize', 20, 'FontWeight', 'bold');
+title('Parameter Interaction Effects', 'FontSize', 20, 'FontWeight', 'bold');
+legend('Location', 'best', 'FontSize', 20, 'NumColumns',3); legend Box off;
 grid on;
-set(gca, 'FontSize', 16);
+set(gca, 'FontSize', 20);
 xlim([0, max(time)]);
 exportgraphics(figure(1),['Interaction_effects.png'], "Resolution",500); close all
 

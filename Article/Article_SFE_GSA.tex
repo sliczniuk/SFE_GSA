@@ -482,113 +482,111 @@ As given by Equation \ref{Model_solid}, the solid phase is considered to be stat
 				
 		\section{Variance-based sensitivity analysis} \label{chap:Sobol_Analysis}
 		
-		\citet{Sobol2001} suggested a probabilistic framework that decomposes the variance of the model's or system's output into fractions that can be attributed to specific inputs or sets of inputs. Variance-based measures of sensitivity are attractive because they measure sensitivity across the entire input space, can handle non-linear responses, and can assess the effect of interactions in non-additive systems. If the process model describes a dynamical system, then it can be said that the model output is 
+		\citet{Sobol2001} suggested a framework that decomposes the variance of the model's or system's output into fractions that can be attributed to specific parameters. Variance-based measures of sensitivity are attractive because they assess sensitivity across the entire input space, handle nonlinear responses, and account for interactions terms. If the process model describes a dynamical system $G$, then it can be said that the model output is 
 		
 		{\footnotesize
-			\begin{equation} \label{eq:CH5_Model_Output}
+			\begin{equation}
 				Y\left(t|\theta\right) = G\left(x\left(t|\theta\right)\right) = G\left(x\left(t|\theta_1, \theta_2, \cdots, \theta_{n_\theta} \right)\right) 
 		\end{equation} }
 		
-		where $Y$ is the model output, and $\theta$ is a parameter set. Sobol' suggested decomposing the function $G$ into summands of increasing dimensionality:
+		where $Y$ is the model output, and $\theta$ is a parameter set. Sobol's suggested decomposing the function $G$ into summands of increasing dimensionality:
 		
 		{\footnotesize
-			\begin{align}
-				&G\left(x\left(t|\theta_1, \theta_2, \cdots, \theta_{n_\theta} \right)\right) = G_0\left(t\right) + \sum_{i=1}^{n_\theta} G_i(t, \theta_i) \nonumber \\
-				&+ \sum_{i=1}^{n_\theta} \sum_{j=i+1}^{n_\theta} G_{ij} \left(t| \theta_i, \theta_j \right) + \cdots + G_{1...n_\theta}\left(t|\theta_1, \theta_2, \cdots, \theta_{n_\theta} \right)
-		\end{align} }
+			\begin{equation} \label{EQ:Sobol_decomposition_1}
+				G\left(x\left(t|\theta_1, \theta_2, \cdots, \theta_{n_\theta} \right)\right) = G_0\left(t\right) + \sum_{i=1}^{n_\theta} G_i(t, \theta_i) + \sum_{i=1}^{n_\theta} \sum_{j=i+1}^{n_\theta} G_{ij} \left(t| \theta_i, \theta_j \right) + \cdots + G_{1...n_\theta}\left(t|\theta_1, \theta_2, \cdots, \theta_{n_\theta} \right)
+		\end{equation} }
 		
-		Suppose the input factors are independent, and each term in this equation is chosen with zero average and is square integrable. In that case, the $G_0$ is a constant, equal to the expectation value of the output, and the summands are mutually orthogonal. Additionally, this decomposition is unique.
-		
-		The total unconditional variance can be defined as
+		If G is square-integrable and parameters are independent, the Sobol decomposition is unique. The constant term $G_0$ equals the expected value of the output, and all higher-order component functions have zero mean with respect to their respective arguments. The total unconditional variance is
 		
 		{\footnotesize
 			\begin{equation}
-				V(t) = \int_{\Omega} G^2\left(x\left(t|\theta\right)\right) d\theta - G_0(t)
+				V(t) = \int_{\Omega} G^2\left(x\left(t|\theta\right)\right) d\theta - G_0^2(t)
 		\end{equation}}
 		
-		with $\Omega$ representing the $n_\theta$-dimensional unit hyperspace, where the parameter ranges are scaled from 0 to 1. The partial variances, which are the components of the total variance decomposition, are computed from each of the terms in Equation \ref{eq:CH5_Model_Output} as
+		where $\Omega$ denotes the $n_\theta$-dimensional unit hypercube to which the input. The partial variances, which form the components of the total variance decomposition, are obtained by integrating the squared summands of the ANOVA-HDMR decomposition:
 		
 		{\footnotesize
-			\begin{equation}
-				V_{i_1, i_2, \cdots, i_s} = \int_{0}^{1} \cdots \int_{0}^{1} G^2_{i_1, \cdots i_s} (t|\theta_{i_1}, \cdots, \theta_{i_s}) d\theta_{i_1} \cdots d\theta_{i_s}
+			\begin{equation} 
+				V_{i_1, i_2, \cdots, i_s}(t) = \int_{0}^{1} \cdots \int_{0}^{1} 
+				G^2_{i_1, \cdots, i_s} (t|\theta_{i_1}, \cdots, \theta_{i_s})\, 
+				d\theta_{i_1} \cdots d\theta_{i_s}
 		\end{equation}}
 		
-		where $1 \leq i_1 \leq \cdots \leq i_s \leq p$ and $s = 1, \cdots n_\theta$. With the assumption that the parameters are mutually orthogonal, the variance decomposition becomes
+		where $1 \leq i_1 < \cdots < i_s \leq n_\theta$ and $s = 1, \ldots, n_\theta$. Since the model parameters are assumed to be statistically independent, and the summands in the decomposition are constructed to have zero mean and to be mutually orthogonal, the total variance decomposes into the sum of partial variances:
 		
 		{\footnotesize
 			\begin{equation} \label{EQ:Sobol_decom}
-				V(t) = \sum_{i=1}^{n_\theta}V_i(t) + \sum_{i=1}^{n_\theta-1}\sum_{j=i+1}^{n_\theta} V_{ij}(t) + V_{1, \cdots n_\theta}
+				V(t) = \sum_{i=1}^{n_\theta}V_i(t) 
+				+ \sum_{i=1}^{n_\theta-1}\sum_{j=i+1}^{n_\theta} V_{ij}(t) 
+				+ \cdots + V_{1, \cdots, n_\theta}(t)
 		\end{equation}}
 		
-		In this way, the variance contributions to the total output variance of individual parameters and parameter interactions can be determined. These contributions are characterised by the ratio of the partial variance to the total variance, the Sobol's sensitivity indices. The first-order Sobol' index, $S_i(t) = \frac{V_i(t)}{V(t)}$, is a measure for the variance contribution of the individual parameter $\theta_i$ to the total model variance. The partial variance $V_i(t)$ is given by the variance of the conditional expectation $V_i(t) = V[\mathbb{E}(Y(t|\theta_i))]$ and is called the "main effect" of $\theta_i$ on $Y(t)$. It can be described as the fraction of the model output variance that would disappear on average when $\theta_i$ is fixed to a value in its range. The impact on the model output variance of the interaction between $\theta_i$ and $\theta_j$ is given by the second order Sobol' index, $S_{ij} = \frac{V_{ij}}{V}$, and the total Sobol' index $S_{Ti} = S_i + \sum_{j \neq i} S_{ij}$. They describe it as the result of the main effect of $X_i$ and all its interactions with the other parameters (up to the $n_\theta$'th order).
+		In this way, the variance contributions to the total output variance of individual parameters and parameter interactions can be determined. These contributions are characterised by the ratio of the partial variance to the total variance, the Sobol's sensitivity indices. The first-order Sobol' index, $S_i(t) = \frac{V_i(t)}{V(t)}$, is a measure for the variance contribution of the individual parameter $\theta_i$ to the total model variance. The partial variance $V_i(t)$ is given by the variance of the conditional expectation $V_i(t) = V[\mathbb{E}(Y(t|\theta_i))]$ and is called the "main effect" of $\theta_i$ on $Y(t)$. It can be described as the fraction of the model output variance that would disappear on average when $\theta_i$ is fixed to a value in its range. The impact on the model output variance of the interaction between $\theta_i$ and $\theta_j$ is given by the second order Sobol' index, $S_{ij} = \frac{V_{ij}}{V}$, and the total Sobol' index $S_{Ti} = S_i + \sum_{j \neq i} S_{ij} + \sum_{j \neq i} \sum_{k \neq i, k>j} S_{ijk} $.
 		
-		For additive models and under the assumption of orthogonal input factors, $S_{Ti}$ and $S_i$ are equal, and the sum of all $S_i$ (and thus all $S_{Ti}$) is 1. For non-additive models, interactions exist, $S_{Ti}$ is greater than $S_i$, and the sum of all $S_i$ is less than 1. On the other hand, the sum of all $S_{Ti}$ is greater than 1. By analysing the difference between $S_{Ti}$ and $S_i$, the interactions between parameters can be determined.
+		In additive models with independent input factors, $S_{Ti}$ and $S_i$ are equal for each parameter, and the sum of all first-order Sobol’ indices equals 1. In contrast, non-additive models may exhibit interaction effects, resulting in $S_{Ti} \geq S_i$, with strict inequality for parameters involved in interactions. When interactions contribute to output variance, the sum of the first-order indices is less than 1. Conversely, the sum of the total-effect indices exceeds 1 in the presence of interaction effects, as interaction contributions are included in the total-effect index of each participating parameter. Therefore, the difference between $S_{Ti}$ and $S_i$ quantifies the extent to which parameter $\theta_i$ participates in interactions with other parameters.
 		
 		To compute the variance and obtain sensitivity measures, Sobol proposed a shortcut calculation based on the assumption that the decomposition's summands are mutually orthogonal. The shortcut is attained by transforming the double-loop integral into an integral of the product of $G(\theta_{j1}, \cdots, \theta_{k-s'}, \theta_{1}, \cdots, \theta_{s})$ and $G(\theta'_{j1}, \cdots, \theta'_{k-s'}, \theta_{1}, \cdots, \theta_{s})$.
 		
-		Due to the complexity and non-linearities in process models, the analytical solution are difficult to obtain and as such the Monte Carlo integration is often used. The estimation of the total unconditional variance becomes:
+		Due to the complexity and nonlinearity of process models, analytical solutions are difficult to obtain; consequently, Monte Carlo integration is often used. The estimation of the total unconditional variance becomes:
 		
 		{\footnotesize
 			\begin{align}
 				V(t) \approx \hat{V}(Y(t)) &= \frac{1}{n-1} \sum_{m=1}^{n} G^2(\theta_m) - \hat{G}_0^2 \\
 				\hat{G}_0 &\approx \frac{1}{n} \sum_{m=1}^{n} G(t|\theta_m)
 		\end{align}}
-		where $\hat{}$ stands for the estimate, $\theta_m$ is a sampled set of input parameters and $n$ is the number of samples. \citet{Saltelli2010} suggested to use two independent input sample $n \times n_\theta$-matrices (the "sample" matrix $M_1$ and the "resample" matrix $M_2$) to compute the Monte Carlo integrals, where $n$ is the sample size and $n_\theta$ is the number of parameters. Every row in $M_1$ and $M_2$ represents a possible parameter combination for the model. The parameter ranges in the matrices are scaled to 0-1. The two matrices are necessary to compile the sample set for $G(\theta_{j1}, \cdots, \theta_{k-s'}, \theta_{1}, \cdots, \theta_{s})$ and $G(\theta'_{j1}, \cdots, \theta'_{k-s'}, \theta_{1}, \cdots, \theta_{s})$. 
 		
-		After generating the two primary matrices, the Saltelli algorithm constructs additional input matrices by replacing columns from the first matrix (base matrix) with columns from the second matrix (resample matrix). The main idea behind the substitution is to isolate the influence of each individual parameter when computing sensitivity indices. The total number of matrices becomes the number of parameters plus two, and the computational complexity is reduced if compared to naive implementations. 
+		Here, $\hat{G}$ denotes the estimate, $\theta_m$ refers to a sampled set of input parameters, and $n$ indicates the number of samples. According to \citet{Saltelli2010}, two independent input sample matrices of size $n \times n_\theta$ (the "sample" matrix $M_1$ and the "resample" matrix $M_2$) are used to compute the Monte Carlo integrals, where $n$ is the sample size and $n_\theta$ is the number of parameters. Each row in $M_1$ and $M_2$ corresponds to a possible parameter combination for the model. The parameter ranges in these matrices are scaled between 0 and 1. These two matrices are required to construct the sample sets for $G(\theta_{j1}, \cdots, \theta_{k-s'}, \theta_{1}, \cdots, \theta_{s})$ and $G(\theta'_{j1}, \cdots, \theta'_{k-s'}, \theta_{1}, \cdots, \theta_{s})$.
+		
+		After generating the two primary matrices, the Saltelli algorithm constructs additional input matrices by substituting columns from the base matrix with the corresponding columns from the resample matrix. This substitution isolates the influence of each parameter when computing sensitivity indices. The total number of matrices equals the number of parameters plus two, reducing computational complexity.
 		
 		\subsection{Analysis of the first-order indices}
-		In this section, the GSA is applied to analyse the influence of operating conditions (temperature between 30 and 40 $^\circ$ C, pressure between 100 and 200 bar and mass flow rate between 3.3 and 6.7 kg/s) on the model output. The main idea behind this analysis is to identify which controls have the largest impact on extraction yield at different times. When evaluating the Sobol indices, a set of output distributions was obtained for every selected time. The average yield curve and confidence regions are shown in Figure \ref{fig:Yield_CI}. It should be noted that the total amount of extract is relatively low (due to lab-scale experiments), so attention should be paid to ensure accurate measurements. The system error might arise due to imprecise control or human error while collecting the samples. 
+		
+		The GSA is applied to quantify how operating conditions (temperature between 30 and 40 $^\circ$C, pressure between 100 and 200 bar, and mass flow rate between $3.3$ and $6.7\times 10^{-5}$ kg/s) influence the extraction yield over time. The analysis was carried out with a sample size of $N = 10^5$ on a one-minute time grid. The resulting trajectories are shown in Figure \ref{fig:Yield_CI}.
 		
 		\begin{figure}[h!]
 			\centering
 			\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/Results/CI.png}
-			\caption{Average yield curve and confidence intervals}
+			\caption{Predicted yield curve and bootstrap confidence interval}
 			\label{fig:Yield_CI}
 		\end{figure}
 		
-		The time evolutions of the total and first-order Sobol sensitivity indices are presented in Figure \ref{fig:Sobol}. Initially, the extraction process is strongly dominated by the solvent mass flow rate as the first-order Sobol index for flow rate ($S_F$) is the most significant contributor to the output variance. As dictated by the mass-transfer limit, the fresh solvent removes the accessible solute from the solid particles, thereby determining the extraction efficiency. Thermodynamic factors (temperature and pressure) have a low impact because the process operates far from equilibrium. This behaviour is evident from the first-order temperature and pressure indices, which initially stay close to zero.
+		Figure \ref{fig:Sobol} presents the temporal evolution of the first-order and total Sobol indices. Three distinct regimes are identified.
+		
+		\emph{Convection-limited regime}: During this regime, mass flow rate predominantly determines output variance. The value of $S_F$ increases from $0.85$ at $t = 5$ min to a maximum of $0.98$ at $t = 30$ min, while $S_P$ and $S_T$ decrease toward zero ($S_P = 0.003$ and $S_T = 10^{-4}$ at $t = 30$ min). In this period, the fluid-phase remains far from saturation, allowing the solvent to remove solute as rapidly as it is supplied. Thermodynamic properties exert only a minor influence on yield in this regime. The small, nonzero $S_P$ observed at the earliest time point ($S_P = 0.10$ at $t = 5$ min) indicates density-driven differences in the propagation of the concentration front.
+		
+		\emph{Transitional regime}: As the accessible solute becomes depleted, the bed gradually transitions toward a solubility-limited side, and the importance of pressure grows monotonically. $S_F$ decreases from $0.93$ at $t = 60$ min to $0.49$ at $t = 1100$ min, while $S_P$ increases from $0.04$ to $0.46$ over the same interval. Temperature contributes a small but progressively larger share ($S_T$ rises from $0.004$ to $0.06$). Low values of $S_T$ can be explained by the narrow temperature operating range.
+		
+		\emph{Equilibrium-influenced regime}: In this regime, pressure emerges as the largest single contributor, with $S_P = 0.49$, $S_F = 0.41$, and $S_T = 0.09$ at $t = 1500$ min. Notably, $S_P$ and $S_F$ remain of similar magnitude. Throughout the 1500 min window, the process does not become strongly thermodynamic-dominated, in contrast to the early dominance of flow. 
 		
 		\begin{figure}[h!]
 			\centering
-			\begin{subfigure}[b]{0.85\columnwidth}
-				\includegraphics[trim = 14.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/Results/Sobol.png}
-			\end{subfigure}
-			\hfill
-			\begin{subfigure}[b]{0.85\columnwidth}
-				\includegraphics[trim = 0.0cm 0.0cm 14.0cm 0.0cm,clip,width=\columnwidth]{Figures/Results/Sobol.png}
-			\end{subfigure}
-			\caption{Time evolution of the Sobol indices}
+			\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/Results/Sobol.png}
+			\caption{Time evolution of the first-order and total Sobol indices for temperature, pressure, and mass flow rate.}
 			\label{fig:Sobol}
 		\end{figure}
 		
-		As extraction progresses, the importance of operating parameters shifts. Although initially the largest Sobol index is associated with mass flow rate ($S_F$), it gradually decreases over time (0.31). Over time, mass transfer becomes more dependent on the solvent's capacity to dissolve and transport the solute within the solid particles. When the extraction reaches the equilibrium-limited regime, pressure ($S_P$) becomes the dominant factor, reaching 0.72 by the final time. The temperature begins to exert a low but measurable influence, and consequently $S_T$ increases to 0.07.
+		Throughout the batch, the total indices ($S^T_i$) closely follow the first-order indices ($S_i$), and the sum $S_T + S_P + S_F$ remains within the range $[0.96, 1.01]$. Thus, the variance of the cumulative yield is explained almost entirely by additive first-order effects, with limited contribution from interactions.
 		
-		The above results align with classical mass transfer theory and can be interpreted in terms of the flow regimes. The period during which the mass flow rate has the greatest impact corresponds to the kinetic regime. The period during which thermodynamic factors contribute more to the output variance than the flow rate does corresponds to the diffusion regime.
+		The evolution of the mean and standard deviation of the yield provides essential context for interpreting the Sobol estimates. The mean yield increases monotonically from $0.021$ to approximately $2.95$, indicating that the process approaches a plateau. In contrast, the standard deviation across the operating window reaches a maximum of approximately $0.19$ before decreasing steadily to $0.048$. As a result, the coefficient of variation decreases from about $0.59$ to approximately $0.016$. Consequently, late-time Sobol estimates are derived from a much smaller relative output variance. This observation explains why higher-order terms and closure diagnostics become more sensitive to estimator noise near the end of the batch, even though the first-order and total-order indices remain stable.
 		
 		\subsection{Analysis of the interaction terms}
-		In Sobol sensitivity analysis, interaction terms quantify how the combined effect of two or more parameters differs from the sum of their individual effects. The presence of interactions indicates that parameters do not act independently. The total Sobol index is defined by Equation \ref{EQ:Sobol_decom}, and if the interaction term is negligible, then $V(t) \approx \sum_{i=1}^{n_\theta}V_i(t)$. The interaction term can be approximated by subtracting the individual terms from the total Sobol index. Figure \ref{fig:Sobol_Interaction} summarises the time evolution of the second and third order coefficients.
+		Second-order Sobol indices quantify the variance attributable to the joint variation of input pairs, beyond their individual effects. The third-order index completes the variance decomposition for three parameters. Throughout the batch, the total interaction budget remains within the range $0$–$0.04$. The individual second- and third-order indices are presented in
+		Figure \ref{fig:Sobol_Interaction}.
 		
 		\begin{figure}[h!]
 			\centering
 			\includegraphics[trim = 0.0cm 0.0cm 0.0cm 0.0cm,clip,width=\columnwidth]{Figures/Results/High_Order_Interaction_effects.png}
-			\caption{Time evolution of the interaction term}
+			\caption{Time evolution of the second- and third-order Sobol interaction indices.}
 			\label{fig:Sobol_Interaction}
 		\end{figure}
 		
-		The negative interaction indices indicate sub-additive variance structure, where the joint variance is less than the sum of individual variances. This means that the joint variance is less than the sum of individual variances:
+		Among the pairwise terms, the pressure–flow interaction $S_{2,PF}$ exhibits the largest magnitude across most of the batch. This interaction increases sharply in the convection-limited regime, peaking at approximately $0.028$ near $t = 120$ min. It subsequently decreases during the transitional regime as the single-input effect of pressure accounts for a larger share of the variance, and then increases again in the late stage to $S_{2,PF} = 0.036$ at $t = 1500$ min. This non-monotonic profile aligns with the dependence of both the Re number, which is relevant in convection, and the solvent density and solubility, which are relevant near thermodynamic equilibrium.
 		
-		\begin{equation}
-			V\left[\mathbb{E}(Y(t|\theta_i, \theta_j))\right] < V\left[\mathbb{E}(Y(t|\theta_i))\right] + V\left[\mathbb{E}(Y(t|\theta_j))\right]
-		\end{equation}
+		The $S_{2,TF}$ term remains small but increases monotonically from $0.003$ to $0.021$. This trend reflects the gradual increase in the importance of temperature-driven changes in $\rho$, $\mu$, and solubility over time.
 		
-		Second-order pairwise interactions remain modest, but increase non-monotonically. These positive interactions arise from the T-P coupling, as reflected in thermodynamic properties (such as CO$_2$ density) that can take the same values for different combinations of T and P. On the other hand, the P-F interaction can be observed through the Reynolds number. The near-zero temperature-flow interaction ($S_{TF}$) suggests that this combination of inputs has a low impact on the model output. The temporal evolution of the pressure-flow interaction starts from a low value and shows "wave"-like behaviour. After the first positive extremum, $S_{PF}$ flattens and then increases exponentially.
+		The temperature–pressure interaction $S_{2,TP}$ remains small throughout the batch. It increases only marginally at intermediate times, reaching values on the order of $0.005$, and becomes slightly negative at the latest times. Because Sobol variance components are non-negative by definition, these negative estimates are not considered meaningful. As the extraction yield approaches its plateau, the remaining variance within the operating window decreases, making weak interaction terms difficult to resolve accurately. Higher-order indices are interpreted qualitatively, while conclusions are drawn primarily from first-order and total-order trends.
 		
-		The opposing effects of temperature and pressure on CO$_2$ properties, such as density, should be noted. The temperature decreases density ($\partial \rho / \partial T < 0$) while pressure increases it ($\partial \rho / \partial P > 0$). If the variations in both inputs are considered together, these effects partially cancel each other out. This leads to a smaller range of density values than the sum of the individual contributions. Such redundancy suggests that the second-order interactions for T and P should be negative, but model non-linearities should also be considered. The non-linearity of the physical properties around the critical point is profound, which leads to variance increase in that region. The non-zero cross-derivative (($\partial^2 \rho / (\partial P \partial T)$)) introduces additional variance that cannot be obtained from knowing T or P separately. 
-		
-		The third-order interaction index takes negative values (reaching $S_3 = -0.26$ at $t = 1500$ min), indicating that the resulting output variance is lower than predicted by summing individual effects and pairwise interactions when all three parameters vary simultaneously. This is justified by parameter redundancy, which is larger than in the second-order case. The redundancy from the three-way interaction exceeds the pairwise non-linearities, which reduce the output variance less than the redundancy, resulting in negative values of $S_3$.
-		
-		One practical implication of first-order response surface methodology and first-order design of experiments is that they neglect higher-order interactions, which can lead to overestimation of process output. Another observation coming from the Sobol analysis is the time evolution in parameter importance. The results show a shift from flow-dominated to pressure-dominated. Consequently, adaptive control strategies that adjust parameter priorities across extraction phases are suggested. The appropriate strategy would focus on flow rate during the kinetic-limited
+		The independently estimated third-order index $S_3$ remains close to zero throughout the batch, with small negative values observed at later times ($ S_3 =- 0.012$). These values are attributed to estimator uncertainty rather than to physically meaningful negative variance contributions. The closure of the independently estimated decomposition, $\sum_i S_i + S_{2,TP}+S_{2,TF}+S_{2,PF}+S_3$,remains within approximately $4\%$ of unity, reaching a maximum value of about $1.04$. This result demonstrates acceptable consistency for interpreting the dominant sensitivity structure. Consequently, the third-order contribution is not significant from a practical perspective.
 		
 		% ===================================================
 		% Section: Summary
@@ -596,6 +594,8 @@ As given by Equation \ref{Model_solid}, the solid phase is considered to be stat
 		
 		\section{Conclusion} \label{CH: Conclusion}
 		This work focus on application and comparison of variance-based diagnostic to measures an impact of controls on a SFE model. The analysis of results helped to identify which of controls is the most influential. Later the analysis was extended to investigate how a combination of controls affect the system. Due to dynamic nature of the model, a temporal evolution of the Sobol indices was observed. The results were analysed not only with respect to the future application of the dynamic optimization but also from the perspective of mass transfer theory.
+		
+		The model-based experimental design and control should consider the $P$–$F$ interaction throughout the batch, as well as the late-stage $T$–$P$ compensation. Treating the inputs as fully additive would overstate the variance attributable to pressure alone near the end of extraction. Second, the time evolution of the indices—from $S_F$ dominance, through a broad transition, to a regime where $S_P$ and $S_F$ are comparable—suggests that time-varying operating conditions could leverage different sensitivity structures at various process stages of the batch. This observation motivates extending the classical SFE into the dynamic operations.
 
 % ===================================================
 % Bibliography

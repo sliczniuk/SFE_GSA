@@ -1,0 +1,194 @@
+
+================================================================
+ GLOBAL SENSITIVITY ANALYSIS - SINGLE-PASS TIME EVOLUTION
+================================================================
+
+Configuration:
+  Sample size (N):        10000
+  Number of parameters:   3 (T, P, F)
+  Time points to analyze: 1
+  Single time step:       0.5 min
+  Bootstrap resamples:    0
+  Old model row evals:    80000
+  New model row evals:    80000
+  Evaluation reduction:   1.0x
+
+
+=== TIME-SERIES SOBOL SENSITIVITY ANALYSIS ===
+Sample size N = 10000, Parameters k = 3
+Model row evaluations needed: 80000
+
+[1/3] Evaluating base matrices A and B...
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel.internal.parfor.ParforEngine/getCompleteIntervals')" style="font-weight:bold">parallel.internal.parfor.ParforEngine/getCompleteIntervals</a>
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel_function>distributed_execution', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\lang\parallel_function.m', 746)" style="font-weight:bold">parallel_function>distributed_execution</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\lang\parallel_function.m',746,0)">line 746</a>)
+        [tags, out] = P.getCompleteIntervals(chunkSize);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel_function', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\lang\parallel_function.m', 578)" style="font-weight:bold">parallel_function</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\lang\parallel_function.m',578,0)">line 578</a>)
+    R = distributed_execution(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('applyToEachRowMatrix', 'D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\applyToEachRowMatrix.m', 19)" style="font-weight:bold">applyToEachRowMatrix</a> (<a href="matlab: opentoline('D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\applyToEachRowMatrix.m',19,0)">line 19</a>)
+    parfor i = 2:numRows
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('main_GSA_SFE_single_pass>@(AA)applyToEachRowMatrix(model,AA)', 'D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\main_GSA_SFE_single_pass.m', 113)" style="font-weight:bold">main_GSA_SFE_single_pass>@(AA)applyToEachRowMatrix(model,AA)</a> (<a href="matlab: opentoline('D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\main_GSA_SFE_single_pass.m',113,0)">line 113</a>)
+model_func = @(AA) applyToEachRowMatrix(model, AA);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Sen_Saltelli_TimeSeries', 'D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\Sen_Saltelli_TimeSeries.m', 38)" style="font-weight:bold">Sen_Saltelli_TimeSeries</a> (<a href="matlab: opentoline('D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\Sen_Saltelli_TimeSeries.m',38,0)">line 38</a>)
+yA = f(A, varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('main_GSA_SFE_single_pass', 'D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\main_GSA_SFE_single_pass.m', 121)" style="font-weight:bold">main_GSA_SFE_single_pass</a> (<a href="matlab: opentoline('D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\main_GSA_SFE_single_pass.m',121,0)">line 121</a>)
+        Sen_Saltelli_TimeSeries(A, B, model_func, 'Janon-Monod', 'Jansen');
+} 
+{Operation terminated by user during internal.matlab.datatoolsservices.WorkspaceListener/logEvent
+
+
+In internal.matlab.datatoolsservices.WorkspaceListener.executeWorkspaceListeners
+
+In internal.matlab.datatoolsservices.WorkspaceListener
+} 
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/martialClientMessage')" style="font-weight:bold">internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/martialClientMessage</a>
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore>@(msg)this.martialClientMessage(msg)', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m', 120)" style="font-weight:bold">internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore>@(msg)this.martialClientMessage(msg)</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m',120,0)">line 120</a>)
+                this.ClientMessageListener = message.subscribe(this.Channel, @(msg)this.martialClientMessage(msg));
+
+In message.internal.executeCallback
+} 
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.FormatDataUtils.parseNumericColumn')" style="font-weight:bold">internal.matlab.datatoolsservices.FormatDataUtils.parseNumericColumn</a>
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.FormatDataUtils.getNumericNonScalarValueDisplay', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\FormatDataUtils.m', 952)" style="font-weight:bold">internal.matlab.datatoolsservices.FormatDataUtils.getNumericNonScalarValueDisplay</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\FormatDataUtils.m',952,0)">line 952</a>)
+                    vals{cellCol} = FormatDataUtils.parseNumericColumn(r, currData(:,cellCol), currentFormat);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.FormatDataUtils.formatDataBlockForMixedView', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\FormatDataUtils.m', 373)" style="font-weight:bold">internal.matlab.datatoolsservices.FormatDataUtils.formatDataBlockForMixedView</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\FormatDataUtils.m',373,0)">line 373</a>)
+                                    cellVal = FormatDataUtils.getNumericNonScalarValueDisplay(currentVal, currentFormat);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.variableeditor.FieldColumns.ValueCol/getData/getValue', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\variableeditor\matlab\+internal\+matlab\+variableeditor\+FieldColumns\ValueCol.m', 57)" style="font-weight:bold">internal.matlab.variableeditor.FieldColumns.ValueCol/getData/getValue</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\variableeditor\matlab\+internal\+matlab\+variableeditor\+FieldColumns\ValueCol.m',57,0)">line 57</a>)
+                        [val, ~, isMeta] = FormatDataUtils.formatDataBlockForMixedView(1, 1, 1, 1, {cellData}, currentFormat);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.variableeditor.FieldColumns.ValueCol/getData', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\variableeditor\matlab\+internal\+matlab\+variableeditor\+FieldColumns\ValueCol.m', 62)" style="font-weight:bold">internal.matlab.variableeditor.FieldColumns.ValueCol/getData</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\variableeditor\matlab\+internal\+matlab\+variableeditor\+FieldColumns\ValueCol.m',62,0)">line 62</a>)
+                    [viewData, metaData] = cellfun(@getValue, data(rows), fields(rows), num2cell(virtualProps(rows)), "UniformOutput", false);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.variableeditor.StructureViewModel/getDisplayData', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\variableeditor\matlab\+internal\+matlab\+variableeditor\StructureViewModel.m', 208)" style="font-weight:bold">internal.matlab.variableeditor.StructureViewModel/getDisplayData</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\variableeditor\matlab\+internal\+matlab\+variableeditor\StructureViewModel.m',208,0)">line 208</a>)
+                    renderedData(:, curColumn) = fieldColumn.getData(startRow, endRow, cellData, fieldNames, virtualVals, data);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.variableeditor.StructureViewModel/getRenderedData', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\variableeditor\matlab\+internal\+matlab\+variableeditor\StructureViewModel.m', 164)" style="font-weight:bold">internal.matlab.variableeditor.StructureViewModel/getRenderedData</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\variableeditor\matlab\+internal\+matlab\+variableeditor\StructureViewModel.m',164,0)">line 164</a>)
+            [renderedData, renderedDims, classValues, columnFields, accessValues] = this.getDisplayData(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.desktop_workspacebrowser.RemoteWorkspaceViewModel/getRenderedData', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\desktop_workspacebrowser\matlab\+internal\+matlab\+desktop_workspacebrowser\RemoteWorkspaceViewModel.m', 92)" style="font-weight:bold">internal.matlab.desktop_workspacebrowser.RemoteWorkspaceViewModel/getRenderedData</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\desktop_workspacebrowser\matlab\+internal\+matlab\+desktop_workspacebrowser\RemoteWorkspaceViewModel.m',92,0)">line 92</a>)
+                [data, ~, classValues, fieldColumns] = this.getRenderedData@internal.matlab.variableeditor.StructureViewModel(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.variableeditor.ArrayViewModel/getTabularDataRange', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\variableeditor\matlab\+internal\+matlab\+variableeditor\ArrayViewModel.m', 93)" style="font-weight:bold">internal.matlab.variableeditor.ArrayViewModel/getTabularDataRange</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\variableeditor\matlab\+internal\+matlab\+variableeditor\ArrayViewModel.m',93,0)">line 93</a>)
+           [data,dims] = this.getRenderedData(startRow, endRow, startColumn, endColumn);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/formatDataForClient', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m', 694)" style="font-weight:bold">internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/formatDataForClient</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m',694,0)">line 694</a>)
+                data = this.getTabularDataRange(startRow, endRow, startColumn, endColumn);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/formatAndSendDataMessage', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m', 544)" style="font-weight:bold">internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/formatAndSendDataMessage</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m',544,0)">line 544</a>)
+            [data, dims] = formatDataForClient(this, ...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/executeInBackgroundIfPossible', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m', 671)" style="font-weight:bold">internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/executeInBackgroundIfPossible</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m',671,0)">line 671</a>)
+                    NVPairs.fcn(NVPairs.inputArgs{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/sendDataToClient', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m', 575)" style="font-weight:bold">internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/sendDataToClient</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m',575,0)">line 575</a>)
+            this.executeInBackgroundIfPossible(fcn=@formatAndSendDataMessage,...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/handleClientGetData', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m', 504)" style="font-weight:bold">internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/handleClientGetData</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m',504,0)">line 504</a>)
+            this.sendDataToClient(startRow, endRow, startColumn, endColumn);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/martialClientMessage', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m', 131)" style="font-weight:bold">internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore/martialClientMessage</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m',131,0)">line 131</a>)
+                    this.handleClientGetData(msg);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore>@(msg)this.martialClientMessage(msg)', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m', 120)" style="font-weight:bold">internal.matlab.datatoolsservices.messageservice.PubSubTabularDataStore>@(msg)this.martialClientMessage(msg)</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\datatools\datatoolsservices\matlab\+internal\+matlab\+datatoolsservices\+messageservice\PubSubTabularDataStore.m',120,0)">line 120</a>)
+                this.ClientMessageListener = message.subscribe(this.Channel, @(msg)this.martialClientMessage(msg));
+
+In message.internal.executeCallback
+} 
+main_GSA_SFE_single_pass
+Building integrator cache for single time_step = 0.50 min
+[Warning: Directory access failure:
+\\home.org.aalto.fi\sliczno1\data\Documents\casadi-3.6.3-windows64-matlab2018b] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('path', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\general\path.m', 109)" style="font-weight:bold">path</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\general\path.m',109,0)">line 109</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('addpath', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\general\addpath.m', 86)" style="font-weight:bold">addpath</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\general\addpath.m',86,0)">line 86</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('init_Extraction_Cache', 'D:\GitHub\julia\SFA_GSA\GSA\init_Extraction_Cache.m', 14)" style="font-weight:bold">init_Extraction_Cache</a> (<a href="matlab: opentoline('D:\GitHub\julia\SFA_GSA\GSA\init_Extraction_Cache.m',14,0)">line 14</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('main_GSA_SFE_single_pass', 'D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\main_GSA_SFE_single_pass.m', 90)" style="font-weight:bold">main_GSA_SFE_single_pass</a> (<a href="matlab: opentoline('D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\main_GSA_SFE_single_pass.m',90,0)">line 90</a>)] 
+<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\general\path.m',110,1)">110 </a>        end
+if system_dependent('IsDebugMode')==1, dbquit; end
+main_GSA_SFE_single_pass
+Building integrator cache for single time_step = 0.50 min
+[Warning: Directory access failure:
+\\home.org.aalto.fi\sliczno1\data\Documents\casadi-3.6.3-windows64-matlab2018b] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('path', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\general\path.m', 109)" style="font-weight:bold">path</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\general\path.m',109,0)">line 109</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('addpath', 'C:\Program Files\MATLAB\R2023a\toolbox\matlab\general\addpath.m', 86)" style="font-weight:bold">addpath</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2023a\toolbox\matlab\general\addpath.m',86,0)">line 86</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('init_Extraction_Cache', 'D:\GitHub\julia\SFA_GSA\GSA\init_Extraction_Cache.m', 14)" style="font-weight:bold">init_Extraction_Cache</a> (<a href="matlab: opentoline('D:\GitHub\julia\SFA_GSA\GSA\init_Extraction_Cache.m',14,0)">line 14</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('main_GSA_SFE_single_pass', 'D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\main_GSA_SFE_single_pass.m', 90)" style="font-weight:bold">main_GSA_SFE_single_pass</a> (<a href="matlab: opentoline('D:\GitHub\julia\SFA_GSA\GSA\GSA_single_pass\main_GSA_SFE_single_pass.m',90,0)">line 90</a>)] 
+Cache initialized: Parameters loaded, integrator built (time_step = 0.50 min)
+
+================================================================
+ GLOBAL SENSITIVITY ANALYSIS - SINGLE-PASS TIME EVOLUTION
+================================================================
+
+Configuration:
+  Sample size (N):        100
+  Number of parameters:   3 (T, P, F)
+  Time points to analyze: 3
+  Single time step:       0.5 min
+  Bootstrap resamples:    0
+  Old model row evals:    2400
+  New model row evals:    800
+  Evaluation reduction:   3.0x
+
+
+=== TIME-SERIES SOBOL SENSITIVITY ANALYSIS ===
+Sample size N = 100, Parameters k = 3
+Model row evaluations needed: 800
+
+[1/3] Evaluating base matrices A and B...
+  Completed in 30.80 seconds (6 rows/sec)
+
+[2/3] Evaluating A_Bi matrices for first/total indices...
+  [1/3] Processing parameter 1... done
+  [2/3] Processing parameter 2... done
+  [3/3] Processing parameter 3... done
+  First/total model outputs completed in 55.26 seconds
+
+[3/3] Evaluating A_Bij matrices for second-order indices...
+  [1/3] Processing pair (1,2)... done
+  [2/3] Processing pair (1,3)... done
+  [3/3] Processing pair (2,3)... done
+  Second-order model outputs completed in 49.22 seconds
+
+================================================================
+ GLOBAL SENSITIVITY ANALYSIS - SINGLE-PASS TIME EVOLUTION
+================================================================
+
+Configuration:
+  Sample size (N):        1000
+  Number of parameters:   3 (T, P, F)
+  Time points to analyze: 3
+  Single time step:       0.5 min
+  Bootstrap resamples:    0
+  Old model row evals:    24000
+  New model row evals:    8000
+  Evaluation reduction:   3.0x
+
+
+=== TIME-SERIES SOBOL SENSITIVITY ANALYSIS ===
+Sample size N = 1000, Parameters k = 3
+Model row evaluations needed: 8000
+
+[1/3] Evaluating base matrices A and B...
+  Completed in 333.25 seconds (6 rows/sec)
+
+[2/3] Evaluating A_Bi matrices for first/total indices...
+  [1/3] Processing parameter 1... done
+  [2/3] Processing parameter 2... done
+  [3/3] Processing parameter 3... done
+  First/total model outputs completed in 511.90 seconds
+
+[3/3] Evaluating A_Bij matrices for second-order indices...
+  [1/3] Processing pair (1,2)... done
+  [2/3] Processing pair (1,3)... done
+  [3/3] Processing pair (2,3)... done
+  Second-order model outputs completed in 543.81 seconds

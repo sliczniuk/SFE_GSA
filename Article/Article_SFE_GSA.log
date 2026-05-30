@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.26)  4 FEB 2026 22:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.5.26)  30 MAY 2026 19:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1736,52 +1736,46 @@ File: Figures///Gamma_1.png Graphic file (type png)
 Package pdftex.def Info: Figures///Gamma_1.png  used on input line 362.
 (pdftex.def)             Requested size: 214.42754pt x 172.56357pt.
  [5 <./Figures/SFE_PFD.drawio.png>] [6 <./Figures///Di_1.png> <./Figures///Gamm
-a_1.png>] [7]
-<Figures/Results/CI.png, id=319, 684.10782pt x 420.46686pt>
+a_1.png>]
+Overfull \hbox (88.26367pt too wide) detected at line 497
+ $\LS1/stix/m/it/8 G [] \LS1/stix/m/n/8 = \LS1/stix/m/it/8 G[] [] \LS1/stix/m/n
+/8 + [] \LS1/stix/m/it/8 G[]\LS1/stix/m/n/8 .\LS1/stix/m/it/8 t; ^^R[]\LS1/stix
+/m/n/8 / + [] [] \LS1/stix/m/it/8 G[] [] \LS1/stix/m/n/8 + \LS1/stixscr/m/n/8 5
+ \LS1/stix/m/n/8 + \LS1/stix/m/it/8 G[] []$  
+ []
+
+[7]
+<Figures/Results/CI.png, id=318, 706.8006pt x 424.51398pt>
 File: Figures/Results/CI.png Graphic file (type png)
 <use Figures/Results/CI.png>
-Package pdftex.def Info: Figures/Results/CI.png  used on input line 545.
-(pdftex.def)             Requested size: 238.25444pt x 146.43419pt.
+Package pdftex.def Info: Figures/Results/CI.png  used on input line 548.
+(pdftex.def)             Requested size: 238.25444pt x 143.09563pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Figures/Results/Sobol.png, id=322, 763.46028pt x 353.83392pt>
+<Figures/Results/Sobol.png, id=321, 762.01488pt x 353.83392pt>
 File: Figures/Results/Sobol.png Graphic file (type png)
 <use Figures/Results/Sobol.png>
-Package pdftex.def Info: Figures/Results/Sobol.png  used on input line 555.
-(pdftex.def)             Requested size: 202.51772pt x 196.26137pt.
-File: Figures/Results/Sobol.png Graphic file (type png)
-<use Figures/Results/Sobol.png>
-Package pdftex.def Info: Figures/Results/Sobol.png  used on input line 559.
-(pdftex.def)             Requested size: 202.51772pt x 196.26137pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<Figures/Results/High_Order_Interaction_effects.png, id=327, 660.5478pt x 420.4
-6686pt>
+Package pdftex.def Info: Figures/Results/Sobol.png  used on input line 563.
+(pdftex.def)             Requested size: 238.25444pt x 110.63222pt.
+[8 <./Figures/Results/CI.png (PNG copy)> <./Figures/Results/Sobol.png (PNG copy
+)>]
+<Figures/Results/High_Order_Interaction_effects.png, id=335, 687.2877pt x 425.2
+3668pt>
 File: Figures/Results/High_Order_Interaction_effects.png Graphic file (type png
 )
 <use Figures/Results/High_Order_Interaction_effects.png>
 Package pdftex.def Info: Figures/Results/High_Order_Interaction_effects.png  us
-ed on input line 574.
-(pdftex.def)             Requested size: 238.25444pt x 151.65666pt.
+ed on input line 578.
+(pdftex.def)             Requested size: 238.25444pt x 147.40758pt.
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \hbox (badness 2503) in paragraph at lines 585--586
-[]\T1/stix/m/n/10 Second-order pair-wise in-ter-ac-tions re-main mod-est,
+Overfull \hbox (6.19554pt too wide) in paragraph at lines 598--599
+[]\T1/stix/m/n/10 The model-based ex-per-i-men-tal de-sign and con-trol should
  []
 
-
-Underfull \hbox (badness 1418) in paragraph at lines 585--586
-\T1/stix/m/n/10 hand, the P-F in-ter-ac-tion can be ob-served through the
- []
-
-[8 <./Figures/Results/CI.png (PNG copy)>] (Article_SFE_GSA.bbl [9 <./Figures/Re
-sults/Sobol.png (PNG copy)> <./Figures/Results/High_Order_Interaction_effects.p
-ng (PNG copy)>]
+(Article_SFE_GSA.bbl [9 <./Figures/Results/High_Order_Interaction_effects.png (
+PNG copy)>]
 Underfull \hbox (badness 1325) in paragraph at lines 50--57
 \T1/stix/m/n/8 Lan-so-pra-zole load-ing of poly-mers by su-per-crit-i-cal car-b
 on diox-
@@ -1808,21 +1802,24 @@ Underfull \hbox (badness 1142) in paragraph at lines 408--415
 iv-ity
  []
 
-)
-No file Article_SFE_GSA.nls.
+) (Article_SFE_GSA.nls
+Underfull \hbox (badness 1264) in paragraph at lines 20--21
+[]\T1/stix/m/n/10 Reference value of in-ter-nal dif-fu-sion co-ef-fi-cient
+ []
+
 [11{C:/Users/Omistaja/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/stix/stix-t
-s1.enc}] (Article_SFE_GSA.aux)
+s1.enc}]) [12] (Article_SFE_GSA.aux)
 Package rerunfilecheck Info: File `Article_SFE_GSA.out' has not changed.
 (rerunfilecheck)             Checksum: 55CFC149A514C76FAF869F56A34D4FE6;3454.
  ) 
 Here is how much of TeX's memory you used:
- 44252 strings out of 476411
- 973216 string characters out of 5787718
- 1931845 words of memory out of 5000000
- 63669 multiletter control sequences out of 15000+600000
- 621688 words of font info for 165 fonts, out of 8000000 for 9000
+ 44260 strings out of 476411
+ 973359 string characters out of 5787718
+ 1930845 words of memory out of 5000000
+ 63674 multiletter control sequences out of 15000+600000
+ 624417 words of font info for 166 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 110i,28n,131p,1844b,666s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 110i,28n,131p,1844b,672s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Omistaja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\e
 csx0900.pk> <C:\Users\Omistaja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
 /dpi600\ecss0900.pk> <C:\Users\Omistaja\AppData\Local\MiKTeX\fonts/pk/ljfour/jk
@@ -1841,9 +1838,9 @@ sers/Omistaja/AppData/Local/Programs/MiKTeX/fonts/type1/public/stix/stix-mathit
 tix-mathrm.pfb><C:/Users/Omistaja/AppData/Local/Programs/MiKTeX/fonts/type1/pub
 lic/stix/stix-mathscr.pfb><C:/Users/Omistaja/AppData/Local/Programs/MiKTeX/font
 s/type1/public/stix/stix-mathsf.pfb>
-Output written on Article_SFE_GSA.pdf (11 pages, 2321072 bytes).
+Output written on Article_SFE_GSA.pdf (12 pages, 2375642 bytes).
 PDF statistics:
- 526 PDF objects out of 1000 (max. 8388607)
- 120 named destinations out of 1000 (max. 500000)
- 247 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 529 PDF objects out of 1000 (max. 8388607)
+ 121 named destinations out of 1000 (max. 500000)
+ 241 words of extra memory for PDF output out of 10000 (max. 10000000)
 

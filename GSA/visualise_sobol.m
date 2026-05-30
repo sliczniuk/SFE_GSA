@@ -57,7 +57,7 @@ title('Parameter Importance Evolution (N=32,768)', 'FontSize', 16, 'FontWeight',
 legend('Location', 'east', 'FontSize', 12);
 grid on;
 box on;
-set(gca, 'FontSize', 12, 'LineWidth', 1.5);
+set(gca, 'FontSize', 16, 'LineWidth', 1.5);
 xlim([0 max(time)*1.05]);
 ylim([0 1.1]);
 
@@ -107,13 +107,13 @@ for i = 1:3
     end
     
     % Formatting
-    xlabel('Time (min)', 'FontSize', 12, 'FontWeight', 'bold');
-    ylabel('Sobol Index', 'FontSize', 12, 'FontWeight', 'bold');
+    xlabel('Time (min)', 'FontSize', 16, 'FontWeight', 'bold');
+    ylabel('Sobol Index', 'FontSize', 16, 'FontWeight', 'bold');
     title(param_names{i}, 'FontSize', 14, 'FontWeight', 'bold', 'Color', colors(i,:));
     legend('Location', 'best', 'FontSize', 10);
     grid on;
     box on;
-    set(gca, 'FontSize', 11, 'LineWidth', 1.5);
+    set(gca, 'FontSize', 16, 'LineWidth', 1.5);
     xlim([0 max(time)*1.05]);
     
     % Add note for Temperature
@@ -217,7 +217,7 @@ title('Parameter Interaction Effects', 'FontSize', 16, 'FontWeight', 'bold');
 legend('Location', 'northwest', 'FontSize', 12);
 grid on;
 box on;
-set(gca, 'FontSize', 12, 'LineWidth', 2);
+set(gca, 'FontSize', 16, 'LineWidth', 2);
 xlim([0 max(time)*1.05]);
 
 % Save
@@ -257,7 +257,7 @@ title('Variance Decomposition Quality (N=32,768)', 'FontSize', 16, 'FontWeight',
 legend('Location', 'northwest', 'FontSize', 12);
 grid on;
 box on;
-set(gca, 'FontSize', 12, 'LineWidth', 1.5);
+set(gca, 'FontSize', 16, 'LineWidth', 1.5);
 xlim([0 max(time)*1.05]);
 ylim([0.9 1.3]);
 
